@@ -25,4 +25,6 @@ Other important links are:
 
 My initial goal for this package to have a minimal way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia).
 
-This is not registered and might never be!!!!
+A secondary goal is to have a structure to hold model info. Currently I'm experimenting with this package, with MCMCModels.jl and MCMCParameters.jl.
+
+This package is not registered and might never be!!!!
