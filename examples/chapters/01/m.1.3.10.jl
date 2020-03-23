@@ -5,7 +5,7 @@ ProjDir = @__DIR__
 ex_1_3_10 = "
 data {
   int N;
-  real x2[N];
+  real x1[N];
   real y[N];
 }
 parameters {
@@ -19,7 +19,7 @@ model {
   alpha ~ normal(0, 2);
   beta ~ normal( 0, 2 );
   for (i in 1:N) {
-    mu[i] = alpha + beta * x2[i];
+    mu[i] = alpha + beta * x1[i];
   }
   y ~ normal( mu, sigma );
 }

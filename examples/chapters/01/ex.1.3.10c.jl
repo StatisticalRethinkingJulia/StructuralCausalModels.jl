@@ -18,7 +18,7 @@ scale!(df, [:x1, :x2, :y])
 
 # Input data for cmdstan
 
-ex_1_3_10s_data = Dict("N" => N, "x2" => df[:, :x2_s], "y" => df[:, :y_s]);
+ex_1_3_10s_data = Dict("N" => N, "x1" => df[:, :x1_s], "y" => df[:, :y_s]);
 
 # Sample using cmdstan
  
@@ -31,12 +31,12 @@ if success(rc)
   p = Particles(dfs)
   display(p)
 
-  xbar = mean(df[:, :x2])
-  xstd = std(df[:, :x2])
+  xbar = mean(df[:, :x1])
+  xstd = std(df[:, :x1])
   ybar = mean(df[:, :y])
   ystd = std(df[:, :y])
 
-  xi = minimum(df[:, :x2_s]):0.01:maximum(df[:, :x2_s])
+  xi = minimum(df[:, :x1_s]):0.01:maximum(df[:, :x1_s])
   yi = mean(dfs[:, :alpha]) .+ mean(dfs[:, :beta]) .* xi
   mu = link(dfs, [:alpha, :beta], xi)
   mu_r = [rescale(mu[i], ybar, ystd) for i in 1:length(xi)]
@@ -46,8 +46,8 @@ if success(rc)
   bnds_quantile = [quantile(mu_r[i], [0.055, 0.945]) for i in 1:length(xi)]
   bnds_hpd = [hpdi(mu_r[i], alpha=0.11) for i in 1:length(xi)];
   
-  title = "y vs. x2 ( N=100 )" * "\nshowing sample and hpd range"
-  p2 = plot(xlab="x2", ylab="y",
+  title = "y vs. x1 ( N=100 )" * "\nshowing sample and hpd range"
+  p2 = plot(xlab="x1", ylab="y",
     title=title)
 
   x_r = rescale(xi, xbar, xstd)
@@ -62,7 +62,7 @@ if success(rc)
   end
 
   plot!(x_r , mu_means_r, color=:black)
-  scatter!(df[:, :x2], df[:, :y], leg=false, color=:darkblue)
+  scatter!(df[:, :x1], df[:, :y], leg=false, color=:darkblue)
   plot(p1, p2, layout=(2,1))
 
   savefig("$ProjDir/Fig-1-13-10c.png")
