@@ -1,3 +1,5 @@
+# This an example of what in chapter 2 is a `collider`.
+
 using StructuralCausalModels, StatisticalRethinking, StatsPlots
 
 ProjDir = @__DIR__
