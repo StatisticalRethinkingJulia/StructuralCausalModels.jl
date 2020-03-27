@@ -75,6 +75,12 @@ if success(rc)
   println("\nUnconditioned correlation: cor(df.x1, df.x2) = $(ucor)\n")
   # but conditiona on df.y
   dfc = df[df.y .== 9, [:x1, :x2]]
-  println("Conditioned correlation, e.g. y==9: cor(dfc.x1, dfc.x2) = $(cor(dfc.x1, dfc.x2))\n")
+  ccor = round(cor(dfc.x1, dfc.x2), digits=3)
+
+  println("Conditioned correlation, e.g. y==9: cor(dfc.x1, dfc.x2) = $(ccor)\n")
+
+  b = cov(df[:, :x1], df[:, :y]) / var(df[:, :x1])
+  b |> display
+
 
 end

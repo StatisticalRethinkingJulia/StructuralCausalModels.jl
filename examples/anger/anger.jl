@@ -1,7 +1,7 @@
 using StructuralCausalModels, RData
 
-objs = load("/Users/rob/Projects/DAGs/ggm/data/marks.rda");
-df = objs["marks"]
+objs = load("/Users/rob/Projects/R/ggm/data/anger.rda");
+df = objs["anger"]
 
 cov_m = cov(Array(df))
 display(cov_m)
@@ -38,19 +38,3 @@ println()
 bs = basis_set(dag)
 display(bs)
 println()
-
-dag_dot = "
-  digraph DagittyModel {
-    "mu" [shape="diamond", fillcolor="gray85", style="filled"];
-      "mu" -> "y";
-    "xmat" [shape="box", fillcolor="gray85", style="filled"];
-      "xmat" -> "mu";
-    "beta" [shape="ellipse"];
-      "beta" -> "mu";
-    "s2" [shape="ellipse"];
-      "s2" -> "y";
-    "y" [shape="ellipse", fillcolor="gray85", style="filled"];
-  }
-";
-
-display(dag_dot)

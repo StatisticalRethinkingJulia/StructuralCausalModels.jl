@@ -15,9 +15,9 @@ parameters {
 }
 model {
   vector[N] mu;
-  sigma ~ uniform( 0 , 2 );
-  alpha ~ normal(0, 2);
-  beta ~ normal( 0, 2 );
+  sigma ~ uniform( 0, 1 );
+  alpha ~ normal( 0, 1);
+  beta ~ normal( 0, 1 );
   for (i in 1:N) {
     mu[i] = alpha + beta * x1[i];
   }
