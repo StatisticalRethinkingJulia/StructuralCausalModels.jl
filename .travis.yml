@@ -6,11 +6,7 @@ dist: xenial
 
 os:
   - linux
-  - osx
-
-julia:
-  - 1.4
-  - nightly
+  #- osx
 
 notifications:
   email: false
@@ -20,7 +16,10 @@ git:
 
 jobs:
   include:
-    - stage: Test
+    - stage: TestLatestRelease
+      julia: 1.4
+      os: linux
+    - stage: TestNightly
       julia: nightly
       os: linux
     - stage: Documentation
