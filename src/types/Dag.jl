@@ -1,7 +1,7 @@
 struct Dag
   d::OrderedDict{Symbol, Vector{Symbol}}
-  a::Matrix{Int}
-  e::Matrix{Int}
+  a::NamedArray
+  e::NamedArray
   cov_matrix::Matrix{Float64}
   data::DataFrame
   vars::Vector{Symbol}

@@ -28,14 +28,17 @@ function edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
       a[ind, :] = v
     end
   end
-  Int.(a)
+  na = NamedArray(Int.(a))
+  setnames!(na, String.(vars), 1)
+  setnames!(na, String.(vars), 2)
+  na
 end
 
 function adjacency_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
-  Matrix(transpose(edge_matrix(d)))
+  transpose(edge_matrix(d))
 end
 
-function top_order(a::Matrix{Int})
+function top_order(a::NamedArray)
   #@assert is_dag(a)
   n = size(a, 1)
   nod = 1:n
@@ -67,7 +70,7 @@ function top_order(a::Matrix{Int})
   ord
 end
 
-function top_sort(a::Matrix{Int})
+function top_sort(a::NamedArray)
   ord = top_order(a)
   a[ord, ord]
 end
