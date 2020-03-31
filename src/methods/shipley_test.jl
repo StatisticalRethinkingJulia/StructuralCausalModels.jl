@@ -86,6 +86,7 @@ Exported as part of the api
 """
 function shipley_test(amat::NamedArray, S::Matrix, n::Int)
 
+  
 end
 
 export
