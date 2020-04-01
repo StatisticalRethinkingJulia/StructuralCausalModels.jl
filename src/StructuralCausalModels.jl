@@ -25,12 +25,13 @@ scm_path("..", "data")
 """
 scm_path(parts...) = normpath(joinpath(scm_src_path, parts...))
 
-include("types/Dag.jl")
+include("types/DAG.jl")
 include("methods/dag_methods.jl")
 include("methods/basis_set.jl")
 include("methods/adjacency_matrix.jl")
 include("methods/shipley_test.jl")
 include("methods/d_separation.jl")
+include("methods/pcor.jl")
 
 export
   scm_path

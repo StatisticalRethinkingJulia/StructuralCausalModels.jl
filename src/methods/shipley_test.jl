@@ -20,9 +20,7 @@ basis set.  Shipley (2002) calls this test Fisher's C test.
 ### Method
 ```julia
 shipley_test(;
-* `amat::NamedArray`                   : Adjacency matrix of Dag
-* `s::Matrix`                          : Sample covariance matrix
-* `n::Int`                             : Sample size
+* `d::Dag`                             : Directed acyclic graph
 )
 ```
 
@@ -54,7 +52,7 @@ d = OrderedDict(
   :analysis => [:algebra]
 );
 dag = Dag(d; df=df)
-shipley_test(dag.a, cov(Array(marks_df)), n=88)
+shipley_test(dag)
 ```
 
 ### See also
@@ -84,9 +82,31 @@ The Julia translation is licenced under: MIT.
 
 Exported as part of the api
 """
-function shipley_test(amat::NamedArray, S::Matrix, n::Int)
+function shipley_test(d::DAG)
 
-  
+  @assert isposdef(d.s) "Covariance matrix is not positive definite."
+  n = nrow(d.df)
+
+  # see pcor()
+  function pval(r, q, n)
+    df = n - 2 - q
+    tval = r * sqrt(df) / sqrt(1 - r * r)
+    2 * cdf(TDist(df), -abs(tval))
+  end
+
+  l = basis_set(d)
+  k = length(l)
+  p = zeros(k)
+  for i in 1:k
+    u = [d.nmap[i] for i in l[i]]
+    r = pcor(u, d.s)
+    q = length(u) - 2
+    p[i] = pval(r, q, n)
+  end
+  ctest = -2 * sum(log.(p))
+  df = 2 * k
+  pv = 1 - cdf(Chisq(df), ctest)
+  (ctest=ctest, df=df, pv=pv,)
 end
 
 export

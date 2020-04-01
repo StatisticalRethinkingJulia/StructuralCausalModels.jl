@@ -24,7 +24,7 @@ d = OrderedDict(
   :analysis => [:algebra]
 );
 
-dag = Dag(d; df=df)
+dag = DAG(d; df=df)
 dag |> display
 println()
 

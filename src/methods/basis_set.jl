@@ -1,4 +1,4 @@
-function basis_set(dag::Dag)
+function basis_set(dag::DAG)
   as = top_sort(dag.a)
   nod = dag.vars[top_order(dag.a)]
   dv = 1:length(nod)

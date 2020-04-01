@@ -5,6 +5,7 @@ function dag_vars(d::OrderedDict{Symbol, Vector{Symbol}})
     for rhsvar in d[var]
       if !(rhsvar in vars)
         append!(vars, [rhsvar])
+        
       end
     end
   end

@@ -1,15 +1,9 @@
 using StructuralCausalModels, RData
 
 ProjDir = @__DIR__
-cd(ProjDir) do
+cd(ProjDir) #do
 
-objs = load(scm_path("..", "data", "marks.rda"));
-df = objs["marks"]
-
-cov_m = cov(Array(df))
-display(cov_m)
-
-isposdef(cov_m) |> display
+idf = CSV.read(scm_path("..", "data", "marks.csv"));
 
 #=
 R_dag = "
@@ -26,25 +20,27 @@ d = OrderedDict(
   :mechanics => [:vectors, :algebra],
   :vectors => [:algebra],
   :statistics => [:algebra, :analysis],
-  :analysis => [:algebra]
+  :analysis => [:algebra],
 );
 
-dag = Dag(d; df=df)
+dag = DAG(d, idf)
 println()
 
 fname = "algebra.dot"
 run(`open -a GraphViz.app $(fname)`)
 
+display(dag.s)
 println()
 ord = dag.order
 display(ord)
-println()
-display(dag.cov_matrix)
 println()
 display(dag.vars[ord])
 println()
 bs = basis_set(dag)
 display(bs)
 println()
+t = shipley_test(dag)
+display(t)
+println()
 
-end
+#end

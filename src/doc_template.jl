@@ -73,7 +73,7 @@ Shipley, B. (2000). A new inferential test for path models based
 on directed acyclic graphs. Structural Equation Modeling, 7(2),
 206--218.
 
-### Licence
+### License
 
 The R package ggm is licensed under License: GPL-2.
 

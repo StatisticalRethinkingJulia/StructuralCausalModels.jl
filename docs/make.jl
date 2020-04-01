@@ -12,6 +12,6 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/goedman/StructuralCausalModels.jl.git",
+    repo = "github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl.git",
     push_preview = true
 )
