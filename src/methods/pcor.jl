@@ -51,7 +51,7 @@ The R package ggm is licensed under License: GPL-2.
 
 The Julia translation is licenced under: MIT.
 
-Exported as part of the api
+Part of the api, not exported.
 """
 function pcor(u::Vector{Symbol}, S::NamedArray)
   k = inv(S[u, u])

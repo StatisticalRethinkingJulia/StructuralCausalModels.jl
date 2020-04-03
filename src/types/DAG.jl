@@ -38,7 +38,7 @@ function DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}}, df::D
   a = adjacency_matrix(d)
   e = edge_matrix(d)
 
-  # Compute covariance matrix if nrow(df) > 0
+  # Compute covariance matrix and store as NamedArray
 
   @assert length(names(df)) == length(vars) "DataFrame has different number of columns"
   s = NamedArray(cov(Array(df)), (names(df), names(df)), ("Rows", "Cols"))
