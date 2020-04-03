@@ -21,6 +21,3 @@ function basis_set(dag::DAG)
   end
   ind
 end
-
-export
-  basis_set

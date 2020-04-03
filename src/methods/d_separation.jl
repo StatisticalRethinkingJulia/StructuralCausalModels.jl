@@ -5,6 +5,7 @@
 
 $(SIGNATURES)
 
+Part of the exported API
 """
 function d_separation(d::DAG, first::Vector{Symbol}, second::Vector{Symbol},
   cond::SymbolList=nothing)

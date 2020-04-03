@@ -30,11 +30,13 @@ SymbolList = Union{Nothing, Symbol, Vector{Symbol}}
 include("types/DAG.jl")
 include("methods/dag_methods.jl")
 include("methods/basis_set.jl")
-include("methods/adjacency_matrix.jl")
 include("methods/shipley_test.jl")
 include("methods/d_separation.jl")
 include("methods/pcor.jl")
 include("methods/induced_covariance_graph.jl")
+
+#include("methods/all_edges.jl")
+
 export
   scm_path
   SymbolList

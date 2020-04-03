@@ -3,7 +3,7 @@ using StructuralCausalModels, RData
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
-idf = CSV.read(scm_path("..", "data", "marks.csv"));
+df = CSV.read(scm_path("..", "data", "marks.csv"));
 
 #=
 R_dag = "
@@ -19,36 +19,39 @@ analysis           0       0       0          1        0
 d = OrderedDict(
   :mechanics => [:vectors, :algebra],
   :vectors => [:algebra],
-  :statistics => [:algebra, :analysis],
   :analysis => [:algebra],
+  :statistics => [:algebra, :analysis]
 );
 
-dag = DAG(d, idf)
-println()
+dag = DAG("marks", d, df);
+show(dag)
 
 fname = "algebra.dot"
-#run(`open -a GraphViz.app $(fname)`)
+Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
-display(dag.s)
-println()
-ord = dag.order
-display(ord)
-println()
-display(dag.vars[ord])
-println()
-bs = basis_set(dag)
-display(bs)
-println()
+display(dag.s); println()
+
+#=
+ord = topological_order(dag)
+display(ord); println()
+display(dag.vars[ord]); println()
+=#
+
+# basis_set() not exported
+
+bs = StructuralCausalModels.basis_set(dag)
+display(bs); println()
+
 t = shipley_test(dag)
-display(t)
-println()
-f = [:statistics]
-s = [:mechanics]
-sel = vcat(f, s)
+display(t); println()
+
+f = [:statistics]; s = [:mechanics]; sel = vcat(f, s)
 cond = [:algebra]
+
 e = d_separation(dag, f, s, cond)
-println("\nd_separation(dag, $f, $s, $cond) = $e")
-print("\nd_separation(dag, [:statistics], [:mechanics], [:vectors])) = ")
+println("d_separation($(dag.name), $f, $s, $cond) = $e")
+
+print("\nd_separation($(dag.name), [:statistics], [:mechanics], [:vectors])) = ")
 println(d_separation(dag, [:statistics], [:mechanics], [:vectors]))
 
 #end

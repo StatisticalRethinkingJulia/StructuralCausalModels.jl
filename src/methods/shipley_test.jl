@@ -98,7 +98,7 @@ function shipley_test(d::DAG)
   k = length(l)
   p = zeros(k)
   for i in 1:k
-    u = [d.nmap[i] for i in l[i]]
+    u = l[i]
     r = pcor(u, d.s)
     q = length(u) - 2
     p[i] = pval(r, q, n)

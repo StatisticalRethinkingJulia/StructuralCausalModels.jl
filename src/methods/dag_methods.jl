@@ -87,10 +87,3 @@ function topological_sort(a::NamedArray)
   ord = topological_order(a)
   a[ord, ord]
 end
-
-export
-  dag_vars,
-  adjacency_matrix,
-  edge_matrix,
-  topological_sort,
-  topological_order

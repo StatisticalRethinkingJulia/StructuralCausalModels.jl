@@ -53,10 +53,7 @@ The Julia translation is licenced under: MIT.
 
 Exported as part of the api
 """
-function pcor(u::Vector{Int}, S::Matrix)
+function pcor(u::Vector{Symbol}, S::NamedArray)
   k = inv(S[u, u])
   -k[1,2] / sqrt(k[1,1] * k[2,2])
 end
-
-export
-  pcor

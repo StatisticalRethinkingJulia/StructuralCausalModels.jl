@@ -1,17 +1,18 @@
+import Base.show
+
 struct DAG
+  name::AbstractString
   d::OrderedDict{Symbol, Vector{Symbol}}      # DAG
   a::NamedArray                               # Adjacency matrix
   e::NamedArray                               # Edge matrix
-  s::Matrix{Float64}                          # Covariance matrix
+  s::NamedArray                               # Covariance matrix as NamedArray
   df::DataFrame                               # DataFrame with variables
   vars::Vector{Symbol}                        # Names of variables
-  order::Vector{Int}                          # Topological order
-  nmap::Dict{Symbol, Int}                     # Mapping name to index for adj matrix
 end
 
 # Constructor
 
-function DAG(d::OrderedDict{Symbol, Vector{Symbol}}, idf::DataFrame)
+function DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}}, df::DataFrame)
 
   vars = dag_vars(d)
   a = adjacency_matrix(d)
@@ -19,46 +20,25 @@ function DAG(d::OrderedDict{Symbol, Vector{Symbol}}, idf::DataFrame)
 
   # Compute covariance matrix if nrow(df) > 0
 
-  if nrow(idf) > 0
-    @assert length(names(idf)) >= length(vars) "DataFrame has different number of columns"
-
-    if names(idf) !== vars
-
-      @info "Column sequence in data does not match vars in Dag"
-      @info "DataFrame names: $(names(idf))"
-      @info "Vars: $(vars)"
-      @info "DataFrame columns re-ordered"
-
-      df = DataFrame()
-      for name in vars
-        df[!, name] = idf[:, name]
-      end
-
-    else
-
-      df = idf
-
-    end
-
-    s = cov(Array(df))
-  end
-
-  # Topological ordering
-
-  order = topological_order(a)
-
-  # Create Dict[:name_symbol] => index in adj & covariance matrices
-
-  nmap = Dict{Symbol, Int}()
-  for (ind, sym) in enumerate(vars)
-    nmap[sym] = ind
-  end
+  @assert length(names(df)) == length(vars) "DataFrame has different number of columns"
+  s = NamedArray(cov(Array(df)), (names(df), names(df)), ("Rows", "Cols"))
 
   # Create object
 
-  DAG(d, a, e, s, df, vars, order, nmap)
+  DAG(name, d, a, e, s, df, vars)
 
 end
+
+function dag_show(io::IO, d::DAG)
+  println("\nDAG object:\n")
+  println(io, "name = \"$(d.name)\"")
+  println(io, "vars = $(d.vars)")
+  println()
+  display(d.d)
+  println()
+end
+
+show(io::IO, d::DAG) = dag_show(io, d)
 
 export
   DAG

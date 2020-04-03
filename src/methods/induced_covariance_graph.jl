@@ -45,9 +45,3 @@ function induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList)
   adjacency_matrix(out)
 
 end
-
-export
-  induced_covariance_graph,
-  ancester_graph,
-  indicator_matrix,
-  transitive_closure
