@@ -45,7 +45,7 @@ function DAG(d::OrderedDict{Symbol, Vector{Symbol}}, idf::DataFrame)
 
   # Topological ordering
 
-  order = top_order(a)
+  order = topological_order(a)
 
   # Create Dict[:name_symbol] => index in adj & covariance matrices
 

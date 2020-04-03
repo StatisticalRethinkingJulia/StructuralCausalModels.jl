@@ -29,17 +29,29 @@ function edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
       a[ind, :] = v
     end
   end
-  na = NamedArray(Int.(a))
-  setnames!(na, String.(vars), 1)
-  setnames!(na, String.(vars), 2)
-  na
+  NamedArray(Int.(a), (vars, vars), ("Rows", "Cols"))
+end
+
+function edge_matrix(a::NamedArray, inv=false)
+  a = sign.(a)
+  if inv
+    ord = topological_order(a)
+    ord = reverse(ord)
+    a = a[ord, ord]
+  end
+  transpose(a) + I(size(a, 1))
 end
 
 function adjacency_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
   transpose(edge_matrix(d))
 end
 
-function top_order(a::NamedArray)
+function adjacency_matrix(e::NamedArray)
+  a = transpose(e)
+  a - I(size(a, 1))
+end
+
+function topological_order(a::NamedArray)
   #@assert is_dag(a)
   n = size(a, 1)
   nod = 1:n
@@ -71,8 +83,8 @@ function top_order(a::NamedArray)
   ord
 end
 
-function top_sort(a::NamedArray)
-  ord = top_order(a)
+function topological_sort(a::NamedArray)
+  ord = topological_order(a)
   a[ord, ord]
 end
 
@@ -80,5 +92,5 @@ export
   dag_vars,
   adjacency_matrix,
   edge_matrix,
-  top_sort,
-  top_order
+  topological_sort,
+  topological_order

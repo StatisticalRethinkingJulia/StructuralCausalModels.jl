@@ -1,6 +1,6 @@
 function basis_set(dag::DAG)
-  as = top_sort(dag.a)
-  nod = dag.vars[top_order(dag.a)]
+  as = topological_sort(dag.a)
+  nod = dag.vars[topological_order(dag.a)]
   dv = 1:length(nod)
 
   # Correct if adj matixi is upper triangular

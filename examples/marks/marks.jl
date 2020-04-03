@@ -27,7 +27,7 @@ dag = DAG(d, idf)
 println()
 
 fname = "algebra.dot"
-run(`open -a GraphViz.app $(fname)`)
+#run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s)
 println()
@@ -42,5 +42,13 @@ println()
 t = shipley_test(dag)
 display(t)
 println()
+f = [:statistics]
+s = [:mechanics]
+sel = vcat(f, s)
+cond = [:algebra]
+e = d_separation(dag, f, s, cond)
+println("\nd_separation(dag, $f, $s, $cond) = $e")
+print("\nd_separation(dag, [:statistics], [:mechanics], [:vectors])) = ")
+println(d_separation(dag, [:statistics], [:mechanics], [:vectors]))
 
 #end
