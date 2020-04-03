@@ -13,7 +13,7 @@ scm_path(parts...)
 
 ## `Dag`
 ```@docs
-Dag(d::OrderedDict{Symbol, Vector{Symbol}}) 
+DAG(d::OrderedDict{Symbol, Vector{Symbol}}) 
 ```
 
 
