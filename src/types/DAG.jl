@@ -1,5 +1,15 @@
 import Base.show
 
+```
+
+# DAG
+
+Directed acyclic graph struct
+
+$(FIELDS)
+
+Part of API, exported.
+```
 struct DAG
   name::AbstractString
   d::OrderedDict{Symbol, Vector{Symbol}}      # DAG
@@ -12,6 +22,16 @@ end
 
 # Constructor
 
+```
+
+# DAG
+
+Directed acyclic graph constructor
+
+$(SIGNATURES)
+
+Part of API, exported.
+```
 function DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}}, df::DataFrame)
 
   vars = dag_vars(d)

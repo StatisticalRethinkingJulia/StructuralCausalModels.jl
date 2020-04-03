@@ -13,6 +13,7 @@ scm_path(parts...)
 
 ## `DAG`
 ```@docs
+DAG
 DAG(d::OrderedDict{Symbol, Vector{Symbol}}) 
 ```
 
@@ -23,10 +24,15 @@ d_separation(d::DAG, first::Vector{Symbol}, second::Vector{Symbol}, cond::Symbol
 
 ##`basis_set`
 ```@docs
-basis_set(dag::DAG)
+StructuralCausalModels.basis_set(dag::DAG)
 ```
 
 ##`shipley_test`
 ```@docs
 shipley_test(d::DAG)
+```
+
+##`pcor`
+```@docs
+StructuralCausalModels.pcor(u::Vector{Symbol}, S::NamedArray)
 ```
