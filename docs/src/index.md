@@ -14,7 +14,7 @@ scm_path(parts...)
 ## `DAG`
 ```@docs
 DAG
-DAG(d::OrderedDict{Symbol, Vector{Symbol}}) 
+DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}}, df::DataFrame) 
 ```
 
 ## `d_separation`

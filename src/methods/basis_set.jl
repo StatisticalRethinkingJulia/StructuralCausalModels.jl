@@ -1,4 +1,4 @@
-```
+"""
 
 # basis_set
 
@@ -7,7 +7,7 @@ Determine basis_set
 $(SIGNATURES)
 
 Part of API, not exported.
-```
+"""
 function basis_set(dag::DAG)
   as = topological_sort(dag.a)
   nod = dag.vars[topological_order(dag.a)]
