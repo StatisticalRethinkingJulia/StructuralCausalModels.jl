@@ -1,7 +1,6 @@
-using RData, Statistics
+using StructuralCausalModels, RData
 
-objs = load("/Users/rob/Projects/R/ggm/data/derived.rda");
-
+objs = load(scm_path("..", "data", "derived.rd));
 df = objs["derived"]["raw"];
 
 # cov(derived$raw)
@@ -16,11 +15,9 @@ Hei  -2.415433 -4.371036  -8.497357 32.335624  24.83404
 Wei  27.494715 33.118393  60.609937 24.834038 113.66808
 ";
 
-cov_m = cov(Array(df))
-cov_m |> display
-println()
-cor_m = cor(Array(df))
-cor_m |> display
+
+# A DAG model with a latent variable U
+# G = DAG(Y ~ Z + U, X ~ U + W, Z ~ W)
 
 # Adjacency matrix
 

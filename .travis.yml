@@ -26,7 +26,7 @@ jobs:
       julia: nightly
       os: linux
       script:
-       - julia --project=docs -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/StstisticalRethinkingJulia/structuralCausalModels.jl");Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
+       - julia --project=docs -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/StstisticalRethinkingJulia/structuralCausalModels.jl"));Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
        - julia --project=docs --color=yes docs/make.jl
       after_success: skip
 
