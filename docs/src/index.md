@@ -24,7 +24,7 @@ d_separation(d::DAG, first::Vector{Symbol}, second::Vector{Symbol}, cond::Symbol
 
 ##`basis_set`
 ```@docs
-StructuralCausalModels.basis_set(dag::DAG)
+basis_set(dag::DAG)
 ```
 
 ##`shipley_test`
@@ -34,5 +34,5 @@ shipley_test(d::DAG)
 
 ##`pcor`
 ```@docs
-StructuralCausalModels.pcor(u::Vector{Symbol}, S::NamedArray)
+pcor(u::Vector{Symbol}, S::NamedArray)
 ```
