@@ -34,6 +34,12 @@ ord = StructuralCausalModels.topological_order(dag.a)
 display(ord); println()
 display(dag.vars[ord]); println()
 
+shipley_test_dag_1 = shipley_test(dag)
+if !isnothing(shipley_test_dag_1)
+  display(shipley_test_dag_1)
+end
+println()
+
 f = [:A]; s = [:D]; sel = vcat(f, s)
 cond = [:M]
 

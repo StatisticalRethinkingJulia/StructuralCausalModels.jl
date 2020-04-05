@@ -30,6 +30,12 @@ Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
 
+shipley_test_dag_2 = shipley_test(dag)
+if !isnothing(shipley_test_dag_2)
+  display(shipley_test_dag_2)
+end
+println()
+
 f = [:A]; s = [:D]; sel = vcat(f, s)
 cond = [:M]
 

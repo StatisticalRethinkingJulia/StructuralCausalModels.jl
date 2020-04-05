@@ -96,6 +96,10 @@ function shipley_test(d::DAG)
 
   l = basis_set(d)
   k = length(l)
+  if k == 0
+    @info "Basis set empty, Shipley test not possible."
+    return nothing
+  end
   p = zeros(k)
   for i in 1:k
     u = l[i]
