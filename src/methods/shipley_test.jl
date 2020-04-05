@@ -80,7 +80,7 @@ The R package ggm is licensed under License: GPL-2.
 
 The Julia translation is licenced under: MIT.
 
-Exported as part of the api
+Part of the api, exported.
 """
 function shipley_test(d::DAG)
 
