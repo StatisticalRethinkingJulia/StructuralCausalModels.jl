@@ -6,7 +6,7 @@ DocDir =  joinpath(DOC_ROOT, "src")
 page_list = Array{Pair{String, Any}, 1}();
 append!(page_list, [Pair("Introduction", "introduction.md")]);
 append!(page_list, [Pair("Walkthrough", "scm.md")]);
-append!(page_list, [Pair("API", "index.md")]);
+append!(page_list, [Pair("StructuralCausalModels API", "index.md")]);
 
 makedocs(
     modules = [StructuralCausalModels],

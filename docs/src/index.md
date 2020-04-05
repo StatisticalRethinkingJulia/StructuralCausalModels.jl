@@ -1,5 +1,3 @@
-Structural Causal Models
-
 ```@meta
 CurrentModule = StructuralCausalModels
 ```
