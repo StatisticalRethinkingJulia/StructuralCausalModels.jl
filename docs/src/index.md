@@ -1,10 +1,10 @@
-StructuralCausalModels
+# StructuralCausalModels
 
 ```@meta
 CurrentModule = StructuralCausalModels
 ```
 
-Exported API
+## Exported API
 ```@docs
 scm_path(parts...)
 DAG
@@ -13,13 +13,13 @@ d_separation(d::DAG, first::Vector{Symbol}, second::Vector{Symbol}, cond::Symbol
 shipley_test(d::DAG)
 ```
 
-Not exported API
+## Not exported API
 ```@docs
 basis_set(dag::DAG)
 pcor(u::Vector{Symbol}, S::NamedArray)
 ```
 
-Internal
+## Internal
 ```@docs
 dag_vars(d::OrderedDict{Symbol, Vector{Symbol}})
 edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
