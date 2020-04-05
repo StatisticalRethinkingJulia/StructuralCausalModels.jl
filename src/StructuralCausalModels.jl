@@ -25,7 +25,7 @@ scm_path("..", "data")
 """
 scm_path(parts...) = normpath(joinpath(scm_src_path, parts...))
 
-SymbolList = Union{Nothing, Symbol, Vector{Symbol}}
+SymbolList = Union(Nothing, Symbol, Vector{Symbol})
 
 include("types/DAG.jl")
 include("methods/dag_methods.jl")
@@ -39,6 +39,6 @@ include("methods/induced_covariance_graph.jl")
 
 export
   scm_path
-  SymbolList
+
 
 end # module

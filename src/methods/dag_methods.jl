@@ -1,3 +1,11 @@
+"""
+
+# dag_vars
+
+$(SIGNATURES)
+
+Internal
+"""
 function dag_vars(d::OrderedDict{Symbol, Vector{Symbol}})
   vars = []
   for var in keys(d)
@@ -12,6 +20,14 @@ function dag_vars(d::OrderedDict{Symbol, Vector{Symbol}})
   unique(vars)
 end
 
+"""
+
+# edge_matrix
+
+$(SIGNATURES)
+
+Internal
+"""
 function edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
   vars = dag_vars(d)
   l = length(vars)
@@ -32,6 +48,14 @@ function edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
   NamedArray(Int.(a), (vars, vars), ("Rows", "Cols"))
 end
 
+"""
+
+# edge_matrix
+
+$(SIGNATURES)
+
+Internal
+"""
 function edge_matrix(a::NamedArray, inv=false)
   a = sign.(a)
   if inv
@@ -42,15 +66,39 @@ function edge_matrix(a::NamedArray, inv=false)
   transpose(a) + I(size(a, 1))
 end
 
+"""
+
+# adjacency_matrix
+
+$(SIGNATURES)
+
+Internal
+"""
 function adjacency_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
   transpose(edge_matrix(d))
 end
 
+"""
+
+# adjacency_matrix
+
+$(SIGNATURES)
+
+Internal
+"""
 function adjacency_matrix(e::NamedArray)
   a = transpose(e)
   a - I(size(a, 1))
 end
 
+"""
+
+# topological_order
+
+$(SIGNATURES)
+
+Internal
+"""
 function topological_order(a::NamedArray)
   #@assert is_dag(a)
   n = size(a, 1)
@@ -83,6 +131,14 @@ function topological_order(a::NamedArray)
   ord
 end
 
+"""
+
+# topological_sort
+
+$(SIGNATURES)
+
+Internal
+"""
 function topological_sort(a::NamedArray)
   ord = topological_order(a)
   a[ord, ord]

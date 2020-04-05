@@ -7,7 +7,7 @@ $(SIGNATURES)
 
 Computes the d_separation between 2 sets of nodes conditioned on a third set.
 
-### Method
+### Required arguments
 ```julia
 d_separation(
 * `d::DAG`                             : DAG
@@ -16,10 +16,17 @@ d_separation(
 * `cond::Vector{Symbol}`               : Conditioning set
 )
 ```
+
+### Optional arguments
+```julia
+* `debug=false`                        : Trace execution
+```
+
 ### Returns
 ```julia
 * `res::Bool`                          : Boolean result of test
 ```
+
 # Extended help
 
 ### Example

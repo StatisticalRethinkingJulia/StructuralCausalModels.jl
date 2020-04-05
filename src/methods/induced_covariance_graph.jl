@@ -1,3 +1,11 @@
+"""
+
+# ancestor_graph
+
+$(SIGNATURES)
+
+Internal
+"""
 function ancester_graph(e::NamedArray)
   if sum(size(e)) == 0
     return(e)
@@ -5,6 +13,14 @@ function ancester_graph(e::NamedArray)
   indicator_matrix(Int.(inv(2 * I(size(e, 1)) - e)))
 end
 
+"""
+
+# indicator_matrix
+
+$(SIGNATURES)
+
+Internal
+"""
 function indicator_matrix(e::NamedArray)
   for i in 1:size(e, 1)
     for j in 1:size(e, 2)
@@ -14,6 +30,14 @@ function indicator_matrix(e::NamedArray)
   e
 end
 
+"""
+
+# transitive_closure
+
+$(SIGNATURES)
+
+Internal
+"""
 function transitive_closure(a::NamedArray)
   size(a, 1) == 1 && return(a)
   r = copy(a)
@@ -25,8 +49,15 @@ function transitive_closure(a::NamedArray)
   r
 end
 
-function induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList;
-  debug=false)
+"""
+
+# induced_covariance_graph
+
+$(SIGNATURES)
+
+Internal
+"""
+function induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList; debug=false)
 
   @assert all([c in d.vars for c in sel]) "Selection nodes are not among vertices."
 
