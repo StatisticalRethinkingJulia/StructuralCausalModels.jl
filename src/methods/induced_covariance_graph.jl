@@ -25,7 +25,8 @@ function transitive_closure(a::NamedArray)
   r
 end
 
-function induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList)
+function induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList;
+  debug=false)
 
   @assert all([c in d.vars for c in sel]) "Selection nodes are not among vertices."
 

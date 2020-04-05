@@ -10,7 +10,7 @@ Directed acyclic graph struct
 ```julia
 DAG(
 * `name::AbstractString`                    : Variables used to compute correlation
-* `d::OrderedDict{Symbol, Vector{Symbol}}   : DAG definition aas a Dict
+* `d::OrderedDict{Symbol, Vector{Symbol}}`  : DAG definition aas a Dict
 * `a::NamedArray`                           : Adjacency matrix
 * `e::NamedArray`                           : Edge matric
 * `s::NamedArray`                           : Covariance matrix
@@ -45,7 +45,7 @@ $(SIGNATURES)
 ```julia
 DAG(
 * `name::AbstractString`                    : Variables used to compute correlation
-* `d::OrderedDict{Symbol, Vector{Symbol}}   : DAG definition aas a Dict
+* `d::OrderedDict{Symbol, Vector{Symbol}}`  : DAG definition aas a Dict
 * `df::DataFrame`                           : Variable observations
 )
 ```
@@ -58,7 +58,7 @@ DAG(
 
 ### Example
 
-### d_separation between mechanics and statistics, conditioning on algebra
+### Define and create a DAG
 ```julia
 using StructuralCausalModels, CSV
 

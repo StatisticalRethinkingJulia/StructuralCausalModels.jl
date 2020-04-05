@@ -9,9 +9,11 @@ Computes the d_separation between 2 sets of nodes conditioned on a third set.
 
 ### Method
 ```julia
-d_separation(;
-* `u::Vector{Int}`                     : Variables used to compute correlation
-* `S::Matrix`                          : Sample covariance matrix
+d_separation(
+* `d::DAG`                             : DAG
+* `first::Vector{Symbol}`              : First set
+* `second::Vector{Symbol}`             : Second set
+* `cond::Vector{Symbol}`               : Conditioning set
 )
 ```
 ### Returns
@@ -53,9 +55,9 @@ The Julia translation is licenced under: MIT.
 Part of the API, exported.
 """
 function d_separation(d::DAG, first::Vector{Symbol}, second::Vector{Symbol},
-  cond=Symbol[])
+  cond=Symbol[]; debug=false)
 
-  e = induced_covariance_graph(d, vcat(first, second), cond)
+  e = induced_covariance_graph(d, vcat(first, second), cond; debug=debug)
   sum(e[vcat(first, second), vcat(first, second)]) == 0
 
 end
