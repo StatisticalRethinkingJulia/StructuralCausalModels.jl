@@ -36,31 +36,31 @@ function induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList;
   end
   
   l = setdiff(d.vars, union(sel, cond))
-  println(l)
+  debug && println(l)
   l = union(l, sel)
-  println(l)
+  debug && println(l)
   r = union(sel, cond)
-  println(r)
+  debug && println(r)
    
   e = edge_matrix(d.a)                  # From adjacency matrix to edge matrix
-  println(e)
+  debug && println(e)
   al = ancester_graph(e[l, l])
-  println(al)
+  debug && println(al)
   if length(cond) > 0
     trl = indicator_matrix( e[cond, l] * al)
   else
     trl = al - al
   end
-  println(trl)
+  debug && println(trl)
   dlr = indicator_matrix(I(length(l)) + transpose(trl) * trl)
-  println(dlr)
+  debug && println(dlr)
   cl = transitive_closure(dlr)
-  println(cl)
+  debug && println(cl)
   out = indicator_matrix(( al * cl * transpose(al)))
-  println(out)
+  debug && println(out)
   out = out[sel, sel]
-  println(out)
-  println(adjacency_matrix(out))
+  debug && println(out)
+  debug && println(adjacency_matrix(out))
   adjacency_matrix(out)
 
 end

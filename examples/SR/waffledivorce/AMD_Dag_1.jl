@@ -26,7 +26,7 @@ dag = DAG("waffles", d, df);
 show(dag)
 
 fname = ProjDir * "/AMD_1.dot"
-#Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
 

@@ -1,6 +1,5 @@
 digraph Waffle_Model {
   "A" [shape="box", fillcolor="gray85", style="filled"];
-  "A" -> "M";
-  "A" -> "D";
-  "M" -> "D";
+    "A" -> "M";
+    "A" -> "D";
 }

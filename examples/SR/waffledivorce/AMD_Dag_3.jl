@@ -25,7 +25,7 @@ d = OrderedDict(
 dag = DAG("waffles", d, df);
 show(dag)
 
-fname = ProjDir * "/AMD_2.dot"
+fname = ProjDir * "/AMD_3.dot"
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()

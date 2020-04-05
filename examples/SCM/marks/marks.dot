@@ -1,11 +1,9 @@
 digraph SCModel {
   "algebra" [shape="box", fillcolor="gray85", style="filled"];
-    "algebra" -> "analysis";
-    "algebra" -> "mechanics";
-    "algebra" -> "statistics";
-    "algebra" -> "vectors";
-  "analysis" [shape="box", fillcolor="gray85", style="filled"];
-    "analysis" -> "statistics";
-  "vectors" [shape="box", fillcolor="gray85", style="filled"];
-    "vectors" -> "mechanics";
+  "algebra" -> "analysis";
+  "algebra" -> "mechanics";
+  "algebra" -> "statistics";
+  "algebra" -> "vectors";
+  "analysis" -> "statistics";
+  "vectors" -> "mechanics";
 }
