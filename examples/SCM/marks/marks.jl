@@ -26,7 +26,7 @@ d = OrderedDict(
 dag = DAG("marks", d, df);
 show(dag)
 
-fname = "algebra.dot"
+fname = ProjDir * "/marks.dot"
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
@@ -51,7 +51,22 @@ cond = [:algebra]
 e = d_separation(dag, f, s, cond)
 println("d_separation($(dag.name), $f, $s, $cond) = $e")
 
-print("\nd_separation($(dag.name), [:statistics], [:mechanics], [:vectors])) = ")
+e = d_separation(dag, f, s)
+println("d_separation($(dag.name), $f, $s) = $e")
+
+print("d_separation($(dag.name), [:statistics], [:mechanics], [:vectors])) = ")
 println(d_separation(dag, [:statistics], [:mechanics], [:vectors]))
+
+print("d_separation($(dag.name), [:statistics], [:mechanics], [:algebra])) = ")
+println(d_separation(dag, [:statistics], [:mechanics], [:algebra]))
+
+print("d_separation($(dag.name), [:analysis], [:vectors])) = ")
+println(d_separation(dag, [:analysis], [:vectors]))
+
+print("d_separation($(dag.name), [:analysis], [:vectors], [:algebra])) = ")
+println(d_separation(dag, [:analysis], [:vectors], [:algebra]))
+
+print("d_separation($(dag.name), [:statistics], [:mechanics])) = ")
+println(d_separation(dag, [:statistics], [:mechanics]))
 
 #end

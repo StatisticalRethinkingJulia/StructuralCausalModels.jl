@@ -6,7 +6,18 @@ import Base.show
 
 Directed acyclic graph struct
 
-$(FIELDS)
+### Struct
+```julia
+DAG(
+* `name::AbstractString`                    : Variables used to compute correlation
+* `d::OrderedDict{Symbol, Vector{Symbol}}   : DAG definition aas a Dict
+* `a::NamedArray`                           : Adjacency matrix
+* `e::NamedArray`                           : Edge matric
+* `s::NamedArray`                           : Covariance matrix
+* `df::DataFrame`                           : Variable observations
+* `vars::Vector{Symbol}`                    : Names of variables
+)
+```
 
 Part of API, exported.
 """
@@ -29,6 +40,50 @@ end
 Directed acyclic graph constructor
 
 $(SIGNATURES)
+
+### Method
+```julia
+DAG(
+* `name::AbstractString`                    : Variables used to compute correlation
+* `d::OrderedDict{Symbol, Vector{Symbol}}   : DAG definition aas a Dict
+* `df::DataFrame`                           : Variable observations
+)
+```
+
+### Returns
+```julia
+* `res::DAG`                                : Boolean result of test
+```
+# Extended help
+
+### Example
+
+### d_separation between mechanics and statistics, conditioning on algebra
+```julia
+using StructuralCausalModels, CSV
+
+df = CSV.read(scm_path("..", "data", "marks.csv");
+
+d = OrderedDict(
+  :mechanics => [:vectors, :algebra],
+  :vectors => [:algebra],
+  :analysis => [:algebra],
+  :statistics => [:algebra, :analysis]
+);
+
+dag = DAG("marks", d, df);
+```
+### Acknowledgements
+
+Original author:                       Giovanni M. Marchetti
+
+Translated to Julia:                   Rob J Goedman
+
+### License
+
+The R package ggm is licensed under License: GPL-2.
+
+The Julia translation is licenced under: MIT.
 
 Part of API, exported.
 """

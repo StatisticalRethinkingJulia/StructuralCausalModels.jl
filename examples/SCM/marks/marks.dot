@@ -1,5 +1,5 @@
 digraph SCModel {
-  "algebra" [shape="diamond", fillcolor="gray85", style="filled"];
+  "algebra" [shape="box", fillcolor="gray85", style="filled"];
     "algebra" -> "analysis";
     "algebra" -> "mechanics";
     "algebra" -> "statistics";

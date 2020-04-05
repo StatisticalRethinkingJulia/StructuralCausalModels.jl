@@ -28,20 +28,38 @@ end
 function induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList)
 
   @assert all([c in d.vars for c in sel]) "Selection nodes are not among vertices."
-  @assert all([c in d.vars for c in cond]) "Conditioning nodes are not among vertices."
-  @assert !all([c in sel for c in cond]) "Conditioning nodes in selected nodes."
 
+  if length(cond) > 0
+    @assert all([c in d.vars for c in cond]) "Conditioning nodes are not among vertices."
+    @assert !all([c in sel for c in cond]) "Conditioning nodes in selected nodes."
+  end
+  
   l = setdiff(d.vars, union(sel, cond))
+  println(l)
   l = union(l, sel)
+  println(l)
   r = union(sel, cond)
-
+  println(r)
+   
   e = edge_matrix(d.a)                  # From adjacency matrix to edge matrix
+  println(e)
   al = ancester_graph(e[l, l])
-  trl = indicator_matrix( e[cond, l] * al)
+  println(al)
+  if length(cond) > 0
+    trl = indicator_matrix( e[cond, l] * al)
+  else
+    trl = al - al
+  end
+  println(trl)
   dlr = indicator_matrix(I(length(l)) + transpose(trl) * trl)
+  println(dlr)
   cl = transitive_closure(dlr)
+  println(cl)
   out = indicator_matrix(( al * cl * transpose(al)))
+  println(out)
   out = out[sel, sel]
+  println(out)
+  println(adjacency_matrix(out))
   adjacency_matrix(out)
 
 end

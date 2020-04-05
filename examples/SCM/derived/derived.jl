@@ -3,8 +3,6 @@ using StructuralCausalModels, RData
 objs = load(scm_path("..", "data", "derived.rd));
 df = objs["derived"]["raw"];
 
-# cov(derived$raw)
-
 R_cov = "
 
            Sys       Dia        Age       Hei       Wei

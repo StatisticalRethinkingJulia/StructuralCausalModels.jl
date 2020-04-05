@@ -1,8 +1,6 @@
 # Load Julia packages (libraries) needed.
 
 using StatisticalRethinking
-using CSV, DataFrames
-using StanSample, MonteCarloMeasurements
 
 ProjDir = @__DIR__
 
@@ -10,10 +8,6 @@ ProjDir = @__DIR__
 
 println()
 df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';');
-#first(df, 5) |> display
-
-# ### snippet 5.1
-
 scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
 println()
 
@@ -46,8 +40,11 @@ m5_1s = SampleModel("m5.1", m_5_1);
 
 # Input data for cmdstan
 
-ad_data = Dict("N" => size(df, 1), "D" => df[!, :Divorce_s],
-    "A" => df[!, :MedianAgeMarriage_s]);
+ad_data = Dict(
+  "N" => size(df, 1),
+  "D" => df[!, :Divorce_s],
+  "A" => df[!, :MedianAgeMarriage_s]
+);
 
 # Sample using StanSample
 
