@@ -13,12 +13,12 @@ d_separation(
 * `d::DAG`                             : DAG
 * `first::Vector{Symbol}`              : First set
 * `second::Vector{Symbol}`             : Second set
-* `cond::Vector{Symbol}`               : Conditioning set
 )
 ```
 
 ### Optional arguments
 ```julia
+* `cond::Vector{Symbol}`               : Conditioning set
 * `debug=false`                        : Trace execution
 ```
 
@@ -65,7 +65,7 @@ function d_separation(d::DAG, first::Vector{Symbol}, second::Vector{Symbol},
   cond=Symbol[]; debug=false)
 
   e = induced_covariance_graph(d, vcat(first, second), cond; debug=debug)
-  sum(e[vcat(first, second), vcat(first, second)]) == 0
+  sum(e[first, second]) == 0
 
 end
 

@@ -57,8 +57,17 @@ println("d_separation($(dag.name), $f, $s) = $e")
 print("d_separation($(dag.name), [:statistics], [:mechanics], [:vectors]) = ")
 println(d_separation(dag, [:statistics], [:mechanics], [:vectors]))
 
-print("d_separation($(dag.name), [:statistics], [:mechanics], [:algebra]) = ")
-println(d_separation(dag, [:statistics], [:mechanics], [:algebra]))
+print("d_separation($(dag.name), [:statistics], [:mechanics], [:analysis, :vectors]) = ")
+println(d_separation(dag, [:statistics], [:mechanics], [:analysis, :vectors]))
+
+print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics], [:algebra]) = ")
+println(d_separation(dag, [:statistics, :analysis], [:mechanics], [:algebra]))
+
+print("d_separation($(dag.name), [:statistics], [:mechanics, :vectors], [:algebra]) = ")
+println(d_separation(dag, [:statistics], [:mechanics, :vectors], [:algebra]))
+
+print("d_separation($(dag.name), [:statistics], [:mechanics, :analysis], [:algebra]) = ")
+println(d_separation(dag, [:statistics], [:mechanics, :analysis], [:algebra]))
 
 print("d_separation($(dag.name), [:analysis], [:vectors]) = ")
 println(d_separation(dag, [:analysis], [:vectors]))
@@ -66,11 +75,11 @@ println(d_separation(dag, [:analysis], [:vectors]))
 print("d_separation($(dag.name), [:analysis], [:vectors], [:algebra]) = ")
 println(d_separation(dag, [:analysis], [:vectors], [:algebra]))
 
+print("d_separation($(dag.name), [:vectors], [:statistics], [:algebra]) = ")
+println(d_separation(dag, [:analysis], [:vectors], [:algebra]))
+
 print("d_separation($(dag.name), [:statistics], [:algebra], [:analysis]) = ")
 println(d_separation(dag, [:statistics], [:algebra], [:analysis]))
-
-print("d_separation($(dag.name), [:statistics], [:mechanics]) = ")
-println(d_separation(dag, [:statistics], [:mechanics]))
 
 print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors]) = ")
 println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors]))

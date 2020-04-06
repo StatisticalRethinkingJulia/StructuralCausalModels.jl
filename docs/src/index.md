@@ -33,7 +33,7 @@ basis_set(dag::DAG)
 pcor(u::Vector{Symbol}, S::NamedArray)
 ```
 
-## Internal
+# InternalFunctions
 ```@docs
 dag_vars(d::OrderedDict{Symbol, Vector{Symbol}})
 edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
