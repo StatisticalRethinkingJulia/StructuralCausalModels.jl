@@ -6,12 +6,10 @@ CurrentModule = StructuralCausalModels
 ```@docs
 scm_path(parts...)
 ```
-## DAG struct
+
+## DAG
 ```@docs
 DAG
-```
-
-## DAG constructor
 DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}}, df::DataFrame)
 ```
 
@@ -35,7 +33,7 @@ basis_set(dag::DAG)
 pcor(u::Vector{Symbol}, S::NamedArray)
 ```
 
-# Internals
+## Internal
 ```@docs
 dag_vars(d::OrderedDict{Symbol, Vector{Symbol}})
 edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
