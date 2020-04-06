@@ -15,8 +15,7 @@ const scm_src_path = @__DIR__
 
 # scm_path
 
-Relative path using the StatisticalRethinking src/ directory. Copied from
-[DynamicHMCExamples.jl](https://github.com/tpapp/DynamicHMCExamples.jl)
+Relative path using the StatisticalRethinking src/ directory.
 
 ### Example to get access to the data subdirectory
 ```julia
