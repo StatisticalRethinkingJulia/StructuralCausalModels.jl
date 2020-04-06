@@ -2,41 +2,40 @@
 CurrentModule = StructuralCausalModels
 ```
 
-Exported API
-
-## scm_path
+## scm_path (exported)
 ```@docs
 scm_path(parts...)
 ```
-## DAG
+## DAG struct (exported)
 ```@docs
 DAG
+```
+
+## DAG constructor (exported)
 DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}}, df::DataFrame)
 ```
 
-## d_separation
+## d_separation (exported)
 ```@docs
 d_separation(d::DAG, first::Vector{Symbol}, second::Vector{Symbol}, cond::SymbolList=nothing)
 ```
 
-## shipley_test
+## shipley_test (exported)
 ```@docs
 shipley_test(d::DAG)
 ```
 
-Not exported API
-
-## dasis_set
+## basis_set (not exported)
 ```@docs
 basis_set(dag::DAG)
 ```
 
-## pcor
+## pcor (not exported)
 ```@docs
 pcor(u::Vector{Symbol}, S::NamedArray)
 ```
 
-Internal
+# Internals
 ```@docs
 dag_vars(d::OrderedDict{Symbol, Vector{Symbol}})
 edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
