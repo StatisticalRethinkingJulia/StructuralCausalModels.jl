@@ -2,35 +2,35 @@
 CurrentModule = StructuralCausalModels
 ```
 
-## scm_path (exported)
+## scm_path
 ```@docs
 scm_path(parts...)
 ```
-## DAG struct (exported)
+## DAG struct
 ```@docs
 DAG
 ```
 
-## DAG constructor (exported)
+## DAG constructor
 DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}}, df::DataFrame)
 ```
 
-## d_separation (exported)
+## d_separation
 ```@docs
 d_separation(d::DAG, first::Vector{Symbol}, second::Vector{Symbol}, cond::SymbolList=nothing)
 ```
 
-## shipley_test (exported)
+## shipley_test
 ```@docs
 shipley_test(d::DAG)
 ```
 
-## basis_set (not exported)
+## basis_set
 ```@docs
 basis_set(dag::DAG)
 ```
 
-## pcor (not exported)
+## pcor
 ```@docs
 pcor(u::Vector{Symbol}, S::NamedArray)
 ```
