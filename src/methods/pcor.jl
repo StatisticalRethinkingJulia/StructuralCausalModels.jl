@@ -10,13 +10,13 @@ variables.
 ### Method
 ```julia
 pcor(;
-* `u::Vector{Int}`                     : Variables used to compute correlation
+* `u::Vector{Symbol}`                  : Variables used to compute correlation
 * `S::Matrix`                          : Sample covariance matrix
 )
 ```
 where:
 
-  u[1], u[2]: Variables used to compute correlation between, remaining indices
+  u[1], u[2]: Variables used to compute correlation between, remaining variables
   are the conditioning set
 
 
