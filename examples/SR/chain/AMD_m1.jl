@@ -4,8 +4,6 @@ using StatisticalRethinking
 
 ProjDir = @__DIR__
 
-# Simulate uncorrelated data
-
 m_5_1 = "
 data {
  int < lower = 1 > N; // Sample size
