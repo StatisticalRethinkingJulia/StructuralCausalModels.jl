@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = Exported API
+CurrentModule = Exported_API
 ```
 
 ## scm_path
