@@ -1,5 +1,5 @@
 ```@meta
-CurrentModule = StructuralCausalModels
+CurrentModule = Exported API
 ```
 
 ## scm_path
@@ -33,7 +33,10 @@ basis_set(dag::DAG)
 pcor(u::Vector{Symbol}, S::NamedArray)
 ```
 
-# InternalFunctions
+```@meta
+CurrentModule = Internals
+```
+
 ```@docs
 dag_vars(d::OrderedDict{Symbol, Vector{Symbol}})
 edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
