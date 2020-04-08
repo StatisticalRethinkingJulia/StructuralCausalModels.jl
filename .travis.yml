@@ -23,7 +23,7 @@ jobs:
 #      julia: nightly
 #      os: linux
     - stage: Documentation
-      julia: nightly
+      julia: 1.4
       os: linux
       script:
        - julia --project=docs -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl"));Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
