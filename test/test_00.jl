@@ -3,6 +3,9 @@ using StructuralCausalModels, Test
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
+println("\u2561\u255E")
+println("\u2550\u2550")
+
 N = 100
 b_AU = 0.5
 b_AC = 3

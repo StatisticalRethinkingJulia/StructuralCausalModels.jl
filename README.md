@@ -17,7 +17,7 @@ These are some early tests to see what it would take to create a Julia version o
 
 My initial goal for this package is to have a minimal way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `d_separation()`.
 
-The package is not intended to compete with reference 1 below
+The package is not intended to compete with the references below and is not (yet?) registered.
 
 # Todo
 
@@ -25,14 +25,19 @@ A lot!
 
 1. Provide methods to generate Dagitty, GraphViz and LightGraph plots from the DAG model.
 2. Investigate other ways to represent a DAG (vs. the current Dict formulation).
-3. Method `paths=all_paths(dag)` - find all paths between 2 nodes.
-4. Method `open_paths(bd_paths)` - which are open?
-5. Method `bd_paths=select_backdoor_paths(open_paths)` - which open baths are backdoors?
-6. Method `condition_variables_to_close(bd_paths)` - close open path
-7. Implement `impliedConditionalIndependencies()`
-8. Investigate Lightgraphs.jl to display the DAGs.
-9. Documantation
-10. ...
+2. Implement `impliedConditionalIndependencies()`
+3. Investigate Lightgraphs.jl to display the DAGs.
+4. Documentation
+5. ...
+
+More testing:
+
+1. Method `paths=all_paths(dag, :f, :x)` - find all paths between nodes :f and :l.
+2. Method `backdoor_paths(bd_paths)` - which are backdoor paths?
+3. Method `backdoor_paths=select_backdoor_paths(paths)` - which paths are open?
+4. Method `adjustment_sets(dag, paths)` - options for conditioning
+5. show_dag_path(dag, path)
+6. ...
 
 # Versions
 
