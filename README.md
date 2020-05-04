@@ -37,9 +37,9 @@ A lot!
 
 More testing:
 
-1. Method `paths=all_paths(dag, :f, :x)` - find all paths between nodes :f and :l.
-2. Method `backdoor_paths(bd_paths)` - which are backdoor paths?
-3. Method `backdoor_paths=select_backdoor_paths(paths)` - which paths are open?
+1. Method `all_paths(dag, :x, :y)` - find all paths between nodes :f and :l.
+2. Method `backdoor_paths(dag, paths, :x)` - which are backdoor paths to :x?
+3. Method `open_paths(dag, paths)` - which paths are open?
 4. Method `show_dag_path(dag, path)` - show path directions using arrows
 6. ...
 
