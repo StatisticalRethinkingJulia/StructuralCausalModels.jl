@@ -5,7 +5,7 @@ function show_dag_path(d::DAG, path::Vector{Symbol})
       str = ":$sym"
     else
       cond = d.a[path[ind-1], path[ind]] == 1
-      str *= cond ? " <- :$(path[ind])" : " -> :$(path[ind])"
+      str *= cond ? " \u21d0 :$(path[ind])" : " \u21d2 :$(path[ind])"
     end
   end
   str

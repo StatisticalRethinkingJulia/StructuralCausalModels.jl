@@ -13,11 +13,13 @@
 
 # Introduction
 
-These are some early tests to see what it would take to create a Julia version of the [SCM primer book](http://bcs.wiley.com/he-bcs/Books?action=index&bcsId=10288&itemId=1119186846).
+These are some early tests to see what it would take to create a Julia version to analyse DAG-based Structural Causal Models (SCM) as described in [StatisticalRethinking](https://xcelab.net/rm/statistical-rethinking/) and [Causal Inference in Statistics](http://bcs.wiley.com/he-bcs/Books?action=index&bcsId=10288&itemId=1119186846).
 
-My initial goal for this package is to have a minimal way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `d_separation()`.
+My initial goal for this package is to have a way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `d_separation()`, `adjustment_sets()` and `implied_conditional_independencies()`.
 
-The package is not intended to compete with the references below and is not (yet?) registered.
+The package is not intended to compete with the references below and it is the intention to provide simple interoperability methods between Dagitty, ggm and this package.
+
+The package is not (yet?) registered.
 
 # Todo
 
@@ -25,18 +27,19 @@ A lot!
 
 1. Provide methods to generate Dagitty, GraphViz and LightGraph plots from the DAG model.
 2. Investigate other ways to represent a DAG (vs. the current Dict formulation).
-2. Implement `impliedConditionalIndependencies()`
-3. Investigate Lightgraphs.jl to display the DAGs.
-4. Documentation
-5. ...
+3. Method `adjustment_sets(dag, paths)` - options for conditioning
+4. Method `impliedConditionalIndependencies()`
+5. Investigate Lightgraphs.jl to display the DAGs.
+6. Documentation
+7. Interoperability methods with Dagitty and ggm.
+8. ...
 
 More testing:
 
 1. Method `paths=all_paths(dag, :f, :x)` - find all paths between nodes :f and :l.
 2. Method `backdoor_paths(bd_paths)` - which are backdoor paths?
 3. Method `backdoor_paths=select_backdoor_paths(paths)` - which paths are open?
-4. Method `adjustment_sets(dag, paths)` - options for conditioning
-5. show_dag_path(dag, path)
+4. Method `show_dag_path(dag, path)` - show path directions using arrows
 6. ...
 
 # Versions
@@ -61,6 +64,6 @@ The latter has been used as the basis for the Julia implementations of `shipley_
 
 # References
 
-1. SR
-2. SCM Primer
-3. Shipley?
+1. [StatisticalRethinking](https://xcelab.net/rm/statistical-rethinking/)
+2. [Causal Inference in Statistics - a primer](https://www.wiley.com/en-us/Causal+Inference+in+Statistics%3A+A+Primer-p-9781119186847)
+3. [Cause and Correlation in Biology](https://www.cambridge.org/core/books/cause-and-correlation-in-biology/247799189B31939D24BC0F61FD59E9BB#)
