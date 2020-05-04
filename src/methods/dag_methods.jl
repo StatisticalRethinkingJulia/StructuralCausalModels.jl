@@ -93,6 +93,21 @@ end
 
 """
 
+# undirected_matrix
+
+$(SIGNATURES)
+
+Internal
+"""
+function undirected_matrix(d::DAG)
+  u = Array(d.a) + Array(d.e)
+  vars = names(d.a)[1]
+  NamedArray(Int.(u), (vars, vars), ("Rows", "Cols"))
+end
+
+
+"""
+
 # topological_order
 
 $(SIGNATURES)

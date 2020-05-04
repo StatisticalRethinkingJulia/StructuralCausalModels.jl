@@ -1,4 +1,4 @@
-using StructuralCausalModels, RData
+using StructuralCausalModels
 
 ProjDir = @__DIR__
 cd(ProjDir) #do

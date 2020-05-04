@@ -1,7 +1,6 @@
-using StructuralCausalModels, RData
+using StructuralCausalModels
 
-objs = load(scm_path("..", "data", "derived.rd));
-df = objs["derived"]["raw"];
+df = CSV.read(scm_path("..", "data", "marks.csv"));
 
 R_cov = "
 
