@@ -1,13 +1,7 @@
-using StructuralCausalModels, Test
+using StructuralCausalModels
 
 ProjDir = @__DIR__
 cd(ProjDir) #do
-
-# Experiments with unicode symbols, replacements for e.g. _||_
-
-println("\u2561\u255E")
-println("\u2550\u2550")
-println("\u21d0 \u21d1 \u21d2 \u27f9   \u21e2")
 
 N = 100
 b_AU = 0.5
@@ -38,6 +32,20 @@ u = [:u]
 dag = DAG("sr6.4.2", d, df);
 show(dag)
 
-adjustmentsets = adjustment_sets(dag, :x, :y, u)
-println("Adjustment sets:")
-adjustmentsets |> display
+fname = ProjDir * "/sr6.4.2.dot"
+Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+
+paths  = all_paths(dag, :x, :y)
+println("\nAll paths between :x and :y:\n$(paths)")
+
+d2 = OrderedDict(
+  :AFF => [:ALN, :APA, :CDR],
+  :AIS => [:AFF, :EGC, :SUS],
+  :ALN => [:APA, :DET, :FTW, :PER, :SUS],
+  :CDR => [:DET],
+  :EGC => [:HOS],
+  :FTW => [:DET, :EGC],
+  :PER => [:DET],
+  :SAN => [:AFF, :AIS, :ALN, :APA, :CDR],
+  :SUS => [:EGC, :FTW, :HOS]
+)

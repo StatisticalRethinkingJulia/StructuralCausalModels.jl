@@ -37,6 +37,7 @@ include("methods/induced_covariance_graph.jl")
 include("methods/all_paths.jl")
 include("methods/open_paths.jl")
 include("methods/backdoor_paths.jl")
+include("methods/adjustment_sets.jl")
 include("utils/show_dag_path.jl")
 
 #include("methods/all_edges.jl")
