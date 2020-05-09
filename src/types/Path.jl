@@ -5,27 +5,24 @@ mutable struct Path
   f::Symbol
   l::Symbol
   path::Vector{Symbol}
-  visited::Vector{Symbol}
-  symbol_stack::Vector{Symbol}
+  visited::Vector{Vector{Symbol}}
+  next::Vector{Vector{Symbol}}
 end
-Path(ug, f, l) = Path(
-  ug,                                  # Undirected graph
+
+Path(d::DAG, f, l) = Path(
+  undirected_matrix(d),                # Create undirected graph from DAG
   f,                                   # Path continuation symbol
   l,                                   # Path completed symbol
-  Symbol[],                            # Symbols on path
-  Symbol[],                            # Symbols already processed
-  [f]                                  # Initial symbol
+  [f],                                 # Symbols on path
+  [[l, f]],                            # Edges already walked
+  [[l, f]]                             # Edge to do next
 )
 
 function path_show(io::IO, p::Path)
-  println("\nPath object:")
   println(io, "(f = $(p.f), l = $(p.l))")
   println(io, "path = $(p.path)")
   println(io, "visited = $(p.visited)")
-  println(io, "symbol_stack = $(p.symbol_stack)")
-  println()
-  display(p.ug)
-  println()
+  println(io, "next = $(p.next)")
 end
 
 show(io::IO, p::Path) = path_show(io, p)

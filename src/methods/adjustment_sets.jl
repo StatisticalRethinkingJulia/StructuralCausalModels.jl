@@ -22,5 +22,20 @@ function adjustment_sets(d::DAG, f::Symbol, l::Symbol, u::Vector{Symbol})
   asets
 end
 
+function adjustment_sets(d::DAG, f::Symbol, l::Symbol)
+  asets = Vector{Symbol}[]
+  allpaths  = all_paths(d, f, l)
+  backdoorpaths = backdoor_paths(d, allpaths, f)
+  for path in open_paths(d, backdoorpaths)
+    aset = Symbol[]
+    for (ind, sym) in enumerate(path[2:end])
+     forward_path(d, path[ind+1:end]) && push!(aset, sym)
+    end
+    setdiff!(aset, [path[end]])
+    push!(asets, aset)
+  end
+  asets
+end
+
 export
   adjustment_sets

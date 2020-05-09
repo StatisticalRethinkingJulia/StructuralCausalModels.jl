@@ -57,10 +57,6 @@ println("Show path: $(allpaths[2])")
 show_dag_path(dag, allpaths[2]) |> display
 println()
 
-function adjustment_sets(d::DAG, paths::Vector{Vector{Symbol}}, u::Vector{Symbol})
-  paths
-end
-
-adjustmentsets = adjustment_sets(dag, openpaths, u)
+adjustmentsets = adjustment_sets(dag, :x, :y, u)
 println("Adjustment sets for: $(openpaths)")
 adjustmentsets |> display
