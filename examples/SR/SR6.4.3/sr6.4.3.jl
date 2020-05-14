@@ -44,25 +44,6 @@ cond = [:m, :a]
 e = d_separation(dag, f, s, cond)
 println("d_separation($(dag.name), $f, $s, $cond) = $e")
 
-allpaths  = all_paths(dag, :w, :d)
-println("All paths between :w and :d:")
-allpaths |> display
-println()
-
-backdoorpaths = backdoor_paths(dag, allpaths, :w)
-println("All backdoors between :w and :d:")
-backdoorpaths |> display
-println()
-
-openpaths = open_paths(dag, backdoorpaths)
-println("All open (backdoor) paths between :w and :d:")
-openpaths |> display
-println()
-
-println("Show path: $(allpaths[2])")
-show_dag_path(dag, allpaths[2]) |> display
-println()
-
 adjustmentsets = adjustment_sets(dag, :w, :d)
 println("Adjustment sets for: $(openpaths)")
 adjustmentsets |> display

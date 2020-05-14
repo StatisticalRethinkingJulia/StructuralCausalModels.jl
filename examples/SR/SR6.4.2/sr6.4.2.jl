@@ -61,11 +61,13 @@ display(bs); println()
 t = shipley_test(dag6_4_2)
 display(t); println()
 
-f = [:a]; s = [:b]; sel = vcat(f, s)
-cond = [:u, :c]
+f = [:a]; s = [:b]; cond = [:u, :c]
 
 e = d_separation(dag6_4_2, f, s, cond)
 println("d_separation($(dag6_4_2.name), $f, $s, $cond) = $e")
 
-#end
+adjustmentsets = adjustment_sets(dag6_4_2, :x, :y, u)
+println("\nAdjustment sets for: $(openpaths)")
+adjustmentsets |> display
 
+#end

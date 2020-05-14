@@ -27,6 +27,9 @@ df[!, :b] = rand(Normal(1, 1), N) + b_UB * df[:, :u]
 df[!, :x] = rand(Normal(-2, 1), N) + b_UX * df[:, :u]
 df[!, :y] = rand(Normal(1, 2), N) + b_XY * df[:, :x] + b_CY * df[:, :c]
 
+fname = scm_path("..", "examples", "SR", "SR6.4.2", "sr6.4.2.dot")
+Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+
 d = OrderedDict(
   :x => [:y],
   :a => [:c, :u],

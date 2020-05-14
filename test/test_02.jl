@@ -12,7 +12,7 @@ df = DataFrame(
   :d => df[:, :Divorce]
 );
 
-fname = scm_path("..", "examples", "SCM", "SR6.4.3", "sr6.4.3.dot")
+fname = scm_path("..", "examples", "SR", "SR6.4.3", "sr6.4.3.dot")
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 d = OrderedDict(

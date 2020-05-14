@@ -19,6 +19,7 @@ function blocking_sets(asets::Array{Array{Symbol,1},1})
         res = false
       end
       #println("sym = $sym, res = $res")
+      length(asets) == 1 && break
       !res && break
     end
     if res
