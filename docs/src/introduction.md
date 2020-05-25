@@ -4,6 +4,8 @@ These are some early tests to see what it would take to create a Julia version t
 
 My initial goal for this package is to have a way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `d_separation()`, `adjustment_sets()` and `implied_conditional_independencies()`.
 
+StructuralCausalModels.jl is part of the [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) eco system.
+
 The package is not intended to compete with the references below and it is the intention to provide simple interoperability methods between Dagitty (and possible R's dagitty package), R's ggm package and this package.
 
 StructuralCausalModels.jl is not (yet?) registered. You can install it as:
