@@ -31,7 +31,7 @@ R_dag = "
 :x   0  0  0  0  0  1
 :y   1  0  0  1  0  0   
 :a   0  0  0  0  0  0   
-:c   0  0  1  0  0  0   
+:c   0  0  1  0  0  0  
 :b   0  0  0  1  0  1
 :u   0  0  1  0  0  0   
 ";
@@ -67,7 +67,7 @@ e = d_separation(dag6_4_2, f, s, cond)
 println("d_separation($(dag6_4_2.name), $f, $s, $cond) = $e")
 
 adjustmentsets = adjustment_sets(dag6_4_2, :x, :y, u)
-println("\nAdjustment sets for: $(openpaths)")
+println("\nAdjustment sets:")
 adjustmentsets |> display
 
 #end

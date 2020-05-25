@@ -41,6 +41,11 @@ u = [:u]
 dag = DAG("sr6.4.2", d, df);
 show(dag)
 
+basisset = StructuralCausalModels.basis_set(dag)
+println("Basis_set:")
+display(basisset)
+println()
+
 allpaths  = all_paths(dag, :x, :y)
 println("All paths between :x and :y:")
 allpaths |> display

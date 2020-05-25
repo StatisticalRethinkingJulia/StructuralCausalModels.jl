@@ -38,7 +38,8 @@ model {
 
 # Define the SampleModel and set the output format to :mcmcchains.
 
-m1s = SampleModel("m1", m1);
+m1s = SampleModel("m1", m1, [6];
+  method=StanSample.Sample(num_samples=1000));
 
 # Input data for cmdstan
 
@@ -56,5 +57,6 @@ if success(rc)
   dfa1 = read_samples(m1s; output_format=:dataframe)
 
   p1 = Particles(dfa1)
+  display(p1)
 
 end

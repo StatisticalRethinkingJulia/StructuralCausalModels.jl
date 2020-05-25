@@ -12,7 +12,7 @@ df = DataFrame(
   :d => df[:, :Divorce]
 );
 
-fname = scm_path("..", "examples", "SCM", "SR6.4.3", "sr6.4.3.dot")
+fname = scm_path("..", "examples", "SR", "SR6.4.3", "sr6.4.3.dot")
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 d = OrderedDict(
@@ -25,5 +25,11 @@ d = OrderedDict(
 dag = DAG("sr6.4.3", d, df);
 show(dag)
 
-allpaths = all_paths(dag, :w, :d)
-allpaths |> display
+adjustmentsets = adjustment_sets(dag, :w, :d)
+println("Adjustment sets:\n")
+adjustmentsets |> display
+
+c = [:s]
+m = [:a]
+ag = ancestral_graph(dag.a, m, c)
+ag |> display
