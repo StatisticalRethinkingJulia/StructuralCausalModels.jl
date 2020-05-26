@@ -383,7 +383,7 @@ function update_i(ar::NamedArray, debug=false)
   a
 end
 
-"""
+@doc raw"""
     
 # ancestral_graph
 
@@ -411,7 +411,7 @@ ancestral_graph(
 
 ### Adjacency matrix used for testing in ggm
 
-```julia
+```jldoctest
 amat_data = transpose(reshape([
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -431,7 +431,7 @@ amat_data = transpose(reshape([
   0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0
 ], (16,16)));
 
-vars = [Symbol("n") for i in 1:size(amat_data, 1)]
+vars = [Symbol("n$i") for i in 1:size(amat_data, 1)]
 a = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));
 m = [:n3, :n5, :n6, :n15, :n16];
 c = [:n4, :n7];
