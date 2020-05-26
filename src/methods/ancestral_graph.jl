@@ -431,21 +431,12 @@ amat_data = transpose(reshape([
   0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0
 ], (16,16)));
 
-vars = [Symbol("n$i") for i in 1:size(amat_data, 1)]
+vars = [Symbol("n") for i in 1:size(amat_data, 1)]
 a = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));
-
 m = [:n3, :n5, :n6, :n15, :n16];
 c = [:n4, :n7];
 
 ag = ancestral_graph(a, m, c)
-
-```
-
-### See also
-```julia
-?Dag
-?basis_set
-?pcor_test
 ```
 
 ### Acknowledgements
@@ -485,15 +476,15 @@ function ancestral_graph(
 
     at = copy(ar)
     ar = update_21(ar, m)
-    ar += update_22(ar, s)
-    ar += update_23(ar, m)
-    ar += update_24(ar, m)
-    ar += update_25(ar, m)
-    ar += update_26(ar, m)
-    ar += update_27(ar, s)
-    ar += update_28(ar, s)
-    ar += update_29(ar, m)
-    ar += update_30(ar, m)
+    ar .+= update_22(ar, s)
+    ar .+= update_23(ar, m)
+    ar .+= update_24(ar, m)
+    ar .+= update_25(ar, m)
+    ar .+= update_26(ar, m)
+    ar .+= update_27(ar, s)
+    ar .+= update_28(ar, s)
+    ar .+= update_29(ar, m)
+    ar .+= update_30(ar, m)
 
     ar == at && break
 
@@ -507,11 +498,11 @@ function ancestral_graph(
     at = copy(ar)
 
     a27n = update_27n(ar, an)
-    an += a27n
-    ar += a27n
+    an .+= a27n
+    ar .+= a27n
     a22n = update_22n(ar, an)
-    an += a22n
-    ar += a22n
+    an .+= a22n
+    ar .+= a22n
 
     at == ar && break
   end
