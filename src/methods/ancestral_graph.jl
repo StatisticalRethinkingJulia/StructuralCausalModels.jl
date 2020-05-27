@@ -383,13 +383,13 @@ function update_i(ar::NamedArray, debug=false)
   a
 end
 
-@doc raw"""
+"""
     
 # ancestral_graph
 
 $(SIGNATURES)
 
-Generates ancestral graphs after marginalization and conditioning.
+Ancestral graphs after marginalization and conditioning.
 
 ### Method
 ```julia
@@ -431,7 +431,7 @@ amat_data = transpose(reshape([
   0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0
 ], (16,16)));
 
-vars = [Symbol("n$i") for i in 1:size(amat_data, 1)]
+vars = [Symbol("n\\\$i") for i in 1:size(amat_data, 1)]
 a = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));
 m = [:n3, :n5, :n6, :n15, :n16];
 c = [:n4, :n7];
@@ -512,6 +512,32 @@ function ancestral_graph(
   select = setdiff(vars, vcat(c, m))
   fr = ar[select, select]
 
+end
+
+"""
+    
+# ancestral_graph
+
+$(SIGNATURES)
+
+Ancestral graphs after marginalization and conditioning.
+
+### Method
+```julia
+ancestral_graph(
+* `d::DAG`                             : DAG object
+* `m::Vector{Symbol}`                  : Nodes in DAG that ar marginalized
+* `c::Vector{Symbol})`                 : Nodes in DAG there are conditioned on
+)
+```
+
+### Returns
+```julia
+* `ag::NamedTuple`                     : Ancestral graph remaining
+```
+"""
+function ancestral_graph(d::DAG, m::Vector{Symbol}, c::Vector{Symbol})
+  ancestral_graph(d.a, m, c)
 end
 
 export

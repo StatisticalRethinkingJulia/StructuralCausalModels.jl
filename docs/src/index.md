@@ -28,10 +28,12 @@ shipley_test(d::DAG)
 basis_set(dag::DAG)
 ```
 
-## pcor
+## ancestral_graph
 ```@docs
-pcor(u::Vector{Symbol}, S::NamedArray)
+ancestral_graph(d::DAG, m::Vector{Symbol}, c::Vector{Symbol})
+ancestral_graph(a::NamedArray{Int, 2}, m::Vector{Symbol}, c::Vector{Symbol})
 ```
+
 
 ### Internals
 ```@docs
@@ -46,4 +48,5 @@ ancester_graph(e::NamedArray)
 indicator_matrix(e::NamedArray)
 transitive_closure(a::NamedArray)
 induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList; debug=false)
+pcor(u::Vector{Symbol}, S::NamedArray)
 ```

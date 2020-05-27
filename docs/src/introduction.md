@@ -20,9 +20,14 @@ A lot!
 3. Method `adjustment_sets(dag, paths)` - options for conditioning
 4. Method `impliedConditionalIndependencies()`
 5. Investigate Lightgraphs.jl to display the DAGs.
-6. Documentation, documatation, ...
-7. Interoperability methods with Dagitty and ggm.
-8. ...
+6. Documentation, documentation, ...
+7.  Examples in docs
+8.  ...
+9. Interoperability of methods with Dagitty and ggm?
+10. DAG constructors (no df, just adjancency matrix, ...)
+11. Ancestral_graph and debug versions, add DAG argument version once 8 is done
+12. Other mixed graphs based on Sadeghi work for ggm
+13. ...
 
 More testing:
 
@@ -30,14 +35,16 @@ More testing:
 2. Method `backdoor_paths(dag, paths, :x)` - which are backdoor paths to :x?
 3. Method `open_paths(dag, paths)` - which paths are open?
 4. Method `show_dag_path(dag, path)` - show path directions using arrows
+5. Method `adjustment_sets()`
+6. Method `ancestral_graph()`
 6. ...
 
 # Versions
 
 ## 0.1.0
 
-1. Initial commit to Julia's registry.
-
+1. Version for initial commit to Julia's registry.
+2. 
 
 # Acknowledgements
 
@@ -46,19 +53,15 @@ Important links are:
 1. [Dagitty](http://www.dagitty.net/)
 2. [R dagitty package](https://cran.r-project.org/web/packages/dagitty/index.html)
 3. [R ggm package](https://cran.r-project.org/web/packages/ggm/index.html)
-4. Sadeghi, K. (2011). Stable classes of graphs containing directed acyclic
-graphs, implementation as included in ggm.
 
-The latter two have been used as the basis for the Julia implementations of e.g. `shipley_test()`, `d_separation()` and `ancestral_graph()`.
+The latter (both the Giordini code and the Sadeghi code) has been used as the basis for the Julia implementations of e.g. `shipley_test()`, `d_separation()`, `basis_set()` and `ancestral_graph()`.
 
 # References
 
 1. [StatisticalRethinking](https://xcelab.net/rm/statistical-rethinking/)
 2. [Causal Inference in Statistics - a primer](https://www.wiley.com/en-us/Causal+Inference+in+Statistics%3A+A+Primer-p-9781119186847)
 3. [Cause and Correlation in Biology](https://www.cambridge.org/core/books/cause-and-correlation-in-biology/247799189B31939D24BC0F61FD59E9BB#)
-4. Sadeghi, K. (2011). Stable classes of graphs containing directed acyclic
-graphs.
-5. Richardson, T.S. and Spirtes, P. (2002).  Ancestral graph Markov
-models {Annals of Statistics}, 30(4), 962-1030.
+4. Sadeghi, K. (2011). Stable classes of graphs containing directed acyclic graphs.
+5. Richardson, T.S. and Spirtes, P. (2002).  Ancestral graph Markov models {Annals of Statistics}, 30(4), 962-1030.
 6. [Separators and Adjustment Sets in Causal Graphs: Complete Criteria and an Algorithmic Framework](https://doi.org/10.1016/j.artint.2018.12.006)
 

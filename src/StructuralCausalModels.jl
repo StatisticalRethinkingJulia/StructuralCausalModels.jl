@@ -39,7 +39,10 @@ include("methods/open_paths.jl")
 include("methods/backdoor_paths.jl")
 include("methods/adjustment_sets.jl")
 include("methods/ancestral_graph.jl")
+
 include("utils/show_dag_path.jl")
+
+include("test_methods/test_ag.jl")
 
 #include("methods/all_edges.jl")
 

@@ -6,7 +6,7 @@ Determine basis_set
 
 $(SIGNATURES)
 
-Part of API, not exported.
+Part of API, exported.
 """
 function basis_set(dag::DAG)
   as = topological_sort(dag.a)
@@ -31,3 +31,6 @@ function basis_set(dag::DAG)
   end
   ind
 end
+
+export
+  basis_set
