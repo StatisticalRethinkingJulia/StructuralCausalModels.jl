@@ -13,7 +13,7 @@
 
 # Introduction
 
-StructuralCausalModels.jl is part of the StatisticalRethinkingJulia eco system and, for now, consists of some early tests to see what it would take to create a Julia version to analyse directed acyclic graph (DAG) based Structural Causal Models (SCM) as described in [StatisticalRethinking](https://xcelab.net/rm/statistical-rethinking/) and [Causal Inference in Statistics](http://bcs.wiley.com/he-bcs/Books?action=index&bcsId=10288&itemId=1119186846).
+StructuralCausalModels.jl is part of the StatisticalRethinkingJulia eco system and, for now, consists of some early tests to see what it would take to create a Julia version to analyse directed acyclic graph (DAG) based Structural Causal Models (SCM) as described in [StatisticalRethinking](https://xcelab.net/rm/statistical-rethinking/),[Causal Inference in Statistics](http://bcs.wiley.com/he-bcs/Books?action=index&bcsId=10288&itemId=1119186846) and Cause and Correlation in Biology](https://www.cambridge.org/core/books/cause-and-correlation-in-biology/247799189B31939D24BC0F61FD59E9BB#).
 
 My initial goal for this package is to have a way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `d_separation()`, `adjustment_sets()` and `implied_conditional_independencies()`.
 

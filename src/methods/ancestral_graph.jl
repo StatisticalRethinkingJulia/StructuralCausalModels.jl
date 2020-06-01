@@ -391,13 +391,15 @@ $(SIGNATURES)
 
 Ancestral graphs after marginalization and conditioning.
 
-### Method
+### Required arguments
 ```julia
-ancestral_graph(
 * `a::NamedArray{Int, 2}`              : Adjacency matrix of a DAG
-* `m::Vector{Symbol}`                  : Nodes in DAG that ar marginalized
+```
+
+### Optional arguments
+```julia
+* `m::Vector{Symbol}`                  : Nodes in DAG that are marginalized
 * `c::Vector{Symbol})`                 : Nodes in DAG there are conditioned on
-)
 ```
 
 ### Returns
@@ -436,7 +438,7 @@ a = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));
 m = [:n3, :n5, :n6, :n15, :n16];
 c = [:n4, :n7];
 
-ag = ancestral_graph(a, m, c)
+ag = ancestral_graph(a; m = m, c = c)
 ```
 
 ### Acknowledgements
@@ -462,9 +464,9 @@ The Julia translation is licenced under: MIT.
 Part of the api, exported.
 """
 function ancestral_graph(
-  a::NamedArray{Int, 2},
-  m::Vector{Symbol},
-  c::Vector{Symbol})
+  a::NamedArray{Int, 2};
+  m=Symbol[],
+  c=Symbol[])
   
   vars = names(a, 1)
   s = update_s(a, c)
@@ -522,22 +524,25 @@ $(SIGNATURES)
 
 Ancestral graphs after marginalization and conditioning.
 
-### Method
+### Required arguments
 ```julia
-ancestral_graph(
-* `d::DAG`                             : DAG object
-* `m::Vector{Symbol}`                  : Nodes in DAG that ar marginalized
-* `c::Vector{Symbol})`                 : Nodes in DAG there are conditioned on
-)
+* `d::DAG`                             : DAG onject
 ```
+
+### Optional arguments
+```julia
+* `m::Vector{Symbol}`                  : Nodes in DAG that are marginalized
+* `c::Vector{Symbol})`                 : Nodes in DAG there are conditioned on
+```
+
 
 ### Returns
 ```julia
 * `ag::NamedTuple`                     : Ancestral graph remaining
 ```
 """
-function ancestral_graph(d::DAG, m::Vector{Symbol}, c::Vector{Symbol})
-  ancestral_graph(d.a, m, c)
+function ancestral_graph(d::DAG; m=Symbol[], c=Symbol[])
+  ancestral_graph(d.a; m=m, c=c)
 end
 
 export

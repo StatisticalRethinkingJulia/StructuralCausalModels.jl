@@ -33,13 +33,13 @@ dag = DAG("ag_example", a)
 m = [:n3, :n5, :n6, :n15, :n16];
 c = [:n4, :n7];
 
-fr = StructuralCausalModels.test_ag(a, m, c)
+fr = StructuralCausalModels.test_ag(a; m=m, c=c)
 
-fr1 = ancestral_graph(a, m, c)
+fr1 = ancestral_graph(a; m=m, c=c)
 @test all(fr .== fr1)
 
-fr2 = StructuralCausalModels.test_ag(dag.a, m, c)
-@test all(fr .== fr2)
+fr2 = StructuralCausalModels.test_ag(dag.a; m=m, c=c)
+@test all(fr .== fr2);
 
 println()
 display(fr)

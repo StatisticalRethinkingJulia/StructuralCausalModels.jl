@@ -1,6 +1,16 @@
 using StructuralCausalModels
 
-df = CSV.read(scm_path("..", "data", "marks.csv"));
+ProjDir = @__DIR__
+cd(ProjDir) #do
+
+derived_df = CSV.read(scm_path("..", "data", "derived.csv"));
+
+df = DataFrame(
+  :y => log.(derived_df.Sys ./ derived_df.Dia),
+  :x => log.(derived_df.Dia),
+  :z => derived_df.Wei ./ (derived_df.Hei / 100).^2,
+  :w => derived_df.Age
+  )
 
 R_cov = "
 
@@ -16,28 +26,31 @@ Wei  27.494715 33.118393  60.609937 24.834038 113.66808
 # A DAG model with a latent variable U
 # G = DAG(Y ~ Z + U, X ~ U + W, Z ~ W)
 
-# Adjacency matrix
+d = OrderedDict(
+  :y => [:z, :u],
+  :x => [:u, :w],
+  :z => [:w]
+)
 
-R_adj_m = "
-   y1 y2 y6 y3 y5 y4
-y1  0  0  0  0  0  0
-y2  1  0  0  0  0  0
-y6  1  0  0  1  0  1
-y3  0  1  0  0  0  0
-y5  0  0  0  1  0  1
-y4  0  0  0  0  0  0
-"
+dag = DAG("ggm-derived", d)
 
-# Edge matrix
+fname = ProjDir * "/derived.dot"
+Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
-R_edge_m = "
-edgematrix(d)
-   y1 y2 y6 y3 y5 y4
-y1  1  1  1  0  0  0
-y2  0  1  0  1  0  0
-y6  0  0  1  0  0  0
-y3  0  0  1  1  1  0
-y5  0  0  0  0  1  0
-y4  0  0  1  0  1  1
-"
+println("Definition of DAG:")
+display(dag)
 
+println("Adjacency matrix:")
+display(dag.a)
+
+println("ancestral graph:")
+ag = ancestral_graph(dag; m=[:u])
+display(ag)
+
+println()
+StructuralCausalModels.set_dag_df!(dag, df; force=true)
+display(dag.s)
+
+println()
+bs = basis_set(dag)
+display(bs)

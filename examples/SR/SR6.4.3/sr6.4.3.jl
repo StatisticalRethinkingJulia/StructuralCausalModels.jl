@@ -32,7 +32,8 @@ show(dag)
 
 display(dag.s); println()
 
-bs = StructuralCausalModels.basis_set(dag)
+println("Basis set:")
+bs = basis_set(dag)
 display(bs); println()
 
 t = shipley_test(dag)
@@ -42,10 +43,10 @@ f = [:w]; s = [:d]; sel = vcat(f, s)
 cond = [:m, :a]
 
 e = d_separation(dag, f, s, cond)
-println("d_separation($(dag.name), $f, $s, $cond) = $e")
+println("d_separation($(dag.name), $f, $s, $cond) = $e\n")
 
 adjustmentsets = adjustment_sets(dag, :w, :d)
-println("Adjustment sets for: $(openpaths)")
+println("Adjustment sets:")
 adjustmentsets |> display
 
 #end

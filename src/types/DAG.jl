@@ -14,7 +14,7 @@ Directed acyclic graph struct
 ```julia
 DAG(
 * `name::AbstractString`                    : Variables used to compute correlation
-* `d::OrderedDictOrNothing`                 : DAG definition aas a Dict
+* `d::OrderedDictOrNothing`                 : DAG definition as a Dict
 * `a::NamedArrayOrNothing`                  : Adjacency matrix
 * `e::NamedArrayOrNothing`                  : Edge matric
 * `s::NamedArrayOrNothing`                  : Covariance matrix
@@ -45,13 +45,15 @@ Directed acyclic graph constructor
 
 $(SIGNATURES)
 
-### Method
+### Required arguments
 ```julia
-DAG(
 * `name::AbstractString`                    : Variables used to compute correlation
 * `d::OrderedDict{Symbol, Vector{Symbol}}`  : DAG definition aas a Dict
-* `df::DataFrame`                           : Variable observations
-)
+```
+
+### Optional arguments
+```julia
+* `df::DataFrame`                           : DataFrame with observations
 ```
 
 ### Returns
@@ -108,6 +110,16 @@ function DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}}, df::D
 
 end
 
+function DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}})
+
+  vars = dag_vars(d)
+  a = adjacency_matrix(d)
+  e = edge_matrix(d)
+
+  DAG(name, d, a, e, nothing, nothing, vars)
+end
+
+
 """
 
 # DAG
@@ -116,7 +128,7 @@ Directed acyclic graph constructor
 
 $(SIGNATURES)
 
-### Method
+### Required arguments
 ```julia
 DAG(
 * `name::AbstractString`                    : Variables used to compute correlation

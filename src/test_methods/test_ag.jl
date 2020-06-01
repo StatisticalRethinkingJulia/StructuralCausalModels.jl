@@ -1,4 +1,4 @@
-function test_ag(a::NamedArray, m::Vector{Symbol}, c::Vector{Symbol}, debug=true)
+function test_ag(a::NamedArray; m=Symbol[], c=Symbol[], debug=true)
 
   function show_differences(res)
     if length(res) > 0
@@ -157,8 +157,8 @@ function test_ag(a::NamedArray, m::Vector{Symbol}, c::Vector{Symbol}, debug=true
   fr
 end
 
-function test_ag(d::DAG, m::Vector{Symbol}, c::Vector{Symbol}, debug=true)
-  test_ag(d.a, m, c, debug)
+function test_ag(d::DAG; m=Symbol[], c=Symbol[], debug=true)
+  test_ag(d.a; m=m, c=c, debug=debug)
 end
 
 

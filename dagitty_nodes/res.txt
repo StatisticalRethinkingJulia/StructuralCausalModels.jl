@@ -1,0 +1,8 @@
+Welcome to Node.js v12.13.1.
+Type ".help" for more information.
+> Thrown:
+[200~println(inf, "a = 6;")[201~
+^
+
+SyntaxError: Invalid or unexpected token
+> > 

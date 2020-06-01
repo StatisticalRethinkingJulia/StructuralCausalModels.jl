@@ -8,6 +8,7 @@ end
 
 function blocking_sets(asets::Array{Array{Symbol,1},1})
   result_sets = Vector{Symbol}[]
+  #println(asets)
   syms = union(asets...)
   reduced_syms = deepcopy(syms)
   for sym in syms
@@ -45,7 +46,11 @@ function adjustment_sets(d::DAG, f::Symbol, l::Symbol, u::Vector{Symbol})
     setdiff!(aset, [path[end]])
     push!(asets, aset)
   end
-  blocking_sets(asets)
+  if length(asets) > 0
+    return blocking_sets(asets)
+  else
+    return asets
+  end
 end
 
 function adjustment_sets(d::DAG, f::Symbol, l::Symbol)
@@ -60,7 +65,11 @@ function adjustment_sets(d::DAG, f::Symbol, l::Symbol)
     setdiff!(aset, [path[end]])
     push!(asets, aset)
   end
-  blocking_sets(asets)
+  if length(asets) > 0
+    return blocking_sets(asets)
+  else
+    return asets
+  end
 end
 
 export
