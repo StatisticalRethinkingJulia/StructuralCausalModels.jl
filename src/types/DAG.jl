@@ -1,9 +1,5 @@
 import Base.show
 
-OrderedDictOrNothing = Union{OrderedDict, Nothing}
-NamedArrayOrNothing = Union{NamedArray, Nothing}
-DataFrameOrNothing = Union{DataFrame, Nothing}
-
 """
 
 # DAG
@@ -47,18 +43,18 @@ $(SIGNATURES)
 
 ### Required arguments
 ```julia
-* `name::AbstractString`                    : Variables used to compute correlation
-* `d::OrderedDict{Symbol, Vector{Symbol}}`  : DAG definition aas a Dict
+* `name::AbstractString`                         : Variables used to compute correlation
+* `d::OrderedDict{Symbol, SymbolVectorOrSymbol}` : DAG definition aas a Dict
 ```
 
 ### Optional arguments
 ```julia
-* `df::DataFrame`                           : DataFrame with observations
+* `df::DataFrame`                                : DataFrame with observations
 ```
 
 ### Returns
 ```julia
-* `res::DAG`                                : Boolean result of test
+* `res::DAG`                                     : Boolean result of test
 ```
 # Extended help
 
@@ -69,6 +65,18 @@ $(SIGNATURES)
 using StructuralCausalModels, CSV
 
 df = CSV.read(scm_path("..", "data", "marks.csv");
+
+# Create a Dict describing the DAG
+
+# Read `=>` as `~` in regression models or `<-` in causal models, e.g.
+# fig2.6.dag <- dagitty("dag { {X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}”)
+# fig2.6.ggm <- DAG(U~X+V, S1~U, W~V+Y, S2~W, order=FALSE)
+# d = OrderedDict(
+#   :u => [:x, :v],
+#   :s1 => [:u],
+#   :w => [:v, :y],
+#   :s2 => [:w]
+# );
 
 d = OrderedDict(
   :mechanics => [:vectors, :algebra],

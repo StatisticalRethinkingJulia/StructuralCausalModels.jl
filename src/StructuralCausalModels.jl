@@ -25,9 +25,13 @@ scm_path("..", "data")
 scm_path(parts...) = normpath(joinpath(scm_src_path, parts...))
 
 SymbolList = Union{Nothing, Symbol, Vector{Symbol}}
+OrderedDictOrNothing = Union{OrderedDict, Nothing}
+NamedArrayOrNothing = Union{NamedArray, Nothing}
+DataFrameOrNothing = Union{DataFrame, Nothing}
 
 include("types/DAG.jl")
 include("types/Path.jl")
+include("types/ConditionalIndependence.jl")
 include("methods/dag_methods.jl")
 include("methods/basis_set.jl")
 include("methods/shipley_test.jl")

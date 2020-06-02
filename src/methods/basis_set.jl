@@ -29,7 +29,7 @@ function basis_set(dag::DAG)
       append!(ind, [ed])
     end
   end
-  ind
+  BasisSet(ind)
 end
 
 export

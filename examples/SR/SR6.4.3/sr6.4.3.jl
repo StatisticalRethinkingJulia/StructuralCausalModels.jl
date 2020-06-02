@@ -39,7 +39,7 @@ display(bs); println()
 t = shipley_test(dag)
 display(t); println()
 
-f = [:w]; s = [:d]; sel = vcat(f, s)
+f = [:w]; s = [:d];
 cond = [:m, :a]
 
 e = d_separation(dag, f, s, cond)
