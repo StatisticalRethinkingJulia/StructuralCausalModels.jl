@@ -6,18 +6,30 @@ $(SIGNATURES)
 
 Internal
 """
-function dag_vars(d::OrderedDict{Symbol, Vector{Symbol}})
-  vars = []
+function dag_vars(d::OrderedDict)
+  vars = Symbol[]
   for var in keys(d)
-    append!(vars, [var])
-    for rhsvar in d[var]
-      if !(rhsvar in vars)
-        append!(vars, [rhsvar])
-        
-      end
+    if isnothing(var)
+      @warn "LHS can't be ampty set: $var."
+    elseif typeof(var) == Symbol
+      append!(vars, [var])
+      handle_rhs!(vars, d[var])
+    elseif typeof(var) == Vector{Symbol}
+      append!(vars, var)
+      handle_rhs!(vars, d[var])
     end
   end
   unique(vars)
+end
+
+function handle_rhs!(vars::Vector{Symbol}, rhs::SymbolList)
+  if isnothing(var)
+    append!(vars, [])
+  elseif typeof(rhs) == Symbol
+    append!(vars, [rhs])
+  elseif typeof(rhs) == Vector{Symbol}
+    append!(vars, rhs)
+  end
 end
 
 """
@@ -28,21 +40,43 @@ $(SIGNATURES)
 
 Internal
 """
-function edge_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
+function edge_matrix(d::OrderedDict)
   vars = dag_vars(d)
   l = length(vars)
-  a = zeros(l, l)
-  for (ind, var) in enumerate(vars)
-    if !(var in keys(d))
-      a[ind, :] = zeros(Int, l)
-    else
-      v = zeros(Int, l)
-      for (i, vr) in enumerate(vars)
-        if vr in d[var]
-          v[i] = 1
+  a = zeros(Int, l, l)
+
+  for key in keys(d)
+    if typeof(key) == Symbol
+      for (ind, var) in enumerate(vars)
+        # Is this Symbol the LHS
+        if var == key
+          # What's in the RHS
+          for (i, vr) in enumerate(vars)
+            if typeof(d[key]) == Symbol
+              a[ind, i] += vr == d[key] ? 1 : 0
+            elseif typeof(d[key]) == Vector{Symbol}
+              if vr in d[key]
+                a[ind, i] += 1
+              end
+            end
+          end
         end
       end
-      a[ind, :] = v
+    elseif typeof(key) == Vector{Symbol}
+      for (ind, var) in enumerate(vars)
+        # Are these Symbols (key could hold a single Symbol) the LHS
+        if var in key
+          for (i, vr) in enumerate(vars)
+            if typeof(d[key]) == Symbol
+              a[ind, i] += vr == d[key] ? 1 : 0
+            elseif typeof(d[key]) == Vector{Symbol}
+              if vr in d[key]
+                a[ind, i] += 1
+              end
+            end
+          end
+        end
+      end
     end
   end
   NamedArray(Int.(a), (vars, vars), ("Rows", "Cols"))

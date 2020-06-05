@@ -1,4 +1,4 @@
-import Base: show, getindex, iterate, HasLength, HasEltype
+import Base: show, getindex, iterate, HasLength, HasEltype, length
 
 #=
 println("\u2561\u255E")
@@ -28,8 +28,14 @@ function ci_show(io::IO, ci::ConditionalIndependency)
   if isnothing(ci.c)
     println("$(ci.f) \u2210 $(ci.s)")
   else
-    println("$(ci.f) \u2210 $(ci.s) ∣ $(ci.c)")
+    println("$(ci.f) \u2210 $(ci.s) | $(ci.c)")
    end 
+end
+
+function append(c::ConditionalIndependency)
+  v = [c.f, c.s]
+  length(c.c) > 0 && push!(v, c.c...)
+  v
 end
 
 show(io::IO, ci::ConditionalIndependency) = ci_show(io, ci)
@@ -50,6 +56,8 @@ getindex(b::BasisSet, i::Int) = b.bs[i]
 HasLength(b::BasisSet) = length(b.bs)
 
 HasEltype(b::BasisSet) = eltype(b.bs)
+
+length(b::BasisSet) = length(b.bs)
 
 function bs_show(io::IO, bs::BasisSet)
   println("BasisSet[")

@@ -44,7 +44,12 @@ $(SIGNATURES)
 ### Required arguments
 ```julia
 * `name::AbstractString`                         : Variables used to compute correlation
-* `d::OrderedDict{Symbol, SymbolVectorOrSymbol}` : DAG definition aas a Dict
+* `d::OrderedDict{SymbolList, SymbolList}`       : DAG definition as a Dict
+```
+
+where
+```julia
+SymbolList = Union{Nothing, Symbol, Vector{Symbol}}
 ```
 
 ### Optional arguments
@@ -77,6 +82,16 @@ df = CSV.read(scm_path("..", "data", "marks.csv");
 #   :w => [:v, :y],
 #   :s2 => [:w]
 # );
+#
+# The same DAG could also be specified as:
+#
+# d =OrderedDict{SymbolList, SymbolList}(
+#   [:u, :w] => :v,
+#   [:u] => :x,
+#   :s1 => [:u],
+#   :w => :y,
+#   [:s2] => [:w]
+# )
 
 d = OrderedDict(
   :mechanics => [:vectors, :algebra],
@@ -101,7 +116,7 @@ The Julia translation is licenced under: MIT.
 
 Part of API, exported.
 """
-function DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}}, df::DataFrame)
+function DAG(name::AbstractString, d::OrderedDict, df::DataFrame)
 
   vars = dag_vars(d)
   a = adjacency_matrix(d)

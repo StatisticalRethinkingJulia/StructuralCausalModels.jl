@@ -45,6 +45,9 @@ include("methods/adjustment_sets.jl")
 include("methods/ancestral_graph.jl")
 
 include("utils/show_dag_path.jl")
+include("utils/ggm_conversions.jl")
+include("utils/dagitty_conversions.jl")
+include("utils/graphviz_conversions.jl")
 
 include("test_methods/test_ag.jl")
 

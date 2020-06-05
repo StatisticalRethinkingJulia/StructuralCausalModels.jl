@@ -55,4 +55,15 @@ println("d_separation($(dag.name), $f, $s) == $g4"), [:s1]
 g4 = d_separation(dag, f, s, [:v])
 println("d_separation($(dag.name), $f, $s, [:v]) == $g4\n")
 
+f = [:u]; s = [:w]
+g4 = d_separation(dag, f, s)
+println("d_separation($(dag.name), $f, $s) == $g4"), [:s1]
+g4 = d_separation(dag, f, s, [:v])
+println("d_separation($(dag.name), $f, $s, [:v]) == $g4\n")
+
+b = basis_set(dag)
+b[1] |> display
+b[5] |> display
+show(b)
+
 #end
