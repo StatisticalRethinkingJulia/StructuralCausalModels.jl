@@ -15,7 +15,7 @@ const scm_src_path = @__DIR__
 
 # scm_path
 
-Relative path using the StatisticalRethinking src/ directory.
+Relative path using the StructuralCausalModels.jl src/ directory.
 
 ### Example to get access to the data subdirectory
 ```julia
@@ -32,6 +32,7 @@ DataFrameOrNothing = Union{DataFrame, Nothing}
 include("types/DAG.jl")
 include("types/Path.jl")
 include("types/ConditionalIndependence.jl")
+
 include("methods/dag_methods.jl")
 include("methods/basis_set.jl")
 include("methods/shipley_test.jl")

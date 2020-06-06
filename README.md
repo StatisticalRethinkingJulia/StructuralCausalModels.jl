@@ -24,15 +24,15 @@ StructuralCausalModels.jl is not (yet?) registered. You can install it as:
 
 A lot!
 
-1. Provide methods to generate Dagitty, GraphViz and LightGraph plots from the DAG model.
-2. Investigate other ways to represent a DAG (vs. the current Dict formulation).
+1. GraphViz (and LightGraph?) plots from the DAG model.
+2. @DAG (vs. the current Dict formulation).
 3. Method `adjustment_sets(dag, paths)` - options for conditioning
 4. Method `impliedConditionalIndependencies()`
-5. Investigate Lightgraphs.jl to display the DAGs.
-6. Documentation
-7. Interoperability methods with Dagitty and ggm.
-8. More mixed graph functions.
-9. ...
+7. Other mixed graphs based on Sadeghi work for ggm
+8. Documentation
+9. Tests
+10. ...
+
 
 More testing:
 
@@ -40,6 +40,7 @@ More testing:
 2. Method `backdoor_paths(dag, paths, :x)` - which are backdoor paths to :x?
 3. Method `open_paths(dag, paths)` - which paths are open?
 4. Method `show_dag_path(dag, path)` - show path directions using arrows
+5. Dagitty & ggm conversion routines
 6. ...
 
 # Versions
@@ -47,7 +48,6 @@ More testing:
 ## 0.1.0
 
 1. Initial commit to Julia's registry.
-
 
 # Acknowledgements
 

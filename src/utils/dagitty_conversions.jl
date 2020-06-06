@@ -35,8 +35,7 @@ function split_and_insert!(f, t, s)
   @assert length(new_t) == 2length(indx)
   j = 1
   for i in 1:2:length(new_t)
-    new_expr =  "$(new_t[i]) $(s[indx[j].start]) $(new_t[i+1])"
-    push!(f, new_expr)
+    push!(f, "$(new_t[i]) $(s[indx[j].start]) $(new_t[i+1])")
     j += 1
   end
 end
