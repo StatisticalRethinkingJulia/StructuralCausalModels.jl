@@ -10,7 +10,7 @@ function dag_vars(d::OrderedDict)
   vars = Symbol[]
   for var in keys(d)
     if isnothing(var)
-      @warn "LHS can't be ampty set: $var."
+      @warn "LHS can't be an empty set: $var."
     elseif typeof(var) == Symbol
       append!(vars, [var])
       handle_rhs!(vars, d[var])
@@ -108,7 +108,7 @@ $(SIGNATURES)
 
 Internal
 """
-function adjacency_matrix(d::OrderedDict{Symbol, Vector{Symbol}})
+function adjacency_matrix(d::OrderedDict)
   transpose(edge_matrix(d))
 end
 

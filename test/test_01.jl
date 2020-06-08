@@ -5,10 +5,6 @@ cd(ProjDir) #do
 
 # Experiments with unicode symbols, replacements for e.g. _||_
 
-println("\u2561\u255E")
-println("\u2550\u2550")
-println("\u21d0 \u21d1 \u21d2 \u27f9   \u21e2")
-
 N = 100
 b_AU = 0.5
 b_AC = 3

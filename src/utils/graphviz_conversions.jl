@@ -5,9 +5,9 @@ function to_graphviz(d::DAG, file::AbstractString)
   write(io, "digraph $(d.name) {\n")
   vars = names(gs, 1)
   for var in vars
-    for (ind, entry) in enumerate(gs[var, :])
+    for (ind, entry) in enumerate(gs[:, var])
       if entry == 1
-        write(io, "  $(var) -> $(vars[ind])\n")
+        write(io, "  $(vars[ind]) -> $(var);\n")
       end
     end
   end

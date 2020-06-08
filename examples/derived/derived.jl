@@ -1,3 +1,5 @@
+# This example came from the R package ggm.
+
 using StructuralCausalModels
 
 ProjDir = @__DIR__
@@ -26,15 +28,19 @@ Wei  27.494715 33.118393  60.609937 24.834038 113.66808
 # A DAG model with a latent variable U
 # G = DAG(Y ~ Z + U, X ~ U + W, Z ~ W)
 
-d = OrderedDict(
+d = from_ggm("DAG(Y ~ Z + U, X ~ U + W, Z ~ W)")
+display(d)
+
+d1 = OrderedDict(
   :y => [:z, :u],
   :x => [:u, :w],
   :z => [:w]
 )
 
-dag = DAG("ggm-derived", d)
+dag = DAG("ggm_derived", d)
 
 fname = ProjDir * "/derived.dot"
+to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 println("Definition of DAG:")

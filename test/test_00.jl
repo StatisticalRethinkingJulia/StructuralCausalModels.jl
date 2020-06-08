@@ -5,10 +5,6 @@ cd(ProjDir) #do
 
 # Experiments with unicode symbols, replacements for e.g. _||_
 
-println("\u2561\u255E")
-println("\u2550\u2550")
-println("\u21d0 \u21d1 \u21d2 \u27f9   \u21e2")
-
 N = 100
 b_AU = 0.5
 b_AC = 3
@@ -28,7 +24,7 @@ df[!, :x] = rand(Normal(-2, 1), N) + b_UX * df[:, :u]
 df[!, :y] = rand(Normal(1, 2), N) + b_XY * df[:, :x] + b_CY * df[:, :c]
 
 fname = scm_path("..", "examples", "SR", "SR6.4.2", "sr6.4.2.dot")
-!isdefined(Main, :Test) && Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 d = OrderedDict(
   :x => [:y],
@@ -38,8 +34,20 @@ d = OrderedDict(
 );
 u = [:u]
 
-dag = DAG("sr6.4.2", d, df);
+d = OrderedDict(
+  :y => [:c, :x],
+  :b => [:c, :u],
+  :x => :u,
+  :c => :a,
+  :u => :a
+  )
+
+dag = DAG("sr6_4_2", d, df);
 show(dag)
+
+fn = "test_00.dot"
+to_graphviz(dag, fn)
+Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 
 basisset = StructuralCausalModels.basis_set(dag)
 println("Basis_set:")

@@ -1,3 +1,5 @@
+# This example came from the R package ggm.
+
 using StructuralCausalModels
 
 ProjDir = @__DIR__
@@ -16,17 +18,26 @@ analysis           0       0       0          1        0
 ";
 =#
 
-d = OrderedDict(
+d1 = OrderedDict(
   :mechanics => [:vectors, :algebra],
   :vectors => [:algebra],
   :analysis => [:algebra],
   :statistics => [:algebra, :analysis]
 );
 
+d = from_ggm("DAG(
+    mechanics ~ vectors+algebra, 
+    vectors ~ algebra, 
+    statistics ~ algebra+analysis, 
+    analysis ~ algebra)"
+)
+display(d)
+
 dag = DAG("marks", d, df);
 show(dag)
 
 fname = ProjDir * "/marks.dot"
+to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
@@ -37,9 +48,7 @@ display(ord); println()
 display(dag.vars[ord]); println()
 =#
 
-# basis_set() not exported
-
-bs = StructuralCausalModels.basis_set(dag)
+bs = basis_set(dag)
 display(bs); println()
 
 t = shipley_test(dag)

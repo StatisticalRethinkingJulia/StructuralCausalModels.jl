@@ -1,0 +1,26 @@
+digraph unix {
+  HOS -> EGC;
+  DET -> PER;
+  EGC -> FTW;
+  DET -> FTW;
+  HOS -> SUS;
+  EGC -> SUS;
+  FTW -> SUS;
+  DET -> CDR;
+  DET -> ALN;
+  PER -> ALN;
+  FTW -> ALN;
+  SUS -> ALN;
+  APA -> ALN;
+  CDR -> AFF;
+  APA -> AFF;
+  ALN -> AFF;
+  EGC -> AIS;
+  SUS -> AIS;
+  AFF -> AIS;
+  CDR -> SAN;
+  APA -> SAN;
+  ALN -> SAN;
+  AFF -> SAN;
+  AIS -> SAN;
+}

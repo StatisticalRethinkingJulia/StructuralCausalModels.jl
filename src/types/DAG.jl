@@ -133,7 +133,7 @@ function DAG(name::AbstractString, d::OrderedDict, df::DataFrame)
 
 end
 
-function DAG(name::AbstractString, d::OrderedDict{Symbol, Vector{Symbol}})
+function DAG(name::AbstractString, d::OrderedDict)
 
   vars = dag_vars(d)
   a = adjacency_matrix(d)

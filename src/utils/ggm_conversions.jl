@@ -1,5 +1,6 @@
 function from_ggm(d::AbstractString; tolowercase=true)
   str = replace(strip(d), " " => "")
+  str = replace(str, "\n" => "")
   startp = findall("(", str)
   endp = findall(")", str)
   orderp = findall("order", str)

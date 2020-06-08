@@ -1,0 +1,7 @@
+digraph ggm_derived {
+  w -> z;
+  w -> x;
+  u -> x;
+  z -> y;
+  u -> y;
+}

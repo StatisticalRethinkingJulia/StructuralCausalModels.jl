@@ -29,8 +29,8 @@ dag = DAG("ex_11", a)
 
 try
   set_dag_df!(dag, DataFrame())
-catch e
-  println(e)
+catch ex
+  println(ex)
 end
 
 set_dag_df!(dag, nothing)
