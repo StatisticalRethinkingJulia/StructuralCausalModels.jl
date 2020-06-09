@@ -3,7 +3,7 @@
 using StructuralCausalModels
 
 ProjDir = @__DIR__
-cd(ProjDir) #do
+cd(ProjDir)
 
 df = CSV.read(scm_path("..", "data", "marks.csv"));
 
@@ -26,13 +26,16 @@ d = from_ggm("DAG(
 )
 display(d)
 
+# DAG accepts either an OrderedDict, an adjacency_matrix or a ggm/dagitty string.
+# Below d_string holds a ggm DAG definition.
+
 d_string = "DAG(
     mechanics ~ vectors+algebra, 
     vectors ~ algebra, 
     statistics ~ algebra+analysis, 
     analysis ~ algebra)"
 
-dag = DAG("marks", d, df);
+dag = DAG("marks", d_string, df);
 show(dag)
 
 fname = ProjDir * "/marks.dot"

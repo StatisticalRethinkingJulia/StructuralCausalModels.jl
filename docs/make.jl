@@ -7,7 +7,7 @@ page_list = Array{Pair{String, Any}, 1}();
 append!(page_list, [Pair("Introduction", "introduction.md")]);
 append!(page_list, [Pair("Walkthrough", "walkthrough.md")]);
 append!(page_list, [Pair("Versions", "versions.md")]);
-append!(page_list, [Pair("Acknowledgements", "ackmowledgements.md")]);
+append!(page_list, [Pair("Acknowledgements", "acknowledgements.md")]);
 append!(page_list, [Pair("References", "references.md")]);
 append!(page_list, [Pair("StructuralCausalModels API", "index.md")]);
 
