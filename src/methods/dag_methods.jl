@@ -53,10 +53,10 @@ function edge_matrix(d::OrderedDict)
           # What's in the RHS
           for (i, vr) in enumerate(vars)
             if typeof(d[key]) == Symbol
-              a[ind, i] += vr == d[key] ? 1 : 0
+              a[i, ind] += vr == d[key] ? 1 : 0
             elseif typeof(d[key]) == Vector{Symbol}
               if vr in d[key]
-                a[ind, i] += 1
+                a[i, ind] += 1
               end
             end
           end
@@ -68,10 +68,10 @@ function edge_matrix(d::OrderedDict)
         if var in key
           for (i, vr) in enumerate(vars)
             if typeof(d[key]) == Symbol
-              a[ind, i] += vr == d[key] ? 1 : 0
+              a[i, ind] += vr == d[key] ? 1 : 0
             elseif typeof(d[key]) == Vector{Symbol}
               if vr in d[key]
-                a[ind, i] += 1
+                a[i, ind] += 1
               end
             end
           end
@@ -177,7 +177,7 @@ function topological_order(a::NamedArray)
       indeg[k] == 0 && push!(zero_indeg, k)
     end
   end
-  ord
+  reverse(ord)
 end
 
 """
@@ -192,3 +192,10 @@ function topological_sort(a::NamedArray)
   ord = topological_order(a)
   a[ord, ord]
 end
+
+export
+  dag_vars,
+  adjacency_matric,
+  edge_matrix,
+  topological_sort,
+  topological_order

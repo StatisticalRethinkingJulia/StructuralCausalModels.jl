@@ -18,13 +18,6 @@ analysis           0       0       0          1        0
 ";
 =#
 
-d1 = OrderedDict(
-  :mechanics => [:vectors, :algebra],
-  :vectors => [:algebra],
-  :analysis => [:algebra],
-  :statistics => [:algebra, :analysis]
-);
-
 d = from_ggm("DAG(
     mechanics ~ vectors+algebra, 
     vectors ~ algebra, 
@@ -32,6 +25,12 @@ d = from_ggm("DAG(
     analysis ~ algebra)"
 )
 display(d)
+
+d_string = "DAG(
+    mechanics ~ vectors+algebra, 
+    vectors ~ algebra, 
+    statistics ~ algebra+analysis, 
+    analysis ~ algebra)"
 
 dag = DAG("marks", d, df);
 show(dag)

@@ -23,15 +23,9 @@ df[!, :b] = rand(Normal(1, 1), N) + b_UB * df[:, :u]
 df[!, :x] = rand(Normal(-2, 1), N) + b_UX * df[:, :u]
 df[!, :y] = rand(Normal(1, 2), N) + b_XY * df[:, :x] + b_CY * df[:, :c]
 
-fname = scm_path("..", "examples", "SR", "SR6.4.2", "sr6.4.2.dot")
-Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+#fname = scm_path("..", "examples", "SR", "SR6.4.2", "sr6.4.2.dot")
+#Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
-d = OrderedDict(
-  :x => [:y],
-  :a => [:c, :u],
-  :c => [:y, :b],
-  :u => [:x, :b]
-);
 u = [:u]
 
 d = OrderedDict(
@@ -45,7 +39,9 @@ d = OrderedDict(
 dag = DAG("sr6_4_2", d, df);
 show(dag)
 
-fn = "test_00.dot"
+display(dag.a)
+
+fn = "sr6_4_2.dot"
 to_graphviz(dag, fn)
 Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 
@@ -67,6 +63,10 @@ println()
 openpaths = open_paths(dag, backdoorpaths)
 println("All open (backdoor) paths between :x and :y:")
 openpaths |> display
+println()
+
+println("Show path: $(allpaths[1])")
+show_dag_path(dag, allpaths[1]) |> display
 println()
 
 println("Show path: $(allpaths[2])")

@@ -24,20 +24,9 @@ Hei  -2.415433 -4.371036  -8.497357 32.335624  24.83404
 Wei  27.494715 33.118393  60.609937 24.834038 113.66808
 ";
 
-
 # A DAG model with a latent variable U
 # G = DAG(Y ~ Z + U, X ~ U + W, Z ~ W)
-
-d = from_ggm("DAG(Y ~ Z + U, X ~ U + W, Z ~ W)")
-display(d)
-
-d1 = OrderedDict(
-  :y => [:z, :u],
-  :x => [:u, :w],
-  :z => [:w]
-)
-
-dag = DAG("ggm_derived", d)
+dag = DAG("ggm_derived", "DAG(Y ~ Z + U, X ~ U + W, Z ~ W)")
 
 fname = ProjDir * "/derived.dot"
 to_graphviz(dag, fname)

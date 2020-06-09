@@ -30,6 +30,5 @@ println("Adjustment sets:\n")
 adjustmentsets |> display
 
 c = [:s]
-m = Symbol[]
-ag = ancestral_graph(dag, m, c)
+ag = ancestral_graph(dag; c=c)
 ag |> display

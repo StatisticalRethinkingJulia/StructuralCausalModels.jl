@@ -28,3 +28,6 @@ g3 |> display
 
 g4 = to_ggm(d3, order=true)
 g4 |> display
+
+dag = DAG("ggm_1", ggm_1)
+dag |> display

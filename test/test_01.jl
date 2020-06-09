@@ -24,15 +24,19 @@ df[!, :x] = rand(Normal(-2, 1), N) + b_UX * df[:, :u]
 df[!, :y] = rand(Normal(1, 2), N) + b_XY * df[:, :x] + b_CY * df[:, :c]
 
 d = OrderedDict(
-  :x => [:y],
-  :a => [:c, :u],
-  :c => [:y, :b],
-  :u => [:x, :b]
+  :y => [:x],
+  [:c, :u] => :a,
+  [:y, :b] => :c,
+  [:x, :b] => :u
 );
 u = [:u]
 
-dag = DAG("sr6.4.2", d, df);
+dag = DAG("sr6_4_2", d, df);
 show(dag)
+
+fn = "sr6_4_2.dot"
+to_graphviz(dag, fn)
+Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 
 adjustmentsets = adjustment_sets(dag, :x, :y, u)
 println("Adjustment sets:")

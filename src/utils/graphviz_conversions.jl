@@ -7,7 +7,7 @@ function to_graphviz(d::DAG, file::AbstractString)
   for var in vars
     for (ind, entry) in enumerate(gs[:, var])
       if entry == 1
-        write(io, "  $(vars[ind]) -> $(var);\n")
+        write(io, "  $(var) -> $(vars[ind]);\n")
       end
     end
   end

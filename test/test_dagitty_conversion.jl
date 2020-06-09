@@ -39,3 +39,6 @@ d4 =OrderedDict(
 
 g4 = to_dagitty(d4)
 g4 |> display
+
+dag = DAG("dag_1", dag_1)
+dag |> display

@@ -9,12 +9,12 @@ Directed acyclic graph struct
 ### Struct
 ```julia
 DAG(
-* `name::AbstractString`                    : Variables used to compute correlation
-* `d::OrderedDictOrNothing`                 : DAG definition as a Dict
+* `name::AbstractString`                    : A name for the DAG object
+* `d::OrderedDictOrNothing`                 : DAG definition as an OrderedDict
 * `a::NamedArrayOrNothing`                  : Adjacency matrix
-* `e::NamedArrayOrNothing`                  : Edge matric
-* `s::NamedArrayOrNothing`                  : Covariance matrix
-* `df::DataFrameOrNothing`                  : Variable observations
+* `e::NamedArrayOrNothing`                  : Edge matrix
+* `s::NamedArrayOrNothing`                  : Covariance matrix (optional)
+* `df::DataFrameOrNothing`                  : Variable observations (optional)
 * `vars::Vector{Symbol}`                    : Names of variables
 )
 ```
@@ -43,65 +43,53 @@ $(SIGNATURES)
 
 ### Required arguments
 ```julia
-* `name::AbstractString`                         : Variables used to compute correlation
-* `d::OrderedDict{SymbolList, SymbolList}`       : DAG definition as a Dict
+* `name::AbstractString`               : Variables used to compute correlation
+* `d`                                  : DAG definition as an
+                                           OrderedDict (see extended help)
+                                           AbstractString (as in ggm or dagitty)
+                                           AdjacencyMatrix
 ```
 
-where
+### Optional positional argument
 ```julia
-SymbolList = Union{Nothing, Symbol, Vector{Symbol}}
-```
-
-### Optional arguments
-```julia
-* `df::DataFrame`                                : DataFrame with observations
+* `df::DataFrame`                      : DataFrame with observations
 ```
 
 ### Returns
 ```julia
-* `res::DAG`                                     : Boolean result of test
+* `dag::DAG`                           : Boolean result of test
 ```
+
 # Extended help
 
-### Example
-
-### Define and create a DAG
+In the definition of the OrderedDict, read `=>` as `~` in regression models
+or `<-` in causal models, e.g.
 ```julia
-using StructuralCausalModels, CSV
-
-df = CSV.read(scm_path("..", "data", "marks.csv");
-
-# Create a Dict describing the DAG
-
-# Read `=>` as `~` in regression models or `<-` in causal models, e.g.
-# fig2.6.dag <- dagitty("dag { {X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}”)
-# fig2.6.ggm <- DAG(U~X+V, S1~U, W~V+Y, S2~W, order=FALSE)
-# d = OrderedDict(
-#   :u => [:x, :v],
-#   :s1 => [:u],
-#   :w => [:v, :y],
-#   :s2 => [:w]
-# );
-#
-# The same DAG could also be specified as:
-#
-# d =OrderedDict{SymbolList, SymbolList}(
-#   [:u, :w] => :v,
-#   [:u] => :x,
-#   :s1 => [:u],
-#   :w => :y,
-#   [:s2] => [:w]
-# )
-
 d = OrderedDict(
-  :mechanics => [:vectors, :algebra],
-  :vectors => [:algebra],
-  :analysis => [:algebra],
-  :statistics => [:algebra, :analysis]
+  :u => [:x, :v],
+  :s1 => [:u],
+  :w => [:v, :y],
+  :s2 => [:w]
 );
-
-dag = DAG("marks", d, df);
+dag = DAG("my_name", d)
 ```
+
+Coming from R's dagitty:
+
+amat <- dagitty("dag { {X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}”)
+```julia
+dag = DAG("my_name", "dag { {X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}”)
+display(dag.a) # Show the adjacency_matrix
+```
+
+Coming from R's ggm:
+
+amat <- DAG(U~X+V, S1~U, W~V+Y, S2~W, order=FALSE)
+```julia
+dag = DAG("my_name", "DAG(U~X+V, S1~U, W~V+Y, S2~W”)
+display(dag.a) # Show the adjacency_matrix
+```
+
 ### Acknowledgements
 
 Original author:                       Giovanni M. Marchetti
@@ -143,27 +131,23 @@ function DAG(name::AbstractString, d::OrderedDict)
 end
 
 
-"""
+function DAG(name::AbstractString, str::AbstractString)
+  ds = strip(str)
+  if ds[1:3] == "DAG"
+    d = from_ggm(ds)
+  elseif ds[1:3] == "dag"
+    d = from_dagitty(ds)
+  else
+    @error "Unrecognized model string: $(ds))"
+  end
 
-# DAG
+  vars = dag_vars(d)
+  a = adjacency_matrix(d)
+  e = edge_matrix(d)
 
-Directed acyclic graph constructor
+  DAG(name, d, a, e, nothing, nothing, vars)
+end
 
-$(SIGNATURES)
-
-### Required arguments
-```julia
-DAG(
-* `name::AbstractString`                    : Variables used to compute correlation
-* `d::NamedArray`                           : Adjacency matrix of DAG
-)
-```
-
-### Returns
-```julia
-* `res::DAG`                                : Boolean result of test
-```
-"""
 function DAG(name::AbstractString, a::NamedArray; df::DataFrameOrNothing=nothing)
 
   vars = names(a, 1)

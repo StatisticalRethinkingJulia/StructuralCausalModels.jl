@@ -1,9 +1,9 @@
 digraph sr6_4_2 {
-  a -> u;
-  u -> x;
   a -> c;
-  u -> b;
-  c -> b;
-  x -> y;
+  a -> u;
   c -> y;
+  c -> b;
+  u -> x;
+  u -> b;
+  x -> y;
 }

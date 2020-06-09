@@ -1,8 +1,8 @@
 digraph marks {
-  algebra -> analysis;
-  algebra -> statistics;
-  analysis -> statistics;
   algebra -> vectors;
   algebra -> mechanics;
+  algebra -> analysis;
+  algebra -> statistics;
   vectors -> mechanics;
+  analysis -> statistics;
 }
