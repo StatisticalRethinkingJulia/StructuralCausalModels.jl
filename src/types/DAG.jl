@@ -127,9 +127,36 @@ function DAG(name::AbstractString, d::OrderedDict)
   a = adjacency_matrix(d)
   e = edge_matrix(d)
 
+  # Create object
+
   DAG(name, d, a, e, nothing, nothing, vars)
 end
 
+
+function DAG(name::AbstractString, str::AbstractString, df::DataFrame)
+  ds = strip(str)
+  if ds[1:3] == "DAG"
+    d = from_ggm(ds)
+  elseif ds[1:3] == "dag"
+    d = from_dagitty(ds)
+  else
+    @error "Unrecognized model string: $(ds))"
+  end
+
+  vars = dag_vars(d)
+  a = adjacency_matrix(d)
+  e = edge_matrix(d)
+
+  # Compute covariance matrix and store as NamedArray
+
+  @assert length(names(df)) == length(vars) "DataFrame has different number of columns"
+  s = NamedArray(cov(Array(df)), (names(df), names(df)), ("Rows", "Cols"))
+
+  # Create object
+
+  DAG(name, d, a, e, s, df, vars)
+
+end
 
 function DAG(name::AbstractString, str::AbstractString)
   ds = strip(str)
@@ -145,24 +172,36 @@ function DAG(name::AbstractString, str::AbstractString)
   a = adjacency_matrix(d)
   e = edge_matrix(d)
 
+  # Create object
+
   DAG(name, d, a, e, nothing, nothing, vars)
 end
 
-function DAG(name::AbstractString, a::NamedArray; df::DataFrameOrNothing=nothing)
+function DAG(name::AbstractString, a::NamedArray, df::DataFrame)
 
   vars = names(a, 1)
   e = StructuralCausalModels.edge_matrix(a)
 
   # Compute covariance matrix and store as NamedArray if df is present
 
-  if !isnothing(df)
-    @assert length(names(df)) == length(vars) "DataFrame has different number of columns"
-    s = NamedArray(cov(Array(df)), (names(df), names(df)), ("Rows", "Cols"))
-  end
+  @assert length(names(df)) == length(vars) "DataFrame has different number of columns"
+  s = NamedArray(cov(Array(df)), (names(df), names(df)), ("Rows", "Cols"))
 
   # Create object
 
-  DAG(name, nothing, a, e, nothing, nothing, vars)
+  DAG(name, nothing, a, e, s, df, vars)
+
+end
+
+function DAG(name::AbstractString, a::NamedArray)
+
+  vars = names(a, 1)
+  d = nothing
+  e = StructuralCausalModels.edge_matrix(a)
+
+  # Create object
+
+  DAG(name, d, a, e, nothing, nothing, vars)
 
 end
 

@@ -127,6 +127,18 @@ end
 
 """
 
+# adjacency_matrix to OrderedDict
+
+$(SIGNATURES)
+
+Internal
+"""
+function adjacency_matrix_to_dict(ea::NamedArray)
+  Dict()  
+end
+
+"""
+
 # undirected_matrix
 
 $(SIGNATURES)
