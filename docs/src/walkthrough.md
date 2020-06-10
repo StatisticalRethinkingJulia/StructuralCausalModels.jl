@@ -13,7 +13,7 @@ df = CSV.read(scm_path("..", "data", "marks.csv"));
 # Create a directed acyclic graph (DAG) object
 
 `DAG()` accepts either an OrderedDict, an `adjacency_matrix` or a ggm/dagitty string.
-See the ancestral_graph section below for an example using an `adjacency_matrix`.
+See the `ancestral_graph` section below for an example using an `adjacency_matrix`.
 
 Below `d_string` holds a ggm DAG definition.
 
@@ -26,6 +26,12 @@ d_string = "DAG(
 
 dag = DAG("marks", d_string, df);
 show(dag)
+```
+
+The `d_string` could also contain a dagitty causal model"
+```julia
+# fig2.6.dag <- dagitty("dag { {X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}")
+dag = DAG("fig_2_6", "dag {{X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}")
 ```
 
 In the REPL `show(dag)` will display:
@@ -42,6 +48,9 @@ OrderedDict{Symbol,Union{Nothing, Array{Symbol,1}, Symbol}} with 4 entries:
   :analysis   => :algebra
 ```
 
+Internally, a DAG object will always contain an OrderedDict representation of the DAG. This representation is used in all functions. In the definition of the OrderedDict, read `=>` as `~` in regression models or `<-` in causal models.
+
+
 Optional display the DAG using GraphViz:
 ```julia
 fname = ProjDir * "/marks.dot"
@@ -49,32 +58,31 @@ to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 ```
 
-The DAG is [here](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/docs/src/marks.pdf).
+The DAG pdf is [here](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/docs/src/marks.pdf).
 
 In this case a DataFrame with observed values has been provided and the related covariance matrix has been computed and stored in the DAG object:
 ```julia
 display(dag.s)
+
+5×5 Named Array{Float64,2}
+Rows ╲ Cols │  :mechanics     :vectors     :algebra    :analysis  :statistics
+────────────┼────────────────────────────────────────────────────────────────
+:mechanics  │     305.768      127.223      101.579      106.273      117.405
+:vectors    │     127.223      172.842      85.1573      94.6729       99.012
+:algebra    │     101.579      85.1573      112.886      112.113      121.871
+:analysis   │     106.273      94.6729      112.113       220.38      155.536
+:statistics │     117.405       99.012      121.871      155.536      297.755
+
 ```
 
-# Basis set
+Related functions are `to_ggm()`, `from_ggm()`, `to_dagitty()`, `from_dagitty()`, `set_dag_d!f()` and `set_dag_cov_matrix!()`.
 
-Compute the basis_set:
-```julia
-bs = basis_set(dag)
-display(bs)
-```
-
-# Shipley test
-
-Perform the Shipley test:
-```julia
-t = shipley_test(dag)
-display(t); println()
-```
 
 # D_separation
 
-Show several `d_separation` results:
+Given a causal graph, `d_separation(dag, f, l, cond)` determines if the vertices in set `f` are `d-separated` from the vertices in set `l` given the conditioning set `cond`.
+
+Show several `d_separation` results for the marks model:
 ```julia
 f = [:statistics]; s = [:mechanics]; sel = vcat(f, s)
 cond = [:algebra]
@@ -117,6 +125,54 @@ println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors]))
 
 print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors], [:algebra]) = ")
 println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors], [:algebra]))
+```
+
+will produce:
+```julia
+d_separation(marks, [:statistics], [:mechanics], [:algebra]) = false
+d_separation(marks, [:statistics], [:mechanics]) = true
+d_separation(marks, [:statistics], [:mechanics], [:vectors]) = true
+d_separation(marks, [:statistics], [:mechanics], [:analysis, :vectors]) = true
+d_separation(marks, [:statistics, :analysis], [:mechanics], [:algebra]) = false
+d_separation(marks, [:statistics], [:mechanics, :vectors], [:algebra]) = false
+d_separation(marks, [:statistics], [:mechanics, :analysis], [:algebra]) = false
+d_separation(marks, [:analysis], [:vectors]) = true
+d_separation(marks, [:analysis], [:vectors], [:algebra]) = false
+d_separation(marks, [:vectors], [:statistics], [:algebra]) = false
+d_separation(marks, [:statistics], [:algebra], [:analysis]) = false
+d_separation(marks, [:statistics, :analysis], [:mechanics, :vectors]) = true
+d_separation(marks, [:statistics, :analysis], [:mechanics, :vectors], [:algebra]) = false
+```
+
+# Basis set
+
+A minimal set of `d_separation` statements is called a `basis_set'.
+
+A `basis_set` is not necessarily unique but it is sufficient to predict the complete set of `d_separation` statements.
+
+Compute the basis_set:
+```julia
+bs = basis_set(dag)
+display(bs)
+
+BasisSet[
+  vectors ∐ analysis | [:algebra]
+  vectors ∐ statistics | [:algebra, :analysis]
+  mechanics ∐ analysis | [:algebra, :vectors]
+  mechanics ∐ statistics | [:algebra, :vectors, :analysis]
+]
+
+```
+
+# Shipley test
+
+Perform the Shipley test:
+```julia
+t = shipley_test(dag)
+display(t)
+
+(ctest = 2.816854003338401, df = 8, pv = 0.9453198036802164)
+
 ```
 
 # Adjustment sets
