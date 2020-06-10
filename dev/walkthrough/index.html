@@ -1,2 +1,151 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Walkthrough · StructuralCausalModels.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">StructuralCausalModels.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../introduction/">Introduction</a></li><li class="is-active"><a class="tocitem" href>Walkthrough</a><ul class="internal"><li class="toplevel"><a class="tocitem" href="#DAGs-1"><span>DAGs</span></a></li><li class="toplevel"><a class="tocitem" href="#Basis-set-1"><span>Basis set</span></a></li><li class="toplevel"><a class="tocitem" href="#Paths-1"><span>Paths</span></a></li><li class="toplevel"><a class="tocitem" href="#Adjustment-sets-1"><span>Adjustment sets</span></a></li><li class="toplevel"><a class="tocitem" href="#D_separation-1"><span>D_separation</span></a></li><li class="toplevel"><a class="tocitem" href="#Shipley-test-1"><span>Shipley test</span></a></li><li class="toplevel"><a class="tocitem" href="#Partial-correlation-1"><span>Partial correlation</span></a></li><li class="toplevel"><a class="tocitem" href="#Ancestral-graph-1"><span>Ancestral graph</span></a></li></ul></li><li><a class="tocitem" href="../versions/">Versions</a></li><li><a class="tocitem" href="../acknowledgements/">Acknowledgements</a></li><li><a class="tocitem" href="../references/">References</a></li><li><a class="tocitem" href="../">StructuralCausalModels API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Walkthrough</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Walkthrough</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/docs/src/walkthrough.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Structural-Causal-Models-1"><a class="docs-heading-anchor" href="#Structural-Causal-Models-1">Structural Causal Models</a><a class="docs-heading-anchor-permalink" href="#Structural-Causal-Models-1" title="Permalink"></a></h1><h1 id="DAGs-1"><a class="docs-heading-anchor" href="#DAGs-1">DAGs</a><a class="docs-heading-anchor-permalink" href="#DAGs-1" title="Permalink"></a></h1><h1 id="Basis-set-1"><a class="docs-heading-anchor" href="#Basis-set-1">Basis set</a><a class="docs-heading-anchor-permalink" href="#Basis-set-1" title="Permalink"></a></h1><h1 id="Paths-1"><a class="docs-heading-anchor" href="#Paths-1">Paths</a><a class="docs-heading-anchor-permalink" href="#Paths-1" title="Permalink"></a></h1><h1 id="Adjustment-sets-1"><a class="docs-heading-anchor" href="#Adjustment-sets-1">Adjustment sets</a><a class="docs-heading-anchor-permalink" href="#Adjustment-sets-1" title="Permalink"></a></h1><h1 id="D_separation-1"><a class="docs-heading-anchor" href="#D_separation-1">D_separation</a><a class="docs-heading-anchor-permalink" href="#D_separation-1" title="Permalink"></a></h1><h1 id="Shipley-test-1"><a class="docs-heading-anchor" href="#Shipley-test-1">Shipley test</a><a class="docs-heading-anchor-permalink" href="#Shipley-test-1" title="Permalink"></a></h1><h1 id="Partial-correlation-1"><a class="docs-heading-anchor" href="#Partial-correlation-1">Partial correlation</a><a class="docs-heading-anchor-permalink" href="#Partial-correlation-1" title="Permalink"></a></h1><h1 id="Ancestral-graph-1"><a class="docs-heading-anchor" href="#Ancestral-graph-1">Ancestral graph</a><a class="docs-heading-anchor-permalink" href="#Ancestral-graph-1" title="Permalink"></a></h1></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../introduction/">« Introduction</a><a class="docs-footer-nextpage" href="../versions/">Versions »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 10 June 2020 00:02">Wednesday 10 June 2020</span>. Using Julia version 1.6.0-DEV.202.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Walkthrough · StructuralCausalModels.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">StructuralCausalModels.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../introduction/">Introduction</a></li><li class="is-active"><a class="tocitem" href>Walkthrough</a><ul class="internal"><li class="toplevel"><a class="tocitem" href="#Create-a-DAG-object-1"><span>Create a DAG object</span></a></li><li class="toplevel"><a class="tocitem" href="#Basis-set-1"><span>Basis set</span></a></li><li class="toplevel"><a class="tocitem" href="#Shipley-test-1"><span>Shipley test</span></a></li><li class="toplevel"><a class="tocitem" href="#D_separation-1"><span>D_separation</span></a></li><li class="toplevel"><a class="tocitem" href="#Adjustment-sets-1"><span>Adjustment sets</span></a></li><li class="toplevel"><a class="tocitem" href="#Paths-1"><span>Paths</span></a></li><li class="toplevel"><a class="tocitem" href="#Ancestral-graph-1"><span>Ancestral graph</span></a></li></ul></li><li><a class="tocitem" href="../versions/">Versions</a></li><li><a class="tocitem" href="../acknowledgements/">Acknowledgements</a></li><li><a class="tocitem" href="../references/">References</a></li><li><a class="tocitem" href="../">StructuralCausalModels API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Walkthrough</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Walkthrough</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/docs/src/walkthrough.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Structural-Causal-Models-1"><a class="docs-heading-anchor" href="#Structural-Causal-Models-1">Structural Causal Models</a><a class="docs-heading-anchor-permalink" href="#Structural-Causal-Models-1" title="Permalink"></a></h1><p>Setup of the &#39;marks&#39; example from the ggm R package:</p><pre><code class="language-julia">using StructuralCausalModels
+
+ProjDir = @__DIR__
+cd(ProjDir)
+
+df = CSV.read(scm_path(&quot;..&quot;, &quot;data&quot;, &quot;marks.csv&quot;));</code></pre><h1 id="Create-a-DAG-object-1"><a class="docs-heading-anchor" href="#Create-a-DAG-object-1">Create a DAG object</a><a class="docs-heading-anchor-permalink" href="#Create-a-DAG-object-1" title="Permalink"></a></h1><p><code>DAG()</code> accepts either an OrderedDict, an adjacency<em>matrix or a ggm/dagitty string. Below d</em>string holds a ggm DAG definition.</p><pre><code class="language-julia">d_string = &quot;DAG(
+    mechanics ~ vectors+algebra, 
+    vectors ~ algebra, 
+    statistics ~ algebra+analysis, 
+    analysis ~ algebra)&quot;
+
+dag = DAG(&quot;marks&quot;, d_string, df);
+show(dag)</code></pre><p>Optional display the DAG using GraphViz:</p><pre><code class="language-julia">fname = ProjDir * &quot;/marks.dot&quot;
+to_graphviz(dag, fname)
+Sys.isapple() &amp;&amp; run(`open -a GraphViz.app $(fname)`)</code></pre><p>or just show a printed summary and the covariance matrix:</p><pre><code class="language-julia">display(dag)
+println()
+display(dag.s); println()</code></pre><h1 id="Basis-set-1"><a class="docs-heading-anchor" href="#Basis-set-1">Basis set</a><a class="docs-heading-anchor-permalink" href="#Basis-set-1" title="Permalink"></a></h1><p>Compute the basis_set:</p><pre><code class="language-julia">bs = basis_set(dag)
+display(bs)</code></pre><h1 id="Shipley-test-1"><a class="docs-heading-anchor" href="#Shipley-test-1">Shipley test</a><a class="docs-heading-anchor-permalink" href="#Shipley-test-1" title="Permalink"></a></h1><p>Perform the Shipley test:</p><pre><code class="language-julia">t = shipley_test(dag)
+display(t); println()</code></pre><h1 id="D_separation-1"><a class="docs-heading-anchor" href="#D_separation-1">D_separation</a><a class="docs-heading-anchor-permalink" href="#D_separation-1" title="Permalink"></a></h1><p>Show several d_separation results:</p><pre><code class="language-julia">f = [:statistics]; s = [:mechanics]; sel = vcat(f, s)
+cond = [:algebra]
+
+e = d_separation(dag, f, s, cond)
+println(&quot;d_separation($(dag.name), $f, $s, $cond) = $e&quot;)
+
+e = d_separation(dag, f, s)
+println(&quot;d_separation($(dag.name), $f, $s) = $e&quot;)
+
+print(&quot;d_separation($(dag.name), [:statistics], [:mechanics], [:vectors]) = &quot;)
+println(d_separation(dag, [:statistics], [:mechanics], [:vectors]))
+
+print(&quot;d_separation($(dag.name), [:statistics], [:mechanics], [:analysis, :vectors]) = &quot;)
+println(d_separation(dag, [:statistics], [:mechanics], [:analysis, :vectors]))
+
+print(&quot;d_separation($(dag.name), [:statistics, :analysis], [:mechanics], [:algebra]) = &quot;)
+println(d_separation(dag, [:statistics, :analysis], [:mechanics], [:algebra]))
+
+print(&quot;d_separation($(dag.name), [:statistics], [:mechanics, :vectors], [:algebra]) = &quot;)
+println(d_separation(dag, [:statistics], [:mechanics, :vectors], [:algebra]))
+
+print(&quot;d_separation($(dag.name), [:statistics], [:mechanics, :analysis], [:algebra]) = &quot;)
+println(d_separation(dag, [:statistics], [:mechanics, :analysis], [:algebra]))
+
+print(&quot;d_separation($(dag.name), [:analysis], [:vectors]) = &quot;)
+println(d_separation(dag, [:analysis], [:vectors]))
+
+print(&quot;d_separation($(dag.name), [:analysis], [:vectors], [:algebra]) = &quot;)
+println(d_separation(dag, [:analysis], [:vectors], [:algebra]))
+
+print(&quot;d_separation($(dag.name), [:vectors], [:statistics], [:algebra]) = &quot;)
+println(d_separation(dag, [:analysis], [:vectors], [:algebra]))
+
+print(&quot;d_separation($(dag.name), [:statistics], [:algebra], [:analysis]) = &quot;)
+println(d_separation(dag, [:statistics], [:algebra], [:analysis]))
+
+print(&quot;d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors]) = &quot;)
+println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors]))
+
+print(&quot;d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors], [:algebra]) = &quot;)
+println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors], [:algebra]))</code></pre><h1 id="Adjustment-sets-1"><a class="docs-heading-anchor" href="#Adjustment-sets-1">Adjustment sets</a><a class="docs-heading-anchor-permalink" href="#Adjustment-sets-1" title="Permalink"></a></h1><p>Setup the WaffleDivorce example from StatisticalRethinking:</p><pre><code class="language-julia">using StructuralCausalModels
+
+ProjDir = @__DIR__
+cd(ProjDir) #do
+
+df = CSV.read(scm_path(&quot;..&quot;, &quot;data&quot;, &quot;WaffleDivorce.csv&quot;), delim=&#39;;&#39;);
+df = DataFrame(
+  :s =&gt; df[:, :South],
+  :a =&gt; df[:, :MedianAgeMarriage],
+  :m =&gt; df[:, :Marriage],
+  :w =&gt; df[:, :WaffleHouses],
+  :d =&gt; df[:, :Divorce]
+);
+
+fname = scm_path(&quot;..&quot;, &quot;examples&quot;, &quot;SR&quot;, &quot;SR6.4.3&quot;, &quot;sr6.4.3.dot&quot;)
+Sys.isapple() &amp;&amp; run(`open -a GraphViz.app $(fname)`)
+
+d = OrderedDict(
+  :s =&gt; [:a, :m, :w],
+  :a =&gt; [:m, :d],
+  :m =&gt; [:d],
+  :w =&gt; [:d]
+);
+u = []
+
+dag = DAG(&quot;sr6.4.3&quot;, d, df);
+show(dag)
+
+adjustmentsets = adjustment_sets(dag, :w, :d)
+println(&quot;Adjustment sets for open paths: $(openpaths)\n&quot;)
+adjustmentsets |&gt; display</code></pre><h1 id="Paths-1"><a class="docs-heading-anchor" href="#Paths-1">Paths</a><a class="docs-heading-anchor-permalink" href="#Paths-1" title="Permalink"></a></h1><p>Adjustment_sets is based on several path manipulations and checks:</p><pre><code class="language-julia">allpaths  = all_paths(dag, :w, :d)
+println(&quot;All paths between :x and :y:&quot;)
+allpaths |&gt; display
+println()
+
+backdoorpaths = backdoor_paths(dag, allpaths, :w)
+println(&quot;All backdoors between :w and :d:&quot;)
+backdoorpaths |&gt; display
+println()
+
+openpaths = open_paths(dag, backdoorpaths)
+println(&quot;All open (backdoor) paths between :w and :d:&quot;)
+openpaths |&gt; display
+println()
+
+println(&quot;Show path: $(allpaths[2])&quot;)
+show_dag_path(dag, allpaths[2]) |&gt; display
+println()</code></pre><h1 id="Ancestral-graph-1"><a class="docs-heading-anchor" href="#Ancestral-graph-1">Ancestral graph</a><a class="docs-heading-anchor-permalink" href="#Ancestral-graph-1" title="Permalink"></a></h1><p>Setup an ancestral_graph example:</p><pre><code class="language-julia">using StructuralCausalModels, Test
+
+ProjDir = @__DIR__
+
+#include(scm_path(&quot;test_methods&quot;, &quot;test_ag.jl&quot;))
+
+amat_data = transpose(reshape([
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,
+  0,0,0,0,1,0,1,0,1,1,0,0,0,0,0,0,
+  1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0
+], (16,16)));
+
+
+vars = [Symbol(&quot;n$i&quot;) for i in 1:size(amat_data, 1)]
+a = NamedArray(Int.(amat_data), (vars, vars), (&quot;Rows&quot;, &quot;Cols&quot;));
+
+dag = DAG(&quot;ag_example&quot;, a)
+
+m = [:n3, :n5, :n6, :n15, :n16];
+c = [:n4, :n7];
+
+fr = StructuralCausalModels.test_ag(a; m=m, c=c)
+
+fr1 = ancestral_graph(a; m=m, c=c)
+@test all(fr .== fr1)
+
+fr2 = StructuralCausalModels.test_ag(dag.a; m=m, c=c)
+@test all(fr .== fr2);
+
+println()
+display(fr)
+println()</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../introduction/">« Introduction</a><a class="docs-footer-nextpage" href="../versions/">Versions »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 10 June 2020 01:22">Wednesday 10 June 2020</span>. Using Julia version 1.6.0-DEV.202.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
