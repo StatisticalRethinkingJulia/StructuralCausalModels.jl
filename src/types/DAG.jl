@@ -9,13 +9,13 @@ Directed acyclic graph struct
 ### Struct
 ```julia
 DAG(
-* `name::AbstractString`                    : A name for the DAG object
+* `name::AbstractString`                    : Name for the DAG object
 * `d::OrderedDictOrNothing`                 : DAG definition as an OrderedDict
 * `a::NamedArrayOrNothing`                  : Adjacency matrix
 * `e::NamedArrayOrNothing`                  : Edge matrix
-* `s::NamedArrayOrNothing`                  : Covariance matrix (optional)
-* `df::DataFrameOrNothing`                  : Variable observations (optional)
-* `vars::Vector{Symbol}`                    : Names of variables
+* `s::NamedArrayOrNothing`                  : Covariance matrix
+* `df::DataFrameOrNothing`                  : Variable observations
+* `vars::Vector{Symbol}`                    : Names of variables in DAG
 )
 ```
 
@@ -28,7 +28,7 @@ mutable struct DAG
   e::NamedArrayOrNothing                     # Edge matrix
   s::NamedArrayOrNothing                     # Covariance matrix as NamedArray
   df::DataFrameOrNothing                     # DataFrame with variables
-  vars::Vector{Symbol}                       # Names of variables
+  vars::Vector{Symbol}                       # Names of variables in DAG
 end
 
 # Constructor
@@ -43,7 +43,7 @@ $(SIGNATURES)
 
 ### Required arguments
 ```julia
-* `name::AbstractString`               : Variables used to compute correlation
+* `name::AbstractString`               : Name for the DAG object
 * `d`                                  : DAG definition as an
                                            OrderedDict (see extended help)
                                            AbstractString (as in ggm or dagitty)
@@ -63,7 +63,8 @@ $(SIGNATURES)
 # Extended help
 
 In the definition of the OrderedDict, read `=>` as `~` in regression models
-or `<-` in causal models, e.g.
+or `<-` in causal models, e.g.:
+
 ```julia
 d = OrderedDict(
   :u => [:x, :v],

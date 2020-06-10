@@ -27,7 +27,7 @@ end
 function to_ggm(d::OrderedDict; touppercase=true, order=false)
   str = "DAG("
   for (ind, key) in enumerate(keys(d))
-    str = ind > 1 ? "$(str); " : "$(str)"
+    str = ind > 1 ? "$(str), " : "$(str)"
     rhs = d[key]
     if typeof(rhs) == Symbol
       rhs_str = String(rhs)
@@ -47,7 +47,7 @@ function to_ggm(d::OrderedDict; touppercase=true, order=false)
     elseif length(key) == 1
       str = "$(str)$(String(key[1])) ~ $rhs_str"
     elseif length(key) > 1
-      str = "$(str)$(String(key[1])) ~ $(rhs_str); "
+      str = "$(str)$(String(key[1])) ~ $(rhs_str), "
       for s in key[2:end-1]
         str = "$(str)$(String(s)) ~ $(rhs_str)"
       end

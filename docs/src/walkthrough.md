@@ -10,10 +10,12 @@ cd(ProjDir)
 df = CSV.read(scm_path("..", "data", "marks.csv"));
 ```
 
-# Create a DAG object
+# Create a directed acyclic graph (DAG) object
 
-`DAG()` accepts either an OrderedDict, an adjacency_matrix or a ggm/dagitty string.
-Below d_string holds a ggm DAG definition.
+`DAG()` accepts either an OrderedDict, an `adjacency_matrix` or a ggm/dagitty string.
+See the ancestral_graph section below for an example using an `adjacency_matrix`.
+
+Below `d_string` holds a ggm DAG definition.
 
 ```julia
 d_string = "DAG(
@@ -26,6 +28,20 @@ dag = DAG("marks", d_string, df);
 show(dag)
 ```
 
+In the REPL `show(dag)` will display:
+```julia
+DAG object:
+
+name = "marks"
+vars = [:mechanics, :vectors, :algebra, :statistics, :analysis]
+
+OrderedDict{Symbol,Union{Nothing, Array{Symbol,1}, Symbol}} with 4 entries:
+  :mechanics  => [:vectors, :algebra]
+  :vectors    => :algebra
+  :statistics => [:algebra, :analysis]
+  :analysis   => :algebra
+```
+
 Optional display the DAG using GraphViz:
 ```julia
 fname = ProjDir * "/marks.dot"
@@ -33,11 +49,11 @@ to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 ```
 
-or just show a printed summary and the covariance matrix:
+The DAG is [here](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/docs/src/marks.pdf).
+
+In this case a DataFrame with observed values has been provided and the related covariance matrix has been computed and stored in the DAG object:
 ```julia
-display(dag)
-println()
-display(dag.s); println()
+display(dag.s)
 ```
 
 # Basis set
@@ -58,7 +74,7 @@ display(t); println()
 
 # D_separation
 
-Show several d_separation results:
+Show several `d_separation` results:
 ```julia
 f = [:statistics]; s = [:mechanics]; sel = vcat(f, s)
 cond = [:algebra]

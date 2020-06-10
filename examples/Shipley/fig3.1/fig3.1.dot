@@ -1,0 +1,8 @@
+digraph fig_3_1 {
+  a -> b;
+  b -> c;
+  b -> d;
+  c -> e;
+  d -> e;
+  f -> e;
+}
