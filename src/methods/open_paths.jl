@@ -1,3 +1,11 @@
+"""
+
+# `check_open`
+
+$(SIGNATURES)
+
+Internal.
+"""
 function check_open(d::DAG, path::Vector{Symbol})
   res = :open
   r = range(2, stop=length(path)-1)
@@ -9,6 +17,14 @@ function check_open(d::DAG, path::Vector{Symbol})
   res
 end
 
+"""
+
+# `open_paths`
+
+$(SIGNATURES)
+
+Internal.
+"""
 function open_paths(d::DAG, paths::Vector{Vector{Symbol}})
   open = fill(:closed, length(paths))
   for (ind, path) in enumerate(paths)

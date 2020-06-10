@@ -36,7 +36,6 @@ basis_set(dag::DAG)
 ## ancestral_graph
 ```@docs
 ancestral_graph(d::DAG, m::Vector{Symbol}, c::Vector{Symbol})
-ancestral_graph(a::NamedArray{Int, 2}, m::Vector{Symbol}, c::Vector{Symbol})
 ```
 
 ## adjustment_sets
@@ -60,8 +59,14 @@ adjacency_matrix(d::OrderedDict)
 adjacency_matrix(e::NamedArray)
 adjacency_matrix_to_dict(ea::NamedArray)
 ancester_graph(e::NamedArray)
+ancestral_graph(a::NamedArray{Int, 2}, m::Vector{Symbol}, c::Vector{Symbol})
 all_edges(a::NamedArray)
 blocking_sets(asets::Array{Array{Symbol,1},1})
+DAG(name::AbstractString, d::OrderedDict)
+DAG(name::AbstractString, str::AbstractString, df::DataFrame)
+DAG(name::AbstractString, str::AbstractString)
+DAG(name::AbstractString, a::NamedArray, df::DataFrame)
+DAG(name::AbstractString, a::NamedArray)
 dag_show(io::IO, d::DAG)
 dag_vars(d::OrderedDict)
 edge_matrix(d::OrderedDict)

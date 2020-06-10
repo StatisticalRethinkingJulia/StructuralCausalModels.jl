@@ -17,18 +17,19 @@ first(df, 5) |> display
 StatsPlots.cornerplot(Array(df), label=names(df))
 savefig("$(ProjDir)/SR6.4.3.png")
 
-fname = ProjDir * "/sr6.4.3.dot"
-Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
-
 d = OrderedDict(
-  :s => [:a, :m, :w],
-  :a => [:m, :d],
-  :m => [:d],
-  :w => [:d]
+  :w => :s,
+  :d => [:a, :w, :m],
+  :m => [:a, :s],
+  :a => :s
 );
 
-dag = DAG("sr6.4.3", d, df);
+dag = DAG("sr6_4_3", d, df);
 show(dag)
+
+fname = ProjDir * "/sr6.4.3.dot"
+to_graphviz(dag, fname)
+Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
 

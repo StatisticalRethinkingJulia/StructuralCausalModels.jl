@@ -98,4 +98,12 @@ println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors]))
 print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors], [:algebra]) = ")
 println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors], [:algebra]))
 
+adjustmentsets = adjustment_sets(dag, :statistics, :mechanics)
+println("Adjustment sets:")
+adjustmentsets |> display
+
+adjustmentsets = adjustment_sets(dag, :mechanics, :statistics)
+println("Adjustment sets:")
+adjustmentsets |> display
+
 #end

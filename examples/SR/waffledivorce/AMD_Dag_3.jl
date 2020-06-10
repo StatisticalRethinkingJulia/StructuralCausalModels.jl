@@ -45,4 +45,8 @@ println("d_separation($(dag.name), $f, $s) = $e")
 e = d_separation(dag, f, s, cond)
 println("d_separation($(dag.name), $f, $s, $cond) = $e")
 
+adjustmentsets = adjustment_sets(dag, f[1], s[1])
+println("Adjustment sets:")
+adjustmentsets |> display
+
 #end

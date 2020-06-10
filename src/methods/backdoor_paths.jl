@@ -1,3 +1,11 @@
+"""
+
+# `backdoor_paths`
+
+$(SIGNATURES)
+
+Internal.
+"""
 function backdoor_paths(d::DAG, paths::Vector{Vector{Symbol}}, f::Symbol)
   backdoors = Vector{Symbol}[]
   for path in paths

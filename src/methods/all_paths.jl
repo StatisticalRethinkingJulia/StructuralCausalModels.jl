@@ -1,3 +1,11 @@
+"""
+
+# `node_edges`
+
+$(SIGNATURES)
+
+Internal.
+"""
 function node_edges(p::Path, s::Symbol, l::Symbol)
   edges = Vector{Symbol}[]
   for sym in names(p.ug)[1]
@@ -8,6 +16,14 @@ function node_edges(p::Path, s::Symbol, l::Symbol)
   edges
 end
 
+"""
+
+# `all_edges`
+
+$(SIGNATURES)
+
+Part of the API, exported.
+"""
 function all_paths(d::DAG, f::Symbol, l::Symbol)
   paths = Vector{Symbol}[]
   p = Path(d, f, l)

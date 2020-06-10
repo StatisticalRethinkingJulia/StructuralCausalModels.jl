@@ -38,24 +38,26 @@ R_dag = "
 =#
 
 d = OrderedDict(
-  :x => [:y],
-  :a => [:c, :u],
-  :c => [:y, :b],
-  :u => [:x, :b]
+  :u => :a,
+  :c => :a,
+  :b => [:u, :c],
+  :y => :c,
+  :x => :u
 );
 u = [:u]
 
-dag6_4_2 = DAG("sr6.4.2", d, df);
+dag6_4_2 = DAG("sr6_4_2", d, df);
 show(dag6_4_2)
 
 fname = ProjDir * "/sr6.4.2.dot"
+to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag6_4_2.s); println()
 
 # basis_set() not exported
 
-bs = StructuralCausalModels.basis_set(dag6_4_2)
+bs = basis_set(dag6_4_2)
 display(bs); println()
 
 t = shipley_test(dag6_4_2)

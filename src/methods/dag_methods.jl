@@ -1,10 +1,10 @@
 """
 
-# dag_vars
+# `dag_vars`
 
 $(SIGNATURES)
 
-Internal
+Part of the API, exported
 """
 function dag_vars(d::OrderedDict)
   vars = Symbol[]
@@ -34,11 +34,11 @@ end
 
 """
 
-# edge_matrix
+# `edge_matrix`
 
 $(SIGNATURES)
 
-Internal
+Part of the API, exported
 """
 function edge_matrix(d::OrderedDict)
   vars = dag_vars(d)
@@ -84,11 +84,11 @@ end
 
 """
 
-# edge_matrix
+# `edge_matrix`
 
 $(SIGNATURES)
 
-Internal
+Part of the API, exported
 """
 function edge_matrix(a::NamedArray, inv=false)
   a = sign.(a)
@@ -102,11 +102,11 @@ end
 
 """
 
-# adjacency_matrix
+# `adjacency_matrix`
 
 $(SIGNATURES)
 
-Internal
+Part of the API, exported
 """
 function adjacency_matrix(d::OrderedDict)
   transpose(edge_matrix(d))
@@ -114,11 +114,11 @@ end
 
 """
 
-# adjacency_matrix
+# `adjacency_matrix`
 
 $(SIGNATURES)
 
-Internal
+Part of the API, exported
 """
 function adjacency_matrix(e::NamedArray)
   a = transpose(e)
@@ -127,7 +127,7 @@ end
 
 """
 
-# adjacency_matrix to OrderedDict
+# `adjacency_matrix_to_dict`
 
 $(SIGNATURES)
 
@@ -139,7 +139,7 @@ end
 
 """
 
-# undirected_matrix
+# `undirected_matrix`
 
 $(SIGNATURES)
 
@@ -154,11 +154,11 @@ end
 
 """
 
-# topological_order
+# `topological_order`
 
 $(SIGNATURES)
 
-Internal
+Part of the API, exported
 """
 function topological_order(a::NamedArray)
   #@assert is_dag(a)
@@ -194,11 +194,11 @@ end
 
 """
 
-# topological_sort
+# `topological_sort`
 
 $(SIGNATURES)
 
-Internal
+Part of the API, exported
 """
 function topological_sort(a::NamedArray)
   ord = topological_order(a)

@@ -122,6 +122,14 @@ function DAG(name::AbstractString, d::OrderedDict, df::DataFrame)
 
 end
 
+"""
+
+# `DAG`
+
+$(SIGNATURES)
+
+Internal
+"""
 function DAG(name::AbstractString, d::OrderedDict)
 
   vars = dag_vars(d)
@@ -133,7 +141,14 @@ function DAG(name::AbstractString, d::OrderedDict)
   DAG(name, d, a, e, nothing, nothing, vars)
 end
 
+"""
 
+# `DAG`
+
+$(SIGNATURES)
+
+Internal
+"""
 function DAG(name::AbstractString, str::AbstractString, df::DataFrame)
   ds = strip(str)
   if ds[1:3] == "DAG"
@@ -159,6 +174,14 @@ function DAG(name::AbstractString, str::AbstractString, df::DataFrame)
 
 end
 
+"""
+
+# `DAG`
+
+$(SIGNATURES)
+
+Internal
+"""
 function DAG(name::AbstractString, str::AbstractString)
   ds = strip(str)
   if ds[1:3] == "DAG"
@@ -178,6 +201,14 @@ function DAG(name::AbstractString, str::AbstractString)
   DAG(name, d, a, e, nothing, nothing, vars)
 end
 
+"""
+
+# `DAG`
+
+$(SIGNATURES)
+
+Internal
+"""
 function DAG(name::AbstractString, a::NamedArray, df::DataFrame)
 
   vars = names(a, 1)
@@ -194,6 +225,14 @@ function DAG(name::AbstractString, a::NamedArray, df::DataFrame)
 
 end
 
+"""
+
+# `DAG`
+
+$(SIGNATURES)
+
+Internal
+"""
 function DAG(name::AbstractString, a::NamedArray)
 
   vars = names(a, 1)
@@ -208,7 +247,7 @@ end
 
 """
 
-# set_dag_df!
+# `set_dag_df!`
 
 Set or update Dataframe associated to DAG
 
@@ -253,7 +292,7 @@ end
 
 """
 
-# set_dag_cov_matrix!
+# `set_dag_cov_matrix!`
 
 Set or update the covariance matrix associated to DAG
 
@@ -291,6 +330,14 @@ function set_dag_cov_matrix!(d::DAG, cm::NamedArrayOrNothing; force=false)
 
 end  
 
+"""
+
+# `dag_show`
+
+$(SIGNATURES)
+
+Internal
+"""
 function dag_show(io::IO, d::DAG)
   println("\nDAG object:\n")
   println(io, "name = \"$(d.name)\"")

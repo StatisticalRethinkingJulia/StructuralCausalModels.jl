@@ -1,10 +1,9 @@
-digraph SCModel {
-  "U" [shape="ellipse", fillcolor="gray85", style="filled"];
-  "A" -> "C";
-  "A" -> "U";
-  "U" -> "B";
-  "U" -> "X";
-  "C" -> "B";
-  "C" -> "Y";
-  "X" -> "Y";
+digraph sr6_4_3 {
+  s -> w;
+  s -> a;
+  s -> m;
+  w -> d;
+  a -> m;
+  a -> d;
+  m -> d;
 }

@@ -75,7 +75,7 @@ Rows ╲ Cols │  :mechanics     :vectors     :algebra    :analysis  :statistic
 
 ```
 
-Related functions are `to_ggm()`, `from_ggm()`, `to_dagitty()`, `from_dagitty()`, `set_dag_d!f()` and `set_dag_cov_matrix!()`.
+Related functions are `to_ggm()`, `from_ggm()`, `to_dagitty()`, `from_dagitty()`, `set_dag_df!()` and `set_dag_cov_matrix!()`.
 
 
 # D_separation
@@ -146,7 +146,7 @@ d_separation(marks, [:statistics, :analysis], [:mechanics, :vectors], [:algebra]
 
 # Basis set
 
-A minimal set of `d_separation` statements is called a `basis_set'.
+A minimal set of `d_separation` statements is called a `basis_set`.
 
 A `basis_set` is not necessarily unique but it is sufficient to predict the complete set of `d_separation` statements.
 
@@ -176,6 +176,8 @@ display(t)
 ```
 
 # Adjustment sets
+
+
 
 Setup the WaffleDivorce example from StatisticalRethinking:
 ```julia

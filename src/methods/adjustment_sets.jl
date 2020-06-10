@@ -1,3 +1,11 @@
+"""
+
+# `forward-path`
+
+$(SIGNATURES)
+
+Internal
+"""
 function forward_path(d::DAG, path)
   res = true
   for (i, s) in enumerate(path[1:end-1])
@@ -6,6 +14,14 @@ function forward_path(d::DAG, path)
   res
 end
 
+"""
+
+# `blocking_sets`
+
+$(SIGNATURES)
+
+Internal
+"""
 function blocking_sets(asets::Array{Array{Symbol,1},1})
   result_sets = Vector{Symbol}[]
   #println(asets)
@@ -33,6 +49,14 @@ function blocking_sets(asets::Array{Array{Symbol,1},1})
   result_sets
 end
 
+"""
+
+# `adjustment_sets`
+
+$(SIGNATURES)
+
+Part of the API, exported.
+"""
 function adjustment_sets(d::DAG, f::Symbol, l::Symbol, u::Vector{Symbol})
   asets = Vector{Symbol}[]
   allpaths  = all_paths(d, f, l)
@@ -53,6 +77,14 @@ function adjustment_sets(d::DAG, f::Symbol, l::Symbol, u::Vector{Symbol})
   end
 end
 
+"""
+
+# `adjustment_sets`
+
+$(SIGNATURES)
+
+Part of the API, exported.
+"""
 function adjustment_sets(d::DAG, f::Symbol, l::Symbol)
   asets = Vector{Symbol}[]
   allpaths  = all_paths(d, f, l)
