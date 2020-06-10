@@ -1,4 +1,3 @@
-using Revise
 using StructuralCausalModels, Test
 
 ProjDir = @__DIR__
