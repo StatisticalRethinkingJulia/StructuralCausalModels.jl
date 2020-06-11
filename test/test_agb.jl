@@ -1,4 +1,3 @@
-using Revise
 using StructuralCausalModels, Test
 
 ProjDir = @__DIR__
@@ -36,4 +35,3 @@ end
 set_dag_df!(dag, nothing)
 set_dag_df!(dag, DataFrame(); force=true)
 set_dag_df!(dag, nothing)
-

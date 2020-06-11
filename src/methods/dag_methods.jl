@@ -133,8 +133,18 @@ $(SIGNATURES)
 
 Internal
 """
-function adjacency_matrix_to_dict(ea::NamedArray)
-  Dict()  
+function adjacency_matrix_to_dict(a::NamedArray)
+  vars = names(a, 1)
+  dct = Dict()
+  for (ind, r) in enumerate(eachrow(a))
+    rhs = vars[findall(x -> x ==1, r)]
+    if length(rhs) == 1
+      dct[vars[ind]] = vars[findall(x -> x ==1, r)][1]
+    elseif length(rhs) > 1
+      dct[vars[ind]] = vars[findall(x -> x ==1, r)]
+    end
+  end
+  dct
 end
 
 """

@@ -28,6 +28,7 @@ show(dag)
 adjustmentsets = adjustment_sets(dag, :w, :d)
 println("Adjustment sets:\n")
 adjustmentsets |> display
+println()
 
 function show_differences(res)
    if length(res) > 0
@@ -49,7 +50,7 @@ m = Symbol[]
 
 println()
 s = StructuralCausalModels.update_s(a, c, debug)
-@assert s == [:s, :a, :m, :w, :d]
+#@assert s == [:s, :a, :m, :w, :d]
 
 count = 0
 while true

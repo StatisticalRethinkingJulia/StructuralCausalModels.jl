@@ -28,6 +28,7 @@ show(dag)
 adjustmentsets = adjustment_sets(dag, :w, :d)
 println("Adjustment sets:\n")
 adjustmentsets |> display
+println()
 
 c = [:s]
 ag = ancestral_graph(dag; c=c)

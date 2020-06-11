@@ -212,6 +212,7 @@ Internal
 function DAG(name::AbstractString, a::NamedArray, df::DataFrame)
 
   vars = names(a, 1)
+  d = adjacency_matrix_to_dict(a)
   e = StructuralCausalModels.edge_matrix(a)
 
   # Compute covariance matrix and store as NamedArray if df is present
@@ -221,7 +222,7 @@ function DAG(name::AbstractString, a::NamedArray, df::DataFrame)
 
   # Create object
 
-  DAG(name, nothing, a, e, s, df, vars)
+  DAG(name, d, a, e, s, df, vars)
 
 end
 
@@ -236,7 +237,7 @@ Internal
 function DAG(name::AbstractString, a::NamedArray)
 
   vars = names(a, 1)
-  d = nothing
+  d = adjacency_matrix_to_dict(a)
   e = StructuralCausalModels.edge_matrix(a)
 
   # Create object
@@ -352,4 +353,5 @@ show(io::IO, d::DAG) = dag_show(io, d)
 export
   DAG,
   set_dag_df!,
-  set_dag_cov_matrix!
+  set_dag_cov_matrix!,
+  adjacency_matrix_to_dict

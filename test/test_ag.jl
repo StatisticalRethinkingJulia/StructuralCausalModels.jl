@@ -29,6 +29,10 @@ a = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));
 
 dag = DAG("ag_example", a)
 
+fn = joinpath(mktempdir(), "ag.dot")
+to_graphviz(dag, fn)
+Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
+
 m = [:n3, :n5, :n6, :n15, :n16];
 c = [:n4, :n7];
 

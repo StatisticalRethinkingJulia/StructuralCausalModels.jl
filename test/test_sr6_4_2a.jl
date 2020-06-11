@@ -29,10 +29,10 @@ d = OrderedDict(
 );
 u = [:u]
 
-dag = DAG("sr6_4_2", d, df);
+dag = DAG("sr6_4_2a", d, df);
 show(dag)
 
-fn = joinpath(mktempdir(), "sr6_4_2.dot")
+fn = joinpath(mktempdir(), "sr6_4_2a.dot")
 to_graphviz(dag, fn)
 Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 
