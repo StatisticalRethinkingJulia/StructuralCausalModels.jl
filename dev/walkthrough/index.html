@@ -11,7 +11,7 @@ df = CSV.read(scm_path(&quot;..&quot;, &quot;data&quot;, &quot;marks.csv&quot;))
     analysis ~ algebra)&quot;
 
 dag = DAG(&quot;marks&quot;, d_string, df);
-show(dag)</code></pre><p>The <code>d_string</code> could also contain a dagitty causal model&quot;</p><pre><code class="language-julia"># fig2.6.dag &lt;- dagitty(&quot;dag { {X V} -&gt; U; S1 &lt;- U; {Y V} -&gt; W; S2 &lt;- W}&quot;)
+show(dag)</code></pre><p>The <code>d_string</code> could also contain a dagitty causal model.</p><pre><code class="language-julia"># fig2.6.dag &lt;- dagitty(&quot;dag { {X V} -&gt; U; S1 &lt;- U; {Y V} -&gt; W; S2 &lt;- W}&quot;)
 dag = DAG(&quot;fig_2_6&quot;, &quot;dag {{X V} -&gt; U; S1 &lt;- U; {Y V} -&gt; W; S2 &lt;- W}&quot;)</code></pre><p>In the REPL <code>show(dag)</code> will display:</p><pre><code class="language-julia">DAG object:
 
 name = &quot;marks&quot;
@@ -128,7 +128,13 @@ show(dag)
 
 adjustmentsets = adjustment_sets(dag, :w, :d)
 println(&quot;Adjustment sets for open paths: $(openpaths)\n&quot;)
-adjustmentsets |&gt; display</code></pre><h1 id="Paths-1"><a class="docs-heading-anchor" href="#Paths-1">Paths</a><a class="docs-heading-anchor-permalink" href="#Paths-1" title="Permalink"></a></h1><p>Adjustment_sets is based on several path manipulations and checks:</p><pre><code class="language-julia">allpaths  = all_paths(dag, :w, :d)
+adjustmentsets |&gt; display
+
+Adjustment sets:
+2-element Array{Array{Symbol,1},1}:
+ [:s]
+ [:a, :m]
+</code></pre><h1 id="Paths-1"><a class="docs-heading-anchor" href="#Paths-1">Paths</a><a class="docs-heading-anchor-permalink" href="#Paths-1" title="Permalink"></a></h1><p>Adjustment_sets is based on several path manipulations and checks:</p><pre><code class="language-julia">allpaths  = all_paths(dag, :w, :d)
 println(&quot;All paths between :x and :y:&quot;)
 allpaths |&gt; display
 println()
@@ -189,4 +195,4 @@ fr2 = StructuralCausalModels.test_ag(dag.a; m=m, c=c)
 
 println()
 display(fr)
-println()</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../introduction/">« Introduction</a><a class="docs-footer-nextpage" href="../versions/">Versions »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Wednesday 10 June 2020 21:41">Wednesday 10 June 2020</span>. Using Julia version 1.6.0-DEV.205.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+println()</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../introduction/">« Introduction</a><a class="docs-footer-nextpage" href="../versions/">Versions »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Thursday 11 June 2020 12:41">Thursday 11 June 2020</span>. Using Julia version 1.6.0-DEV.205.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
