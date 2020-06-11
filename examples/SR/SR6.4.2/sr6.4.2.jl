@@ -25,18 +25,6 @@ df[!, :y] = rand(Normal(1, 2), N) + b_XY * df[:, :x] + b_CY * df[:, :c]
 StatsPlots.cornerplot(Array(df), label=names(df))
 savefig("$(ProjDir)/SR6.4.2.png")
 
-#=
-R_dag = "
-    :x :y :a :c :b :u
-:x   0  0  0  0  0  1
-:y   1  0  0  1  0  0   
-:a   0  0  0  0  0  0   
-:c   0  0  1  0  0  0  
-:b   0  0  0  1  0  1
-:u   0  0  1  0  0  0   
-";
-=#
-
 d = OrderedDict(
   :u => :a,
   :c => :a,
@@ -49,13 +37,11 @@ u = [:u]
 dag6_4_2 = DAG("sr6_4_2", d, df);
 show(dag6_4_2)
 
-fname = ProjDir * "/sr6.4.2.dot"
-to_graphviz(dag, fname)
+fname = joinpath(mktempdir(), "sr6.4.2.dot")
+to_graphviz(dag6_4_2, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag6_4_2.s); println()
-
-# basis_set() not exported
 
 bs = basis_set(dag6_4_2)
 display(bs); println()

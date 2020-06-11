@@ -28,7 +28,7 @@ dag = DAG("marks", d_string, df);
 show(dag)
 ```
 
-The `d_string` could also contain a dagitty causal model"
+The `d_string` could also contain a dagitty causal model.
 ```julia
 # fig2.6.dag <- dagitty("dag { {X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}")
 dag = DAG("fig_2_6", "dag {{X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}")
@@ -212,6 +212,12 @@ show(dag)
 adjustmentsets = adjustment_sets(dag, :w, :d)
 println("Adjustment sets for open paths: $(openpaths)\n")
 adjustmentsets |> display
+
+Adjustment sets:
+2-element Array{Array{Symbol,1},1}:
+ [:s]
+ [:a, :m]
+
 ```
 
 # Paths

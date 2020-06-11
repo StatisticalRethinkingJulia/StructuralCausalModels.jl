@@ -463,10 +463,7 @@ The Julia translation is licenced under: MIT.
 
 Part of the api, exported.
 """
-function ancestral_graph(
-  a::NamedArray{Int, 2};
-  m=Symbol[],
-  c=Symbol[])
+function ancestral_graph(a::NamedArray{Int, 2}; m=Symbol[], c=Symbol[])
   
   vars = names(a, 1)
   s = update_s(a, c)

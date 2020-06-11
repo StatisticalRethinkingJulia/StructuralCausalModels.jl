@@ -37,15 +37,12 @@ d = OrderedDict(
   )
 
 dag = DAG("sr6_4_2", d, df);
-show(dag)
 
-display(dag.a)
-
-fn = "sr6_4_2.dot"
+fn = joinpath(mktempdir(), "sr6_4_2.dot")
 to_graphviz(dag, fn)
 Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 
-basisset = StructuralCausalModels.basis_set(dag)
+basisset = basis_set(dag)
 println("Basis_set:")
 display(basisset)
 println()

@@ -11,11 +11,6 @@ scm_path(parts...)
 ```@docs
 DAG
 DAG(name::AbstractString, d::OrderedDict, df::DataFrame)
-DAG(name::AbstractString, d::OrderedDict)
-DAG(name::AbstractString, str::AbstractString, df::DataFrame)
-DAG(name::AbstractString, str::AbstractString)
-DAG(name::AbstractString, a::NamedArray, df::DataFrame)
-DAG(name::AbstractString, a::NamedArray)
 ```
 
 ## d_separation

@@ -28,18 +28,7 @@ d = from_ggm("DAG(
 dag = DAG("marks", d, df);
 show(dag)
 
-fn = "marks.dot"
+fn = joinpath(mktempdir(), "marks.dot")
 to_graphviz(dag, fn)
 Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 
-#=
-digraph marks {
-  "algebra" [shape="box", fillcolor="gray85", style="filled"];
-  "algebra" -> "analysis";
-  "algebra" -> "mechanics";
-  "algebra" -> "statistics";
-  "algebra" -> "vectors";
-  "analysis" -> "statistics";
-  "vectors" -> "mechanics";
-}
-=#
