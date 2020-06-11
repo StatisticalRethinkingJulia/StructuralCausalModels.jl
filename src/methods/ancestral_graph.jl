@@ -413,7 +413,7 @@ Ancestral graphs after marginalization and conditioning.
 
 ### Adjacency matrix used for testing in ggm
 
-```jldoctest
+```julia
 amat_data = transpose(reshape([
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

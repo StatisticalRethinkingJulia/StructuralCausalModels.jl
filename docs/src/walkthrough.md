@@ -10,7 +10,7 @@ cd(ProjDir)
 df = CSV.read(scm_path("..", "data", "marks.csv"));
 ```
 
-# Create a directed acyclic graph (DAG) object
+# DAG - directed acyclic graphs
 
 `DAG()` accepts either an OrderedDict, an `adjacency_matrix` or a ggm/dagitty string.
 See the `ancestral_graph` section below for an example using an `adjacency_matrix`.
@@ -75,8 +75,7 @@ Rows ╲ Cols │  :mechanics     :vectors     :algebra    :analysis  :statistic
 
 ```
 
-Related functions are `to_ggm()`, `from_ggm()`, `to_dagitty()`, `from_dagitty()`, `set_dag_df!()` and `set_dag_cov_matrix!()`.
-
+Additional DAG related functions are `adjacency_matrix()`, `edge_matrix()`, `to_ggm()`, `from_ggm()`, `to_dagitty()`, `from_dagitty()`, `set_dag_df!()` and `set_dag_cov_matrix!()`.
 
 # D_separation
 
@@ -161,7 +160,6 @@ BasisSet[
   mechanics ∐ analysis | [:algebra, :vectors]
   mechanics ∐ statistics | [:algebra, :vectors, :analysis]
 ]
-
 ```
 
 # Shipley test
@@ -172,12 +170,9 @@ t = shipley_test(dag)
 display(t)
 
 (ctest = 2.816854003338401, df = 8, pv = 0.9453198036802164)
-
 ```
 
 # Adjustment sets
-
-
 
 Setup the WaffleDivorce example from StatisticalRethinking:
 ```julia
@@ -217,7 +212,6 @@ Adjustment sets:
 2-element Array{Array{Symbol,1},1}:
  [:s]
  [:a, :m]
-
 ```
 
 # Paths
@@ -272,7 +266,6 @@ amat_data = transpose(reshape([
   1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,
   0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0
 ], (16,16)));
-
 
 vars = [Symbol("n$i") for i in 1:size(amat_data, 1)]
 a = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));

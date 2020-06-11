@@ -48,14 +48,13 @@ open_paths(d::DAG, paths::Vector{Vector{Symbol}})
 
 ```
 
-### Internals
+## Internals
 ```@docs
 adjacency_matrix(d::OrderedDict)
 adjacency_matrix(e::NamedArray)
 adjacency_matrix_to_dict(ea::NamedArray)
 ancester_graph(e::NamedArray)
 ancestral_graph(a::NamedArray{Int, 2}, m::Vector{Symbol}, c::Vector{Symbol})
-all_edges(a::NamedArray)
 blocking_sets(asets::Array{Array{Symbol,1},1})
 DAG(name::AbstractString, d::OrderedDict)
 DAG(name::AbstractString, str::AbstractString, df::DataFrame)
@@ -67,7 +66,6 @@ dag_vars(d::OrderedDict)
 edge_matrix(d::OrderedDict)
 edge_matrix(a::NamedArray, inv=false)
 forward_path(d::DAG, path)
-handle_rhs!(vars::Vector{Symbol}, rhs::SymbolList)
 indicator_matrix(e::NamedArray)
 induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList; debug=false)
 node_edges(p::Path, s::Symbol, l::Symbol)

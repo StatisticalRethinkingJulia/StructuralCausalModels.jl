@@ -21,9 +21,9 @@ jobs:
 #    - stage: TestLatestRelease
 #      julia: 1.5
 #      os: linux
-#    - stage: TestNightly
-#      julia: nightly
-#      os: linux
+    - stage: TestNightly
+      julia: nightly
+      os: linux
     - stage: Documentation
       julia: nightly
       os: linux

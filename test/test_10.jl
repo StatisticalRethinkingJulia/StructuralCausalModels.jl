@@ -17,6 +17,6 @@ d2 = OrderedDict(
 
 dag = DAG("unix", d2)
 
-fname = ProjDir * "/unix.dot"
+fname = joinpath(mktempdir(), "unix.dot")
 to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)

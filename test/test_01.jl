@@ -3,8 +3,6 @@ using StructuralCausalModels, Test
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
-# Experiments with unicode symbols, replacements for e.g. _||_
-
 N = 100
 b_AU = 0.5
 b_AC = 3
@@ -34,7 +32,7 @@ u = [:u]
 dag = DAG("sr6_4_2", d, df);
 show(dag)
 
-fn = "sr6_4_2.dot"
+fn = joinpath(mktempdir(), "sr6_4_2.dot")
 to_graphviz(dag, fn)
 Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 
