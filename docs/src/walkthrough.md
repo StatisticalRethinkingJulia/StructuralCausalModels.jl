@@ -1,6 +1,6 @@
 # Structural Causal Models
 
-Setup of the 'marks' example from the ggm R package:
+To demonstrate the fuctionality in this package, setup of the 'marks' example from the ggm R package:
 ```julia
 using StructuralCausalModels
 
