@@ -17,7 +17,7 @@ StructuralCausalModels.jl is part of the StatisticalRethinkingJulia eco system a
 
 My initial goal for this package is to have a way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `d_separation()`, `adjustment_sets()` and `implied_conditional_independencies()`.
 
-StructuralCausalModels.jl will be registeredand once registered can be installed using
+StructuralCausalModels.jl will be registered and, once registered, can be installed using
 `] add StructuralCausalModels`.
 
 # Versions

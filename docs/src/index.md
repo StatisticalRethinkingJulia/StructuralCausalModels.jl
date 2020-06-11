@@ -30,7 +30,7 @@ basis_set(dag::DAG)
 
 ## ancestral_graph
 ```@docs
-ancestral_graph(d::DAG, m::Vector{Symbol}, c::Vector{Symbol})
+ancestral_graph(d::DAG; m=Symbol[], c=Symbol[])
 ```
 
 ## adjustment_sets
@@ -54,7 +54,7 @@ adjacency_matrix(d::OrderedDict)
 adjacency_matrix(e::NamedArray)
 adjacency_matrix_to_dict(ea::NamedArray)
 ancester_graph(e::NamedArray)
-ancestral_graph(a::NamedArray{Int, 2}, m::Vector{Symbol}, c::Vector{Symbol})
+ancestral_graph(a::NamedArray{Int, 2}; m=Symbol[], c=Symbol[])
 blocking_sets(asets::Array{Array{Symbol,1},1})
 DAG(name::AbstractString, d::OrderedDict)
 DAG(name::AbstractString, str::AbstractString, df::DataFrame)

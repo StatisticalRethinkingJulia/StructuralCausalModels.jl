@@ -73,3 +73,5 @@ println()
 adjustmentsets = adjustment_sets(dag, :x, :y, u)
 println("Adjustment sets for: $(openpaths)")
 adjustmentsets |> display
+println()
+
