@@ -134,15 +134,11 @@ Adjustment sets:
  [:a, :m]</code></pre><h1 id="Paths-1"><a class="docs-heading-anchor" href="#Paths-1">Paths</a><a class="docs-heading-anchor-permalink" href="#Paths-1" title="Permalink"></a></h1><p>Adjustment_sets is based on several path manipulations and checks:</p><pre><code class="language-julia">allpaths  = all_paths(dag, :w, :d)
 println(&quot;All paths between :w and :d:&quot;)
 allpaths |&gt; display
-println()
-
-4-element Array{Array{Symbol,1},1}:
+println()</code></pre><p>for this <a href="https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/examples/SR/SR6.4.3/sr6.4.3.pdf">DAG</a> returns:</p><pre><code class="language-none">4-element Array{Array{Symbol,1},1}:
  [:w, :s, :a, :d]
  [:w, :s, :a, :m, :d]
  [:w, :s, :m, :d]
- [:w, :s, :m, :a, :d]
-
-backdoorpaths = backdoor_paths(dag, allpaths, :w)
+ [:w, :s, :m, :a, :d]</code></pre><pre><code class="language-julia">backdoorpaths = backdoor_paths(dag, allpaths, :w)
 println(&quot;All backdoors between :w and :d:&quot;)
 backdoorpaths |&gt; display
 println()
@@ -161,9 +157,7 @@ println()
 3-element Array{Array{Symbol,1},1}:
  [:w, :s, :a, :d]
  [:w, :s, :a, :m, :d]
- [:w, :s, :m, :d]
-
-StructuralCausalModels.blocking_sets(openpaths)
+ [:w, :s, :m, :d]</code></pre><p>Not exported <code>blocking_sets()</code>:</p><pre><code class="language-jula">StructuralCausalModels.blocking_sets(openpaths)
 4-element Array{Array{Symbol,1},1}:
  [:w]
  [:s]
@@ -174,7 +168,7 @@ println(&quot;Show path: $(allpaths[2])&quot;)
 show_dag_path(dag, allpaths[2]) |&gt; display
 println()
 
-&quot;:w ⇐ :s ⇒ :a ⇒ :m ⇒ :d&quot;</code></pre><h1 id="Ancestral-graph-1"><a class="docs-heading-anchor" href="#Ancestral-graph-1">Ancestral graph</a><a class="docs-heading-anchor-permalink" href="#Ancestral-graph-1" title="Permalink"></a></h1><p>Setup an ancestral_graph example:</p><pre><code class="language-julia">using StructuralCausalModels, Test
+&quot;:w ⇐ :s ⇒ :a ⇒ :m ⇒ :d&quot;</code></pre><p>The vertices :w and :d will be removed by <code>adjustment_sets()</code>.</p><h1 id="Ancestral-graph-1"><a class="docs-heading-anchor" href="#Ancestral-graph-1">Ancestral graph</a><a class="docs-heading-anchor-permalink" href="#Ancestral-graph-1" title="Permalink"></a></h1><p>Setup an ancestral_graph example:</p><pre><code class="language-julia">using StructuralCausalModels, Test
 
 ProjDir = @__DIR__
 
@@ -217,4 +211,4 @@ fr2 = StructuralCausalModels.test_ag(dag.a; m=m, c=c)
 
 println()
 display(fr)
-println()</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../introduction/">« Introduction</a><a class="docs-footer-nextpage" href="../versions/">Versions »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 13 June 2020 21:33">Saturday 13 June 2020</span>. Using Julia version 1.6.0-DEV.221.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+println()</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../introduction/">« Introduction</a><a class="docs-footer-nextpage" href="../versions/">Versions »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Saturday 13 June 2020 21:51">Saturday 13 June 2020</span>. Using Julia version 1.6.0-DEV.221.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
