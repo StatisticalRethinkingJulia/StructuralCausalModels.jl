@@ -201,7 +201,7 @@ d = OrderedDict(
 );
 u = []
 
-dag = DAG("sr6.4.3", d, df);
+dag = DAG("sr6_4_3", d, df);
 show(dag)
 
 adjustmentsets = adjustment_sets(dag, :w, :d)
@@ -219,7 +219,7 @@ Adjustment sets:
 Adjustment_sets is based on several path manipulations and checks:
 ```julia
 allpaths  = all_paths(dag, :w, :d)
-println("All paths between :x and :y:")
+println("All paths between :w and :d:")
 allpaths |> display
 println()
 
@@ -236,6 +236,8 @@ println()
 println("Show path: $(allpaths[2])")
 show_dag_path(dag, allpaths[2]) |> display
 println()
+
+":w ⇐ :s ⇒ :a ⇒ :m ⇒ :d"
 ```
 
 # Ancestral graph

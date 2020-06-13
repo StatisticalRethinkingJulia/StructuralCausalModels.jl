@@ -54,6 +54,7 @@ The Julia translation is licenced under: MIT.
 Part of the api, not exported.
 """
 function pcor(u::Vector{Symbol}, S::NamedArray)
-  k = inv(S[u, u])
+  us = String.(u)
+  k = inv(S[us, us])
   -k[1,2] / sqrt(k[1,1] * k[2,2])
 end

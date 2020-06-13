@@ -6,7 +6,7 @@ using StatsPlots
 ProjDir = @__DIR__
 
 for i in 1:3
-  include(scm_path("..", "examples", "SR", "waffle_data", "AMD_m$i.jl"))
+  include(scm_path("..", "examples", "SR", "waffledivorce", "AMD_m$i.jl"))
 end
 
 if success(rc)

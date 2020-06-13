@@ -48,7 +48,7 @@ open_paths(d::DAG, paths::Vector{Vector{Symbol}})
 
 ```
 
-## Internals
+## Support_functions
 ```@docs
 adjacency_matrix(d::OrderedDict)
 adjacency_matrix(e::NamedArray)

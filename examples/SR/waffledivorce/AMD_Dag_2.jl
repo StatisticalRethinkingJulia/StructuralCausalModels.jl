@@ -8,9 +8,7 @@ cd(ProjDir) #do
 
 # ### snippet 5.1
 
-println()
 df1 = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';');
-first(df1, 5) |> display
 
 df = DataFrame()
 df[!, :A] = df1[:, :MedianAgeMarriage]
@@ -26,6 +24,7 @@ dag = DAG("waffles", d, df);
 show(dag)
 
 fname = ProjDir * "/AMD_2.dot"
+to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
@@ -43,7 +42,10 @@ e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")
 
 e = d_separation(dag, f, s, cond)
-println("d_separation($(dag.name), $f, $s, $cond) = $e")
+println("d_separation($(dag.name), $f, $s, $cond) = $e\n")
+
+bs = basis_set(dag)
+display(bs)
 
 adjustmentsets = adjustment_sets(dag, f[1], s[1])
 println("Adjustment sets:")

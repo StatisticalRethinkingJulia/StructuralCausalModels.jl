@@ -9,13 +9,13 @@ using StatisticalRethinking, StatsPlots
 ProjDir = @__DIR__
 
 for i in 1:5
-  include(rel_path("..", "scripts", "05", "dagitty-ex01", "m$i.jl"))
+  include(scm_path("..", "examples", "sports", "m$i.jl"))
 end
 
 models=[m1s, m2s, m3s, m4s, m5s];
 pars=[:bC, :bFL, :bPGP, :bTM]
 
-df = CSV.read(rel_path("..", "scripts", "05", "dagitty-ex01", "sports.csv"), delim=',')
+df = CSV.read(scm_path("..", "examples", "sports", "sports.csv"), delim=',')
 
 scatter(df[:, :TM], df[:, :WUE])
 savefig("$(ProjDir)/sports_01.png")

@@ -1,5 +1,4 @@
-digraph Waffle_Model {
-  "A" [shape="box", fillcolor="gray85", style="filled"];
-    "A" -> "M";
-    "M" -> "D";
+digraph waffles {
+  A -> M;
+  M -> D;
 }

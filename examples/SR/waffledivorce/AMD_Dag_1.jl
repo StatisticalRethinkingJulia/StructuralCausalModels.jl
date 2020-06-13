@@ -26,6 +26,7 @@ dag = DAG("waffles", d, df);
 show(dag)
 
 fname = ProjDir * "/AMD_1.dot"
+to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
@@ -47,7 +48,10 @@ e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")
 
 e = d_separation(dag, f, s, cond)
-println("d_separation($(dag.name), $f, $s, $cond) = $e")
+println("d_separation($(dag.name), $f, $s, $cond) = $e\n")
+
+bs = basis_set(dag)
+display(bs)
 
 adjustmentsets = adjustment_sets(dag, f[1], s[1])
 println("Adjustment sets:")
