@@ -131,7 +131,7 @@ end
 
 $(SIGNATURES)
 
-Internal
+Part of the API, exported.
 """
 function adjacency_matrix_to_dict(a::NamedArray)
   vars = names(a, 1)
@@ -217,7 +217,8 @@ end
 
 export
   dag_vars,
-  adjacency_matric,
+  adjacency_matrix,
   edge_matrix,
   topological_sort,
-  topological_order
+  topological_order,
+  adjacency_matrix_to_dict

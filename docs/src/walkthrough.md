@@ -222,13 +222,18 @@ allpaths  = all_paths(dag, :w, :d)
 println("All paths between :w and :d:")
 allpaths |> display
 println()
+```
 
+for this [DAG](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/examples/SR/SR6.4.3/sr6.4.3.pdf) returns:
+```
 4-element Array{Array{Symbol,1},1}:
  [:w, :s, :a, :d]
  [:w, :s, :a, :m, :d]
  [:w, :s, :m, :d]
  [:w, :s, :m, :a, :d]
+```
 
+```julia
 backdoorpaths = backdoor_paths(dag, allpaths, :w)
 println("All backdoors between :w and :d:")
 backdoorpaths |> display
@@ -249,7 +254,10 @@ println()
  [:w, :s, :a, :d]
  [:w, :s, :a, :m, :d]
  [:w, :s, :m, :d]
+```
 
+Not exported `blocking_sets()`:
+```jula
 StructuralCausalModels.blocking_sets(openpaths)
 4-element Array{Array{Symbol,1},1}:
  [:w]
@@ -263,6 +271,8 @@ println()
 
 ":w ⇐ :s ⇒ :a ⇒ :m ⇒ :d"
 ```
+
+The vertices :w and :d will be removed by `adjustment_sets()`.
 
 # Ancestral graph
 

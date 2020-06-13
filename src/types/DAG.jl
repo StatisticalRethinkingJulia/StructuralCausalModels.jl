@@ -128,7 +128,7 @@ end
 
 $(SIGNATURES)
 
-Internal
+Part of API, exported.
 """
 function DAG(name::AbstractString, d::OrderedDict)
 
@@ -147,7 +147,7 @@ end
 
 $(SIGNATURES)
 
-Internal
+Part of API, exported.
 """
 function DAG(name::AbstractString, str::AbstractString, df::DataFrame)
   ds = strip(str)
@@ -180,7 +180,7 @@ end
 
 $(SIGNATURES)
 
-Internal
+Part of API, exported.
 """
 function DAG(name::AbstractString, str::AbstractString)
   ds = strip(str)
@@ -207,7 +207,7 @@ end
 
 $(SIGNATURES)
 
-Internal
+Part of API, exported.
 """
 function DAG(name::AbstractString, a::NamedArray, df::DataFrame)
 
@@ -232,7 +232,7 @@ end
 
 $(SIGNATURES)
 
-Internal
+Part of API, exported.
 """
 function DAG(name::AbstractString, a::NamedArray)
 
@@ -269,6 +269,7 @@ $(SIGNATURES)
 
 The `force = true` option can be used if the DAG involves unobserved nodes.
 
+Part of API, exported.
 """
 function set_dag_df!(d::DAG, df::DataFrameOrNothing; force=false)
   # Compute covariance matrix and store as NamedArray
@@ -314,6 +315,7 @@ $(SIGNATURES)
 
 The `force = true` option can be used if the DAG involves unobserved nodes.
 
+Part of API, exported.
 """
 function set_dag_cov_matrix!(d::DAG, cm::NamedArrayOrNothing; force=false)
   # Compute covariance matrix and store as NamedArray
@@ -353,5 +355,5 @@ show(io::IO, d::DAG) = dag_show(io, d)
 export
   DAG,
   set_dag_df!,
-  set_dag_cov_matrix!,
-  adjacency_matrix_to_dict
+  set_dag_cov_matrix!
+  
