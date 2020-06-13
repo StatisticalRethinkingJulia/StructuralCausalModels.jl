@@ -223,15 +223,39 @@ println("All paths between :w and :d:")
 allpaths |> display
 println()
 
+4-element Array{Array{Symbol,1},1}:
+ [:w, :s, :a, :d]
+ [:w, :s, :a, :m, :d]
+ [:w, :s, :m, :d]
+ [:w, :s, :m, :a, :d]
+
 backdoorpaths = backdoor_paths(dag, allpaths, :w)
 println("All backdoors between :w and :d:")
 backdoorpaths |> display
 println()
 
+4-element Array{Array{Symbol,1},1}:
+ [:w, :s, :a, :d]
+ [:w, :s, :a, :m, :d]
+ [:w, :s, :m, :d]
+ [:w, :s, :m, :a, :d]
+
 openpaths = open_paths(dag, backdoorpaths)
 println("All open (backdoor) paths between :w and :d:")
 openpaths |> display
 println()
+
+3-element Array{Array{Symbol,1},1}:
+ [:w, :s, :a, :d]
+ [:w, :s, :a, :m, :d]
+ [:w, :s, :m, :d]
+
+StructuralCausalModels.blocking_sets(openpaths)
+4-element Array{Array{Symbol,1},1}:
+ [:w]
+ [:s]
+ [:d]
+ [:a, :m]
 
 println("Show path: $(allpaths[2])")
 show_dag_path(dag, allpaths[2]) |> display
