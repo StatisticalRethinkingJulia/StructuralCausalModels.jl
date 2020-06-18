@@ -1,0 +1,9 @@
+digraph conf_triangles {
+  B -> Z;
+  B -> D;
+  A -> Z;
+  A -> E;
+  Z -> E;
+  Z -> D;
+  E -> D;
+}

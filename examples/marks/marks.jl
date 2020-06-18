@@ -57,7 +57,7 @@ t = shipley_test(dag)
 display(t); println()
 
 f = [:statistics]; s = [:mechanics]; sel = vcat(f, s)
-cond = [:algebra]
+cond = :algebra
 
 e = d_separation(dag, f, s, cond)
 println("d_separation($(dag.name), $f, $s, $cond) = $e")
@@ -99,11 +99,11 @@ print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors
 println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors], [:algebra]))
 
 adjustmentsets = adjustment_sets(dag, :statistics, :mechanics)
-println("Adjustment sets:")
+println("\nAdjustment sets:")
 adjustmentsets |> display
 
 adjustmentsets = adjustment_sets(dag, :mechanics, :statistics)
-println("Adjustment sets:")
+println("\nAdjustment sets:")
 adjustmentsets |> display
 
 #end

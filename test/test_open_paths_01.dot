@@ -1,0 +1,9 @@
+digraph test_open_paths_01 {
+  s -> w;
+  s -> a;
+  s -> m;
+  w -> d;
+  a -> m;
+  a -> d;
+  m -> d;
+}

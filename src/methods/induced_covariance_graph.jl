@@ -57,11 +57,15 @@ $(SIGNATURES)
 
 Internal
 """
-function induced_covariance_graph(d::DAG, sel::Vector{Symbol}, cond::SymbolList; debug=false)
+function induced_covariance_graph(d::DAG, sel, cond; debug=false)
 
   @assert all([c in d.vars for c in sel]) "Selection nodes are not among vertices."
 
-  if length(cond) > 0
+  if isnothing(cond)
+    cond = []
+  elseif typeof(cond) == Symbol
+    cond = [cond]
+  elseif length(cond) > 0
     @assert all([c in d.vars for c in cond]) "Conditioning nodes are not among vertices."
     @assert !all([c in sel for c in cond]) "Conditioning nodes in selected nodes."
   end

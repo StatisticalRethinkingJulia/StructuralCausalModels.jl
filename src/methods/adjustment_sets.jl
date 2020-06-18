@@ -1,108 +1,91 @@
 """
 
-# `forward-path`
+# `syms_in_paths`
+
+Collect vertices in all paths.
 
 $(SIGNATURES)
 
-Internal
+Part of the API, Exported
 """
-function forward_path(d::DAG, path)
-  res = true
-  for (i, s) in enumerate(path[1:end-1])
-    res = res && d.a[path[i+1], path[i]] == 1
+function syms_in_paths(paths, f, l)
+  thepaths = deepcopy(paths)
+  syms = Symbol[]
+  for p in thepaths
+    setdiff!(p, [f, l])
+    append!(syms, p)
+    unique!(syms)
   end
-  res
+  syms
 end
 
 """
 
-# `blocking_sets`
+# `syms_in_all_paths`
+
+Check if a vertex is part of all paths.
 
 $(SIGNATURES)
 
-Internal
+Part of the API, Exported
 """
-function blocking_sets(asets::Array{Array{Symbol,1},1})
-  result_sets = Vector{Symbol}[]
-  #println(asets)
-  syms = union(asets...)
-  reduced_syms = deepcopy(syms)
-  for sym in syms
-    local res = true
-    for i in 1:length(asets)
-      if sym in asets[i] 
-        res = true
+function sym_in_all_paths(paths, sym)
+  all([sym in p for p in paths])
+end
+
+
+"""
+
+# `adjustment_sets`
+
+Compute the covariance adjustment vertex set.
+
+$(SIGNATURES)
+
+Part of the API, Exported
+"""
+function adjustment_sets(d::DAG, f::Symbol, l::Symbol, debug=false)
+
+  ap  = all_paths(d, f, l)
+  paths = backdoor_paths(d, ap, f)
+  lsyms = syms_in_paths(paths, f, l)
+  adjustmentsets = Vector{Symbol}[]
+  for s in lsyms
+    debug && println("checking $s in $lsyms")
+    if sym_in_all_paths(paths, s)
+      opensets = length(open_paths(d, paths, [s]))
+      if  opensets == 0
+        debug && println("$s closes all paths")
+        append!(adjustmentsets, [[s]])
       else
-        res = false
+        debug && println("Symbol $s has $(opensets) paths open")
       end
-      #println("sym = $sym, res = $res")
-      length(asets) == 1 && break
-      !res && break
-    end
-    if res
-      push!(result_sets, [sym])
-      setdiff!(reduced_syms, [sym])
     end
   end
-  #println("reduced_syms = $reduced_syms")
-  length(reduced_syms) > 0 && push!(result_sets, reduced_syms)
-  result_sets
-end
-
-"""
-
-# `adjustment_sets`
-
-$(SIGNATURES)
-
-Part of the API, exported.
-"""
-function adjustment_sets(d::DAG, f::Symbol, l::Symbol, u::Vector{Symbol})
-  asets = Vector{Symbol}[]
-  allpaths  = all_paths(d, f, l)
-  backdoorpaths = backdoor_paths(d, allpaths, f)
-  for path in open_paths(d, backdoorpaths)
-    aset = Symbol[]
-    indx = findall(x -> x in u, path)[end]
-    for (ind, sym) in enumerate(path[indx+1:end])
-     forward_path(d, path[indx+ind:end]) && push!(aset, sym)
+  for s in adjustmentsets
+    setdiff!(lsyms, s)
+  end
+  debug && lsyms |> display
+  len = 2
+  local csyms
+  while length(lsyms) >= len
+    csyms = collect(combinations(lsyms, len))
+    debug && csyms |> display
+    for s in csyms
+      if length(open_paths(d, paths, s)) == 0
+        debug && println("$s closes all paths")
+        append!(adjustmentsets, [s])
+        setdiff!(lsyms, s)
+      end
     end
-    setdiff!(aset, [path[end]])
-    push!(asets, aset)
+    len += 1
   end
-  if length(asets) > 0
-    return blocking_sets(asets)
-  else
-    return asets
-  end
-end
+  debug && lsyms |> display
 
-"""
-
-# `adjustment_sets`
-
-$(SIGNATURES)
-
-Part of the API, exported.
-"""
-function adjustment_sets(d::DAG, f::Symbol, l::Symbol)
-  asets = Vector{Symbol}[]
-  allpaths  = all_paths(d, f, l)
-  backdoorpaths = backdoor_paths(d, allpaths, f)
-  for path in open_paths(d, backdoorpaths)
-    aset = Symbol[]
-    for (ind, sym) in enumerate(path[2:end])
-     forward_path(d, path[ind+1:end]) && push!(aset, sym)
-    end
-    setdiff!(aset, [path[end]])
-    push!(asets, aset)
-  end
-  if length(asets) > 0
-    return blocking_sets(asets)
-  else
-    return asets
-  end
+  adjustmentsets
 end
 
 export
-  adjustment_sets
+  adjustment_sets,
+  syms_in_paths,
+  syms_in_all_paths

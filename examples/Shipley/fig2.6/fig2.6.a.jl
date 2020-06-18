@@ -4,7 +4,7 @@ using StructuralCausalModels
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
-fname = scm_path("..", "examples", "Shipley", "fig2.6.a.dot")
+fname = scm_path("..", "examples", "Shipley", "fig2.6", "fig2.6.a.dot")
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 # Read `=>` as `~` in regression models, or `<-` in causal models.
@@ -13,7 +13,7 @@ d = OrderedDict(
   :w => [:v, :y, :s2]
 );
 
-dag = DAG("fig2.6.a", d);
+dag = DAG("fig2_6_a", d);
 show(dag)
 
 f = [:x]; s = [:v]
@@ -54,9 +54,9 @@ println("d_separation($(dag.name), $f, $s) == $g4"), [:s1]
 g4 = d_separation(dag, f, s, [:v])
 println("d_separation($(dag.name), $f, $s, [:v]) == $g4\n")
 
-b = basis_set(dag)
-b[1] |> display
-b[5] |> display
-show(b)
+bs = basis_set(dag)
+bs |> display
+
+adjustment_sets(dag, :u, :w) |> display
 
 #end

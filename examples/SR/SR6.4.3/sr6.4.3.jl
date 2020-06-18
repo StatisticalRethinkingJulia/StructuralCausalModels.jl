@@ -1,5 +1,6 @@
-using StructuralCausalModels, StatsPlots
-gr(size=(700,600))
+using StructuralCausalModels
+#using StatsPlots
+#gr(size=(700,600))
 
 ProjDir = @__DIR__
 cd(ProjDir) #do
@@ -14,8 +15,10 @@ df = DataFrame(
 )
 first(df, 5) |> display
 
-StatsPlots.cornerplot(Array(df), label=names(df))
-savefig("$(ProjDir)/SR6.4.3.png")
+if isdefined(Main, :StatsPlots)
+  StatsPlots.cornerplot(Array(df), label=names(df))
+  savefig("$(ProjDir)/SR6.4.3.png")
+end
 
 d = OrderedDict(
   :w => :s,
@@ -29,7 +32,7 @@ show(dag)
 
 fname = ProjDir * "/sr6.4.3.dot"
 to_graphviz(dag, fname)
-Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+#Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
 
@@ -40,11 +43,20 @@ display(bs); println()
 t = shipley_test(dag)
 display(t); println()
 
-f = [:w]; s = [:d];
-cond = [:m, :a]
+f = :w; s = :d;
+#cond = [:m, :a]
 
-e = d_separation(dag, f, s, cond)
+e = d_separation(dag, [f], [s], [:m, :a])
 println("d_separation($(dag.name), $f, $s, $cond) = $e\n")
+
+#ap = all_paths(dag, f, s)
+ap = all_paths(dag, f, s)
+ap |> display
+println()
+
+bp = backdoor_paths(dag, ap, f)
+bp |> display
+println()
 
 adjustmentsets = adjustment_sets(dag, :w, :d)
 println("Adjustment sets:")

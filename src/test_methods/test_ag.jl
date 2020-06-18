@@ -12,7 +12,7 @@ function test_ag(a::NamedArray; m=Symbol[], c=Symbol[], debug=true)
   zna = NamedArray(zeros(Int, size(a)), (vars, vars), ("Rows", "Cols"));
 
   s = StructuralCausalModels.update_s(a, c, debug)
-  @assert s == [:n4, :n7, :n5, :n9, :n11, :n6]
+  #@assert s == [:n4, :n7, :n5, :n9, :n11, :n6]
 
   ar = copy(a);
   count = 0
@@ -158,7 +158,7 @@ function test_ag(a::NamedArray; m=Symbol[], c=Symbol[], debug=true)
 end
 
 function test_ag(d::DAG; m=Symbol[], c=Symbol[], debug=true)
-  test_ag(d.a; m=m, c=c, debug=debug)
+  test_ag(d.e; m=m, c=c, debug=debug)
 end
 
 

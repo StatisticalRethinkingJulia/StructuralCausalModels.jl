@@ -4,6 +4,7 @@ using Reexport
 
 @reexport using DataStructures, LinearAlgebra, Statistics
 @reexport using Distributions, NamedArrays, DataFrames, CSV
+@reexport using Combinatorics
 
 src_path = @__DIR__
 
@@ -21,10 +22,13 @@ Relative path using the StructuralCausalModels.jl src/ directory.
 ```julia
 scm_path("..", "data")
 ```
+
+Part of the API, exported.
 """
 scm_path(parts...) = normpath(joinpath(scm_src_path, parts...))
 
-SymbolList = Union{Nothing, Symbol, Vector{Symbol}}
+SymbolList = Union{Symbol, Vector{Symbol}, Nothing}
+#SymbolListOrNothing = Union{SymbolList, Nothing}
 OrderedDictOrNothing = Union{OrderedDict, Nothing}
 NamedArrayOrNothing = Union{NamedArray, Nothing}
 DataFrameOrNothing = Union{DataFrame, Nothing}

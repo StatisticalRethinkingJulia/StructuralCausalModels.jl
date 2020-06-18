@@ -539,7 +539,7 @@ Ancestral graphs after marginalization and conditioning.
 ```
 """
 function ancestral_graph(d::DAG; m=Symbol[], c=Symbol[])
-  ancestral_graph(d.a; m=m, c=c)
+  ancestral_graph(d.e; m=m, c=c)
 end
 
 export

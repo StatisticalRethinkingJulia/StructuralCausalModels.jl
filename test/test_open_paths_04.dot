@@ -1,0 +1,21 @@
+digraph test_open_paths_04 {
+  r -> q;
+  r -> D;
+  q -> p;
+  p -> o;
+  o -> n;
+  n -> m;
+  m -> l;
+  l -> k;
+  k -> i;
+  k -> D;
+  i -> h;
+  i -> E;
+  h -> g;
+  g -> f;
+  f -> c;
+  c -> b;
+  b -> a;
+  a -> E;
+  E -> D;
+}
