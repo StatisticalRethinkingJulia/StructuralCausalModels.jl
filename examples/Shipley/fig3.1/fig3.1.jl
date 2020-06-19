@@ -28,3 +28,4 @@ display(ggm)
 bs = basis_set(dag)
 display(bs)
 
+adjustment_sets(dag, :c, :e) |> display
