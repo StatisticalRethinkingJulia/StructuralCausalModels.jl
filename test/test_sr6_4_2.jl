@@ -39,5 +39,5 @@ Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 basisset = basis_set(dag)
 allpaths  = all_paths(dag, :x, :y)
 backdoorpaths = backdoor_paths(dag, allpaths, :x)
-openpaths = open_paths(dag, backdoorpaths)
-adjustmentsets = adjustment_sets(dag, :x, :y, u)
+
+adjustmentsets = adjustment_sets(dag, :x, :y)

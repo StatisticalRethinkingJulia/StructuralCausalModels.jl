@@ -1,4 +1,4 @@
-function from_ggm(d::AbstractString; tolowercase=true)
+function from_ggm(d::AbstractString; tolowercase=false)
   str = replace(strip(d), " " => "")
   str = replace(str, "\n" => "")
   startp = findall("(", str)
@@ -24,7 +24,7 @@ function from_ggm(d::AbstractString; tolowercase=true)
   dct
 end 
 
-function to_ggm(d::OrderedDict; touppercase=true, order=false)
+function to_ggm(d::OrderedDict; touppercase=false, order=false)
   str = "DAG("
   for (ind, key) in enumerate(keys(d))
     str = ind > 1 ? "$(str), " : "$(str)"
@@ -57,6 +57,10 @@ function to_ggm(d::OrderedDict; touppercase=true, order=false)
   str = "$(str))"
   str = touppercase ? uppercase(str) : str
   order ? "$(str[1:end-1]), order=TRUE)" : "$(str)"
+end
+
+function to_ggm(d::DAG; touppercase=false, order=false)
+  to_ggm(d.d; touppercase=touppercase, order=order)
 end
 
 export

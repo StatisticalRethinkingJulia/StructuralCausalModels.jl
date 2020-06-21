@@ -1,5 +1,6 @@
-using StructuralCausalModels, StatsPlots
-gr(size=(700,800))
+using StructuralCausalModels
+#using StatsPlots
+#gr(size=(700,800))
 
 ProjDir = @__DIR__
 cd(ProjDir) #do
@@ -22,8 +23,8 @@ df[!, :b] = rand(Normal(1, 1), N) + b_UB * df[:, :u]
 df[!, :x] = rand(Normal(-2, 1), N) + b_UX * df[:, :u]
 df[!, :y] = rand(Normal(1, 2), N) + b_XY * df[:, :x] + b_CY * df[:, :c]
 
-StatsPlots.cornerplot(Array(df), label=names(df))
-savefig("$(ProjDir)/SR6.4.2.png")
+#StatsPlots.cornerplot(Array(df), label=names(df))
+#savefig("$(ProjDir)/SR6.4.2.png")
 
 d = OrderedDict(
   :u => :a,
@@ -34,28 +35,37 @@ d = OrderedDict(
 );
 u = [:u]
 
-dag6_4_2 = DAG("sr6_4_2", d, df);
-show(dag6_4_2)
+dag = DAG("sr6_4_2", d, df);
+show(dag)
 
 fname = joinpath(mktempdir(), "sr6.4.2.dot")
-to_graphviz(dag6_4_2, fname)
+to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+to_dagitty(dag) |> display
+to_ggm(dag) |> display
 
-display(dag6_4_2.s); println()
+display(dag.s); println()
 
-bs = basis_set(dag6_4_2)
+bs = basis_set(dag, debug=true)
 display(bs); println()
 
-t = shipley_test(dag6_4_2)
+t = shipley_test(dag)
 display(t); println()
 
-f = [:a]; s = [:b]; cond = [:u, :c]
+f = [:a]; s = [:b]; conditioning_set = [:u, :c]
 
-e = d_separation(dag6_4_2, f, s, cond)
-println("d_separation($(dag6_4_2.name), $f, $s, $cond) = $e")
+e = d_separation(dag, f, s, conditioning_set)
+println("d_separation($(dag.name), $f, $s, $conditioning_set) = $e")
+println()
 
-adjustmentsets = adjustment_sets(dag6_4_2, :x, :y, u)
+adjustmentsets = adjustment_sets(dag, :x, :y)
 println("\nAdjustment sets:")
 adjustmentsets |> display
+
+#=
+adjustmentsets = adjustment_sets(dag, :x, :y, u)
+println("\nAdjustment sets:")
+adjustmentsets |> display
+=#
 
 #end

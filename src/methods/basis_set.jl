@@ -8,7 +8,7 @@ $(SIGNATURES)
 
 Part of API, exported.
 """
-function basis_set(dag::DAG)
+function basis_set(dag::DAG; debug=false)
   as = transpose(topological_sort(dag.a))
   nod = dag.vars[topological_order(dag.a)]
   dv = 1:length(nod)
@@ -24,6 +24,7 @@ function basis_set(dag::DAG)
       pa_r = filter(i -> as[i, r] == 1, dv)
       pa_s = filter(i -> as[i, s] == 1, dv)
       dsep = union(nod[pa_r], nod[pa_s])
+      debug && println("r = $(nod[r]), s= $(nod[s]), pa_r = $(nod[pa_r]), pa_s = $(nod[pa_s]), dsep = $dsep")
       dsep = setdiff(dsep, ed)
       append!(ed, dsep)
       append!(ind, [ed])

@@ -44,10 +44,11 @@ $(SIGNATURES)
 
 Part of the API, Exported
 """
-function adjustment_sets(d::DAG, f::Symbol, l::Symbol, debug=false)
+function adjustment_sets(d::DAG, f::Symbol, l::Symbol; debug=false)
 
   ap  = all_paths(d, f, l)
   paths = backdoor_paths(d, ap, f)
+  debug && display(paths)
   lsyms = syms_in_paths(paths, f, l)
   adjustmentsets = Vector{Symbol}[]
   for s in lsyms
@@ -55,11 +56,12 @@ function adjustment_sets(d::DAG, f::Symbol, l::Symbol, debug=false)
     if sym_in_all_paths(paths, s)
       opensets = length(open_paths(d, paths, [s]))
       if  opensets == 0
-        debug && println("$s closes all paths")
+        debug && println("$s closes all paths.")
         append!(adjustmentsets, [[s]])
-      else
-        debug && println("Symbol $s has $(opensets) paths open")
       end
+    elseif length(open_paths(d, paths, [s])) == 0
+        debug && println("$s not in all paths but no open paths.")
+        append!(adjustmentsets, [[s]])
     end
   end
   for s in adjustmentsets
@@ -88,4 +90,4 @@ end
 export
   adjustment_sets,
   syms_in_paths,
-  syms_in_all_paths
+  sym_in_all_paths

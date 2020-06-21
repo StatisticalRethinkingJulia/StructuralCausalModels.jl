@@ -32,7 +32,7 @@ show(dag)
 
 fname = ProjDir * "/sr6.4.3.dot"
 to_graphviz(dag, fname)
-#Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
 

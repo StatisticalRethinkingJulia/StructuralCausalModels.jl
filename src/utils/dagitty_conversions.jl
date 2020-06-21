@@ -40,7 +40,7 @@ function split_and_insert!(f, t, s)
   end
 end
 
-function from_dagitty(str::AbstractString; tolowercase=true)
+function from_dagitty(str::AbstractString; tolowercase=false)
   str = replace(str, "<-" => "<")
   str = replace(str, "->" => ">")
   startp = findall("{", str)
@@ -104,7 +104,7 @@ function from_dagitty(str::AbstractString; tolowercase=true)
   dct
 end
 
-function to_dagitty(d::OrderedDict; touppercase=true)
+function to_dagitty(d::OrderedDict; touppercase=false)
   str = "dag { "
   for (ind, key) in enumerate(keys(d))
     str = ind > 1 ? "$(str); " : "$(str)"
@@ -139,7 +139,9 @@ function to_dagitty(d::OrderedDict; touppercase=true)
   touppercase ? uppercase(str) : str
 end
 
-
+function to_dagitty(d::DAG; touppercase=false)
+  to_dagitty(d.d; touppercase=touppercase)
+end
 
 export
   from_dagitty,

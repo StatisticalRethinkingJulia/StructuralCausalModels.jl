@@ -1,5 +1,3 @@
-# Load Julia packages (libraries) needed for clip
-
 using StatisticalRethinking, StructuralCausalModels
 using StatsPlots
 
@@ -95,11 +93,15 @@ if !isnothing(shipley_test_dag_3)
 end
 println()
 
-f = [:M]; s = [:D]; sel = vcat(f, s)
-cond = [:A]
+f = :M; s = :D; sel = vcat(f, s)
+cond = :A
 
 e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")
 
 e = d_separation(dag, f, s, cond)
 println("d_separation($(dag.name), $f, $s, $cond) = $e")
+
+as = adjustment_sets(dag, :A, :D)
+as |> display
+

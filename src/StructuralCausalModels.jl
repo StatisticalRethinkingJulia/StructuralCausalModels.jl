@@ -48,6 +48,7 @@ include("methods/open_paths.jl")
 include("methods/backdoor_paths.jl")
 include("methods/adjustment_sets.jl")
 include("methods/ancestral_graph.jl")
+#include("methods/implied_conditional_independencies.jl")
 
 include("utils/show_dag_path.jl")
 include("utils/ggm_conversions.jl")
