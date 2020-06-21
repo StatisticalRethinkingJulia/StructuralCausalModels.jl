@@ -21,7 +21,7 @@ e2 = StructuralCausalModels.edge_matrix(d2)
 
 @testset "dag_formulations" begin
 
-  syms = names(e, 1)
+  syms = names(e1, 1)
   for s1 in syms
     for s2 in syms
       @test e1[s1, s2] == e2[s1, s2]
