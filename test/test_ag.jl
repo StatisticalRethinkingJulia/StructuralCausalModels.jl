@@ -2,7 +2,7 @@ using StructuralCausalModels, Test
 
 ProjDir = @__DIR__
 
-#include(scm_path("test_methods", "test_ag.jl"))
+include(scm_path("..", "test", "test_methods", "test_ag.jl"))
 
 amat_data = transpose(reshape([
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -36,12 +36,12 @@ Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 m = [:n3, :n5, :n6, :n15, :n16];
 c = [:n4, :n7];
 
-fr = StructuralCausalModels.test_ag(a; m=m, c=c)
+fr = test_ag(a; m=m, c=c)
 
 fr1 = ancestral_graph(a; m=m, c=c)
 @test all(fr .== fr1)
 
-fr2 = StructuralCausalModels.test_ag(dag.a; m=m, c=c)
+fr2 = test_ag(dag.a; m=m, c=c)
 @test all(fr .== fr2);
 
 println()

@@ -15,7 +15,7 @@
 
 StructuralCausalModels.jl is part of the StatisticalRethinkingJulia eco system and, for now, containg functionality to analyse directed acyclic graph (DAG) based causal models as described in [StatisticalRethinking](https://xcelab.net/rm/statistical-rethinking/),[Causal Inference in Statistics](http://bcs.wiley.com/he-bcs/Books?action=index&bcsId=10288&itemId=1119186846) and [Cause and Correlation in Biology](https://www.cambridge.org/core/books/cause-and-correlation-in-biology/247799189B31939D24BC0F61FD59E9BB#).
 
-My initial goal for this package is to have a way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `d_separation()`, `basis_set()` and `adjustment_sets()`.
+My initial goal for this package is to have a way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `basis_set()`, `d_separation()` and `adjustment_sets()`.
 
 StructuralCausalModels.jl will be registered and, once registered, can be installed using
 `] add StructuralCausalModels`.
@@ -40,7 +40,8 @@ and particularly:
 4. Sadeghi, K. (2011). Stable classes of graphs containing directed acyclic
 graphs, implementation as included in ggm.
 
-The latter two have been used as the basis for the Julia implementations of e.g. `shipley_test()`, `d_separation()` and `ancestral_graph()`.
+The latter two have been used as the basis for the Julia implementations of `basis_set()``d_separation()`, `shipley_test()`, `pcor_test()` and `ancestral_graph`.
+
 
 # References
 

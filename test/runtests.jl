@@ -35,8 +35,8 @@ end
 
   include("test_sr6_4_3b.jl")
   include("test_ag.jl")
-  include("test_agb.jl")
-  include("test_dag.jl")
+  include("test_set_dag_df.jl")
+  include("test_dag_formulations.jl")
   include("test_dagitty_conversion.jl")
   include("test_ggm_conversion.jl")
   include("test_graphviz_conversions.jl")

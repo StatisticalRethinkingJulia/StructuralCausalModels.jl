@@ -55,10 +55,6 @@ include("utils/ggm_conversions.jl")
 include("utils/dagitty_conversions.jl")
 include("utils/graphviz_conversions.jl")
 
-include("test_methods/test_ag.jl")
-
-#include("methods/all_edges.jl")
-
 export
   scm_path
 

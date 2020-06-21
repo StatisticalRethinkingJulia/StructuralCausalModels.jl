@@ -160,6 +160,3 @@ end
 function test_ag(d::DAG; m=Symbol[], c=Symbol[], debug=true)
   test_ag(d.e; m=m, c=c, debug=debug)
 end
-
-
-
