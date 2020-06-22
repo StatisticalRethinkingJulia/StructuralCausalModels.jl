@@ -33,15 +33,11 @@ Important links are:
 
 1. [Dagitty](http://www.dagitty.net/)
 2. [R dagitty package](https://cran.r-project.org/web/packages/dagitty/index.html)
-
-and particularly:
-
 3. [R ggm package](https://cran.r-project.org/web/packages/ggm/index.html)
-
 4. Sadeghi, K. (2011). Stable classes of graphs containing directed acyclic
 graphs, implementation as included in ggm.
 
-The latter two have been used as the basis for the Julia implementations of `basis_set()``d_separation()`, `shipley_test()`, `pcor_test()` and `ancestral_graph`.
+The latter two have been used for the Julia implementations of `basis_set()`, `d_separation()`, `shipley_test()`, `pcor_test()` and `ancestral_graph`.
 
 
 # References
