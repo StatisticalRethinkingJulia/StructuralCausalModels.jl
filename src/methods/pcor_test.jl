@@ -1,3 +1,14 @@
+#=
+"pcor.test" <-
+function(r, q, n){
+                df = n - 2 - q
+                tval <- r * sqrt(df)/sqrt(1-r*r)
+                pv <- 2 * pt(-abs(tval), df)
+  list(tval = tval, df = df, pvalue = pv)
+
+}
+=#
+
 """
     
 # pcor
@@ -9,7 +20,7 @@ variables.
 
 ### Method
 ```julia
-pcor(;
+pcor_test(;
 * `u::Vector{Symbol}`                  : Variables used to compute correlation
 * `S::Matrix`                          : Sample covariance matrix
 )
@@ -26,19 +37,6 @@ where:
 ```
 # Extended help
 
-### Example
-
-### Correlation between vectors and algebra, conditioning on analysis and statistics
-```julia
-using StructuralCausalModels, CSV
-
-df = CSV.read(scm_path("..", "data", "marks.csv");
-S = cov(Array(df))
-
-u = [2, 3, 4, 5]
-pcor(u, S)
-u = [:vectors, :algebra, :statistics, :analysis]
-```
 ### Acknowledgements
 
 Original author:                       Giovanni M. Marchetti
@@ -53,11 +51,11 @@ The Julia translation is licenced under: MIT.
 
 Part of the api, not exported.
 """
-function pcor(u::Vector{Symbol}, S::NamedArray)
-  us = String.(u)
-  k = inv(S[us, us])
-  -k[1,2] / sqrt(k[1,1] * k[2,2])
-end
+function pcor_test(r, q, n)
 
-export
-  pcor
+  df = n - 2 - q
+  tval = r * sqrt(df) / sqrt(1 - r*r)
+  pv = 2 * pdf(TDist(-abs(tval), df))
+  (pv=tval, df=df, pvalue=pv)
+
+end

@@ -21,10 +21,9 @@ if isdefined(Main, :StatsPlots)
 end
 
 d = OrderedDict(
-  :w => :s,
+  [:w, :m, :a] => :s,
   :d => [:a, :w, :m],
-  :m => [:a, :s],
-  :a => :s
+  :m => [:a]
 );
 
 dag = DAG("sr6_4_3", d, df);

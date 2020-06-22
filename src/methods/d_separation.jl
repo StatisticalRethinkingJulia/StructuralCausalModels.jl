@@ -18,7 +18,7 @@ d_separation(
 
 ### Optional arguments
 ```julia
-* `cond::Vector{Symbol}`               : Conditioning set
+* `cond::SymbolList`                   : Conditioning set
 * `debug=false`                        : Trace execution
 ```
 
@@ -61,17 +61,16 @@ The Julia translation is licenced under: MIT.
 
 Part of the API, exported.
 """
-function d_separation(d::DAG, first::SymbolList, second::SymbolList,
-  cond::SymbolList; debug=false)
+function d_separation(d::DAG, first::SymbolList, second::SymbolList; debug=false)
 
-  e = induced_covariance_graph(d, vcat(first, second), cond; debug=debug)
+  e = induced_covariance_graph(d, vcat(first, second), SymbolList[]; debug=debug)
   sum(e[first, second]) == 0
 
 end
 
-function d_separation(d::DAG, first::SymbolList, second::SymbolList; debug=false)
+function d_separation(d::DAG, first::SymbolList, second::SymbolList, cond::SymbolList; debug=false)
 
-  e = induced_covariance_graph(d, vcat(first, second), SymbolList[]; debug=debug)
+  e = induced_covariance_graph(d, vcat(first, second), cond; debug=debug)
   sum(e[first, second]) == 0
 
 end

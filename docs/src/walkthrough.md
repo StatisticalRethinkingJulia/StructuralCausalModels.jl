@@ -77,7 +77,7 @@ Rows ╲ Cols │  :mechanics     :vectors     :algebra    :analysis  :statistic
 
 Additional DAG related functions are `adjacency_matrix()`, `edge_matrix()`, `to_ggm()`, `from_ggm()`, `to_dagitty()`, `from_dagitty()`, `set_dag_df!()` and `set_dag_cov_matrix!()`.
 
-# D_separation
+# Directed separation
 
 Given a causal graph, `d_separation(dag, f, l, cond)` determines if the vertices in set `f` are `d-separated` from the vertices in set `l` given the conditioning set `cond`.
 
@@ -194,10 +194,9 @@ fname = scm_path("..", "examples", "SR", "SR6.4.3", "sr6.4.3.dot")
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 d = OrderedDict(
-  :s => [:a, :m, :w],
-  :a => [:m, :d],
-  :m => [:d],
-  :w => [:d]
+  [:a, :m, :w] => :s,
+  :d => [:w, :m, :a],
+  :m => [:a]
 );
 u = []
 
@@ -225,7 +224,7 @@ println()
 ```
 
 for this [DAG](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/examples/SR/SR6.4.3/sr6.4.3.pdf) returns:
-```
+```julia
 4-element Array{Array{Symbol,1},1}:
  [:w, :s, :a, :d]
  [:w, :s, :a, :m, :d]
@@ -245,34 +244,14 @@ println()
  [:w, :s, :m, :d]
  [:w, :s, :m, :a, :d]
 
-openpaths = open_paths(dag, backdoorpaths)
-println("All open (backdoor) paths between :w and :d:")
-openpaths |> display
-println()
-
-3-element Array{Array{Symbol,1},1}:
- [:w, :s, :a, :d]
- [:w, :s, :a, :m, :d]
- [:w, :s, :m, :d]
 ```
-
-Not exported `blocking_sets()`:
-```jula
-StructuralCausalModels.blocking_sets(openpaths)
-4-element Array{Array{Symbol,1},1}:
- [:w]
- [:s]
- [:d]
- [:a, :m]
-
+```julia
 println("Show path: $(allpaths[2])")
 show_dag_path(dag, allpaths[2]) |> display
 println()
 
 ":w ⇐ :s ⇒ :a ⇒ :m ⇒ :d"
 ```
-
-The vertices :w and :d will be removed by `adjustment_sets()`.
 
 # Ancestral graph
 
