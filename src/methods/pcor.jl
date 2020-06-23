@@ -10,8 +10,8 @@ variables.
 ### Method
 ```julia
 pcor(;
+* `d::DAG`                             : DAG object
 * `u::Vector{Symbol}`                  : Variables used to compute correlation
-* `S::Matrix`                          : Sample covariance matrix
 )
 ```
 where:
@@ -53,9 +53,9 @@ The Julia translation is licenced under: MIT.
 
 Part of the api, not exported.
 """
-function pcor(u::Vector{Symbol}, S::NamedArray)
+function pcor(d:: DAG, u::SymbolList)
   us = String.(u)
-  k = inv(S[us, us])
+  k = inv(d.s[us, us])
   -k[1,2] / sqrt(k[1,1] * k[2,2])
 end
 

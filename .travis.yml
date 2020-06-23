@@ -16,8 +16,6 @@ git:
 
 jobs:
   include:
-    - stage: TestPreviousRelease
-      os: linux
     - stage: TestLatestRelease
       julia: 1.5
       os: linux

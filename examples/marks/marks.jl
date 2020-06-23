@@ -44,23 +44,19 @@ Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 display(dag.s); println()
 
-#=
-ord = topological_order(dag)
-display(ord); println()
-display(dag.vars[ord]); println()
-=#
-
 bs = basis_set(dag)
 display(bs); println()
 
 t = shipley_test(dag)
-display(t); println()
+display("shipley_test = $t"); println()
+
+pt = pcor_test(dag, [:analysis, :statistics, :mechanics], 1, 88)
+display("pcor_test = $pt"); println()
 
 f = [:statistics]; s = [:mechanics]; sel = vcat(f, s)
-cond = :algebra
 
-e = d_separation(dag, f, s, cond)
-println("d_separation($(dag.name), $f, $s, $cond) = $e")
+e = d_separation(dag, f, s, :algebra)
+println("d_separation($(dag.name), $f, $s, :algebra) = $e")
 
 e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")

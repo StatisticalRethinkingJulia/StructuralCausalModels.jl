@@ -27,8 +27,8 @@ Part of the API, exported.
 """
 scm_path(parts...) = normpath(joinpath(scm_src_path, parts...))
 
-SymbolList = Union{Symbol, Vector{Symbol}, Nothing}
-#SymbolListOrNothing = Union{SymbolList, Nothing}
+SymbolList = Union{Symbol, Vector{Symbol}}
+SymbolListOrNothing = Union{SymbolList, Nothing}
 OrderedDictOrNothing = Union{OrderedDict, Nothing}
 NamedArrayOrNothing = Union{NamedArray, Nothing}
 DataFrameOrNothing = Union{DataFrame, Nothing}

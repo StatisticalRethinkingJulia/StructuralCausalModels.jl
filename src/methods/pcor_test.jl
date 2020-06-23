@@ -51,11 +51,15 @@ The Julia translation is licenced under: MIT.
 
 Part of the api, not exported.
 """
-function pcor_test(r, q, n)
+function pcor_test(d::DAG, u::SymbolList, q, n)
 
+  r = pcor(d, u)
   df = n - 2 - q
   tval = r * sqrt(df) / sqrt(1 - r*r)
-  pv = 2 * pdf(TDist(-abs(tval), df))
+  pv = 2 * cdf(TDist(df), -abs(tval))
   (pv=tval, df=df, pvalue=pv)
 
 end
+
+export
+  pcor_test

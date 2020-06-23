@@ -1,16 +1,9 @@
 import Base: show, getindex, iterate, HasLength, HasEltype, length
 
-#=
-println("\u2561\u255E")
-println("\u2210")
-println("\u2550\u2550")
-println("\u21d0 \u21d1 \u21d2 \u27f9   \u21e2")
-=#
-
 struct ConditionalIndependency
   f::SymbolList
   s::SymbolList
-  c::SymbolList
+  c::SymbolListOrNothing
 end
 
 ConditionalIndependency(f::SymbolList, s::SymbolList) =
@@ -34,7 +27,7 @@ end
 
 function append(c::ConditionalIndependency)
   v = [c.f, c.s]
-  length(c.c) > 0 && push!(v, c.c...)
+  !isnothing(c.c) && length(c.c) > 0 && push!(v, c.c...)
   v
 end
 

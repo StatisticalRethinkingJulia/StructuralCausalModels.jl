@@ -15,8 +15,7 @@ DAG(name::AbstractString, d::OrderedDict, df::DataFrame)
 
 ## d_separation
 ```@docs
-d_separation(d::DAG, first::SymbolList, second::SymbolList; debug=false)
-d_separation(d::DAG, first::SymbolList, second::SymbolList, cond::SymbolList; debug=false)
+d_separation(d::DAG, first::SymbolList, second::SymbolList; cond::SymbolListOrNothing, debug=false)
 ```
 
 ## shipley_test

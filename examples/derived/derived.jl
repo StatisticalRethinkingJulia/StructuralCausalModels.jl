@@ -25,8 +25,7 @@ Wei  27.494715 33.118393  60.609937 24.834038 113.66808
 ";
 
 # A DAG model with a latent variable U
-# G = DAG(Y ~ Z + U, X ~ U + W, Z ~ W)
-dag = DAG("ggm_derived", "DAG(Y ~ Z + U, X ~ U + W, Z ~ W)")
+dag = DAG("ggm_derived", "DAG(y ~ z + u, x ~ u + w, z ~ w)")
 
 to_dagitty(dag.d) |> display
 
@@ -34,23 +33,23 @@ fname = ProjDir * "/derived.dot"
 to_graphviz(dag, fname)
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
+set_dag_df!(dag, df; force=true)
+
 println("Definition of DAG:")
 display(dag)
 
-println("Adjacency matrix:")
-display(dag.a)
+bs = basis_set(dag; debug=true)
+display(bs)
+
+#t = shipley_test(dag)
+#display("shipley_test = $t"); println()
+
+pt = pcor_test(dag, [:w, :y], 1, 44)
+display("pcor_test = $pt"); println()
+
+as = adjustment_sets(dag, :w, :z)
+as |> display
 
 println("\nAncestral graph:")
 ag = ancestral_graph(dag; m=[:u])
 display(ag)
-
-println()
-set_dag_df!(dag, df; force=true)
-display(dag.s)
-
-println()
-bs = basis_set(dag)
-display(bs)
-
-as = adjustment_sets(dag, :w, :z)
-as |> display
