@@ -9,8 +9,7 @@ scm_path(parts...)
 
 ## DAG
 ```@docs
-DAG
-DAG(name::AbstractString, d::OrderedDict, df::DataFrame)
+DAG(name::AbstractString, model::ModelDefinition; df::DataFrameOrNothing=nothing)
 ```
 
 ## d_separation
