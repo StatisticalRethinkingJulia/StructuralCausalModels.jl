@@ -29,7 +29,7 @@ d = OrderedDict(
 );
 u = [:u]
 
-dag = DAG("sr6_4_2a", d, df);
+dag = DAG("sr6_4_2a", d; df=df);
 show(dag)
 
 fn = joinpath(mktempdir(), "sr6_4_2a.dot")

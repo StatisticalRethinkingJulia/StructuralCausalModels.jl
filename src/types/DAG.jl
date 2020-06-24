@@ -44,13 +44,17 @@ $(SIGNATURES)
 ### Required arguments
 ```julia
 * `name::AbstractString`               : Name for the DAG object
-* `d`                                  : DAG definition as an
-                                           OrderedDict (see extended help)
-                                           AbstractString (as in ggm or dagitty)
-                                           AdjacencyMatrix
+* `d::ModelDefinition`                 : DAG definition
 ```
 
-### Optional positional argument
+where
+```
+ModelDefinition = Union{OrderedDict, AbstractString, NamedArray}
+```
+
+See the extended help for a usage example.
+
+### Keyword arguments
 ```julia
 * `df::DataFrame`                      : DataFrame with observations
 ```
@@ -80,7 +84,7 @@ Coming from R's dagitty:
 amat <- dagitty("dag { {X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}”)
 ```julia
 dag = DAG("my_name", "dag { {X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}”)
-display(dag.a) # Show the adjacency_matrix
+display(dag) # Show the DAG
 ```
 
 Coming from R's ggm:
@@ -88,7 +92,7 @@ Coming from R's ggm:
 amat <- DAG(U~X+V, S1~U, W~V+Y, S2~W, order=FALSE)
 ```julia
 dag = DAG("my_name", "DAG(U~X+V, S1~U, W~V+Y, S2~W”)
-display(dag.a) # Show the adjacency_matrix
+display(dag) # Show the DAG
 ```
 
 ### Acknowledgements
@@ -105,144 +109,39 @@ The Julia translation is licenced under: MIT.
 
 Part of API, exported.
 """
-function DAG(name::AbstractString, d::OrderedDict, df::DataFrame)
+function DAG(name::AbstractString, model::ModelDefinition; df::DataFrameOrNothing=nothing)
+
+  local d
+  if typeof(model) <: OrderedDict
+    d = model
+  elseif typeof(model) <: AbstractString
+    ds = strip(model)
+    if ds[1:3] == "DAG"
+      d = from_ggm(ds)
+    elseif ds[1:3] == "dag"
+      d = from_dagitty(ds)
+    else
+      @error "Unrecognized model string: $(ds))"
+    end
+  elseif typeof(model) <: NamedArray
+    d = adjacency_matrix_to_dict(model)
+  end    
 
   vars = dag_vars(d)
   a = adjacency_matrix(d)
   e = edge_matrix(d)
 
-  # Compute covariance matrix and store as NamedArray
-
-  @assert length(names(df)) == length(vars) "DataFrame has different number of columns"
-  s = NamedArray(cov(Array(df)), (names(df), names(df)), ("Rows", "Cols"))
-
-  # Create object
-
-  DAG(name, d, a, e, s, df, vars)
-
-end
-
-"""
-
-# `DAG`
-
-$(SIGNATURES)
-
-Part of API, exported.
-"""
-function DAG(name::AbstractString, d::OrderedDict)
-
-  vars = dag_vars(d)
-  a = adjacency_matrix(d)
-  e = edge_matrix(d)
-
-  # Create object
-
-  DAG(name, d, a, e, nothing, nothing, vars)
-end
-
-"""
-
-# `DAG`
-
-$(SIGNATURES)
-
-Part of API, exported.
-"""
-function DAG(name::AbstractString, str::AbstractString, df::DataFrame)
-  ds = strip(str)
-  if ds[1:3] == "DAG"
-    d = from_ggm(ds)
-  elseif ds[1:3] == "dag"
-    d = from_dagitty(ds)
+  if isnothing(df)
+    s = nothing
   else
-    @error "Unrecognized model string: $(ds))"
+    # Compute covariance matrix and store as NamedArray
+    @assert length(names(df)) == length(vars) "DataFrame has different number of columns"
+    s = NamedArray(cov(Array(df)), (names(df), names(df)), ("Rows", "Cols"))
   end
 
-  vars = dag_vars(d)
-  a = adjacency_matrix(d)
-  e = edge_matrix(d)
-
-  # Compute covariance matrix and store as NamedArray
-
-  @assert length(names(df)) == length(vars) "DataFrame has different number of columns"
-  s = NamedArray(cov(Array(df)), (names(df), names(df)), ("Rows", "Cols"))
-
   # Create object
 
   DAG(name, d, a, e, s, df, vars)
-
-end
-
-"""
-
-# `DAG`
-
-$(SIGNATURES)
-
-Part of API, exported.
-"""
-function DAG(name::AbstractString, str::AbstractString)
-  ds = strip(str)
-  if ds[1:3] == "DAG"
-    d = from_ggm(ds)
-  elseif ds[1:3] == "dag"
-    d = from_dagitty(ds)
-  else
-    @error "Unrecognized model string: $(ds))"
-  end
-
-  vars = dag_vars(d)
-  a = adjacency_matrix(d)
-  e = edge_matrix(d)
-
-  # Create object
-
-  DAG(name, d, a, e, nothing, nothing, vars)
-end
-
-"""
-
-# `DAG`
-
-$(SIGNATURES)
-
-Part of API, exported.
-"""
-function DAG(name::AbstractString, a::NamedArray, df::DataFrame)
-
-  vars = names(a, 1)
-  d = adjacency_matrix_to_dict(a)
-  e = StructuralCausalModels.edge_matrix(a)
-
-  # Compute covariance matrix and store as NamedArray if df is present
-
-  @assert length(names(df)) == length(vars) "DataFrame has different number of columns"
-  s = NamedArray(cov(Array(df)), (names(df), names(df)), ("Rows", "Cols"))
-
-  # Create object
-
-  DAG(name, d, a, e, s, df, vars)
-
-end
-
-"""
-
-# `DAG`
-
-$(SIGNATURES)
-
-Part of API, exported.
-"""
-function DAG(name::AbstractString, a::NamedArray)
-
-  vars = names(a, 1)
-  d = adjacency_matrix_to_dict(a)
-  e = StructuralCausalModels.edge_matrix(a)
-
-  # Create object
-
-  DAG(name, d, a, e, nothing, nothing, vars)
 
 end
 

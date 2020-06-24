@@ -20,7 +20,7 @@ d = OrderedDict(
 );
 u = []
 
-dag = DAG("sr6.4.3", d, df);
+dag = DAG("sr6.4.3", d; df=df);
 fname = scm_path("..", "examples", "SR", "SR6.4.3", "sr6.4.3.dot")
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 

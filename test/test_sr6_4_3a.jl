@@ -22,7 +22,7 @@ d = OrderedDict(
   :w => [:d]
 );
 
-dag = DAG("sr6.4.3", d, df);
+dag = DAG("sr6.4.3", d; df=df);
 show(dag)
 
 adjustmentsets = adjustment_sets(dag, :w, :d)

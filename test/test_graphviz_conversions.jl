@@ -25,7 +25,7 @@ d = from_ggm("DAG(
     analysis ~ algebra)"
 );
 
-dag = DAG("marks", d, df);
+dag = DAG("marks", d, df=df);
 show(dag)
 
 fn = joinpath(mktempdir(), "marks.dot")

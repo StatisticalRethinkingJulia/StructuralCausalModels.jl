@@ -30,7 +30,7 @@ d = OrderedDict(
   :u => :a
   )
 
-dag = DAG("sr6_4_2", d, df);
+dag = DAG("sr6_4_2", d, df=df);
 
 fn = joinpath(mktempdir(), "sr6_4_2.dot")
 to_graphviz(dag, fn)

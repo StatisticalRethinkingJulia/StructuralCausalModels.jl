@@ -14,6 +14,7 @@ using Test
   include("test_sr6_4_2a.jl")
   @test adjustmentsets == [[:a], [:c]]
   =#
+  println("\n")
 
 end
 
@@ -28,6 +29,7 @@ end
   @test show_dag_path(dag, allpaths[1]) == ":w ⇒ :s ⇐ :a ⇐ :d"
   @test adjustmentsets == Array{Symbol,1}[]
   =#
+  println("\n")
   
 end 
 
@@ -40,6 +42,7 @@ end
   include("test_dagitty_conversion.jl")
   include("test_ggm_conversion.jl")
   include("test_graphviz_conversions.jl")
+  println("\n")
 
 end
 
@@ -57,5 +60,6 @@ end
   @test show_dag_path(dag, allpaths[1]) == ":w ⇒ :s ⇐ :a ⇐ :d"
   @test adjustmentsets == Array{Symbol,1}[]
   =#
-end 
+  println("\n")
 
+end 

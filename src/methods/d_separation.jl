@@ -18,7 +18,7 @@ d_separation(
 
 ### Keyword arguments
 ```julia
-* `cond::SymbolListOrNoting=noting`    : Conditioning set
+* `cond::SymbolListOrNothing=nothing`  : Conditioning set
 * `debug=false`                        : Trace execution
 ```
 
@@ -68,15 +68,6 @@ function d_separation(d::DAG, first::SymbolList, second::SymbolList;
   sum(e[first, second]) == 0
 
 end
-
-#=
-function d_separation(d::DAG, first::SymbolList, second::SymbolList, cond::SymbolList; debug=false)
-
-  e = induced_covariance_graph(d, vcat(first, second), cond; debug=debug)
-  sum(e[first, second]) == 0
-
-end
-=#
 
 export
   d_separation

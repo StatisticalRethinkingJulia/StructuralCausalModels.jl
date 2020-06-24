@@ -32,6 +32,7 @@ SymbolListOrNothing = Union{SymbolList, Nothing}
 OrderedDictOrNothing = Union{OrderedDict, Nothing}
 NamedArrayOrNothing = Union{NamedArray, Nothing}
 DataFrameOrNothing = Union{DataFrame, Nothing}
+ModelDefinition = Union{OrderedDict, AbstractString, NamedArray}
 
 include("types/DAG.jl")
 include("types/Path.jl")

@@ -42,7 +42,11 @@ fr1 = ancestral_graph(a; m=m, c=c)
 @test all(fr .== fr1)
 
 fr2 = test_ag(dag.a; m=m, c=c)
-@test all(fr .== fr2);
+for i in names(fr, 1)
+  for j in names(fr, 1)
+    @test fr[i, j] == fr2[i, j]
+  end
+end
 
 println()
 display(fr)
