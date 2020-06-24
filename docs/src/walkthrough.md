@@ -75,7 +75,21 @@ Rows ╲ Cols │  :mechanics     :vectors     :algebra    :analysis  :statistic
 
 ```
 
-Additional DAG related functions are `adjacency_matrix()`, `edge_matrix()`, `to_ggm()`, `from_ggm()`, `to_dagitty()`, `from_dagitty()`, `set_dag_df!()` and `set_dag_cov_matrix!()`.
+Additional DAG related functions are `adjacency_matrix()`, `edge_matrix()` and `dag_vars()`.
+
+# Importing from and exporting to [dagitty.net](http://www.dagitty.net/dags.html#), dagitty and ggm (both are R packages)
+
+Importing is easiest using the functions `from_dagitty()` and `from_ggm()` as shown above.
+
+To export to dagitty.net, copy and paste the output from `to_dagitty()` into the `Model code` field on the dagitty.net web interface.
+
+For both R packages, copy the output from `to_dagitty()` or `to_ggm()` to R.
+
+# Adding a observations DataFrame or a covariance matrix 
+
+Use `set_dag_df!()` and `set_dag_cov_matrix!()` for this. Note that if a DataFrame is added a covariance matrix is computed.
+
+Although this initial version of StructuralCausalModels does not support latent variables yet, by using the keyword argument `force=true` no check is performed if all vertices/variables in the causal diagram are present in the DataFrame or covariance matrix.
 
 # Directed separation
 
@@ -173,6 +187,10 @@ display(t)
 ```
 
 # Adjustment sets
+
+D_separation provides a set of conditional independencies given the causal model. The conditioning set closes (blocks) all paths. It provides ways to test the chosen causal model given observational data.
+
+The function `adjustment_sets()` answers a related question, i.e. how to prevent confounding in multiple regression models assuming the chosen causal model is correct.
 
 Setup the WaffleDivorce example from StatisticalRethinking:
 ```julia

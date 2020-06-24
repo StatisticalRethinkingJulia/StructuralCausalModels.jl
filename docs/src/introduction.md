@@ -9,3 +9,5 @@ All three above references are great introductions to the use of causal models t
 [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl) is part of the [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) eco system. The package, once registered, can be installed using `] add StructuralCausalModels`.
 
 Please report issues (or file a pull request) on Github if you find a problem.
+
+Note: Version 0.1.0 of StructuralCausalModels.jl does not support latent variables.
