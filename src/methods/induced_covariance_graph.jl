@@ -57,41 +57,42 @@ $(SIGNATURES)
 
 Internal
 """
-function induced_covariance_graph(d::DAG, sel, cond; debug=false)
+function induced_covariance_graph(d::DAG, sel, cset; debug=false)
 
   @assert all([c in d.vars for c in sel]) "Selection nodes are not among vertices."
 
-  if isnothing(cond)
-    cond = []
-  elseif typeof(cond) == Symbol
-    cond = [cond]
-  elseif length(cond) > 0
-    @assert all([c in d.vars for c in cond]) "Conditioning nodes are not among vertices."
-    @assert !all([c in sel for c in cond]) "Conditioning nodes in selected nodes."
+  if isnothing(cset)
+    cs = []
+  elseif typeof(cset) == Symbol
+    cs = [cset]
+  elseif length(cset) > 0
+    cs = cset
   end
+  @assert all([c in d.vars for c in cs]) "Conditioning nodes are not among vertices."
+  #@assert !(length([cs in sel]) > 0) "Conditioning nodes in selected nodes."
   
-  l = setdiff(d.vars, union(sel, cond))
+  l = setdiff(d.vars, union(sel, cs))
   debug && println(l)
   l = union(l, sel)
   debug && println(l)
-  r = union(sel, cond)
+  r = union(sel, cs)
   debug && println(r)
    
   e = edge_matrix(d.a)                  # From adjacency matrix to edge matrix
   debug && println(e)
-  al = ancester_graph(e[l, l])
+  al = transpose(StructuralCausalModels.ancester_graph(e[l, l]))
   debug && println(al)
-  if length(cond) > 0
-    trl = indicator_matrix( e[cond, l] * al)
+  if length(cs) > 0
+    trl = StructuralCausalModels.indicator_matrix( transpose(e[l, cs]) * al)
   else
     trl = al - al
   end
   debug && println(trl)
-  dlr = indicator_matrix(I(length(l)) + transpose(trl) * trl)
+  dlr = StructuralCausalModels.indicator_matrix(I(length(l)) + transpose(trl) * trl)
   debug && println(dlr)
-  cl = transitive_closure(dlr)
+  cl = StructuralCausalModels.transitive_closure(dlr)
   debug && println(cl)
-  out = indicator_matrix(( al * cl * transpose(al)))
+  out = StructuralCausalModels.indicator_matrix(( al * cl * transpose(al)))
   debug && println(out)
   out = out[sel, sel]
   debug && println(out)
@@ -99,3 +100,6 @@ function induced_covariance_graph(d::DAG, sel, cond; debug=false)
   adjacency_matrix(out)
 
 end
+
+export
+  induced_covariance_graph

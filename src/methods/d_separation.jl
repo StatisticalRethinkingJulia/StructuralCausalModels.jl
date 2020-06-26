@@ -18,7 +18,7 @@ d_separation(
 
 ### Keyword arguments
 ```julia
-* `cond::SymbolListOrNothing=nothing`  : Conditioning set
+* `cset::SymbolListOrNothing=nothing`  : Conditioning set
 * `debug=false`                        : Trace execution
 ```
 
@@ -45,7 +45,7 @@ d = OrderedDict(
 );
 
 dag = DAG("marks", d, df);
-d_separation(marks, [:statistics], [:mechanics], [:algebra]))
+d_separation(marks, [:statistics], [:mechanics]; cset=[:algebra]))
 ```
 ### Acknowledgements
 
@@ -62,9 +62,9 @@ The Julia translation is licenced under: MIT.
 Part of the API, exported.
 """
 function d_separation(d::DAG, first::SymbolList, second::SymbolList; 
-  cond::SymbolListOrNothing=nothing, debug=false)
-
-  e = induced_covariance_graph(d, vcat(first, second), SymbolList[]; debug=debug)
+  cset::SymbolListOrNothing=nothing, debug=false)
+  
+  e = induced_covariance_graph(d, vcat(first, second), cset; debug=debug)
   sum(e[first, second]) == 0
 
 end

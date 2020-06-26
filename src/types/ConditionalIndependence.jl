@@ -19,19 +19,19 @@ end
 
 function ci_show(io::IO, ci::ConditionalIndependency)
   if isnothing(ci.c)
-    println("$(ci.f) \u2210 $(ci.s)")
+    println("  $(ci.f) \u2210 $(ci.s)")
   else
-    println("$(ci.f) \u2210 $(ci.s) | $(ci.c)")
+    println("  $(ci.f) \u2210 $(ci.s) | $(ci.c)")
    end 
 end
+
+show(io::IO, ci::ConditionalIndependency) = ci_show(io, ci)
 
 function append(c::ConditionalIndependency)
   v = [c.f, c.s]
   !isnothing(c.c) && length(c.c) > 0 && push!(v, c.c...)
   v
 end
-
-show(io::IO, ci::ConditionalIndependency) = ci_show(io, ci)
 
 struct BasisSet
   bs::Vector{ConditionalIndependency}
@@ -55,7 +55,7 @@ length(b::BasisSet) = length(b.bs)
 function bs_show(io::IO, bs::BasisSet)
   println("BasisSet[")
   for ci in bs.bs
-      print("  "); print("$(ci)")
+      show(ci)
   end
   println("]")
 end

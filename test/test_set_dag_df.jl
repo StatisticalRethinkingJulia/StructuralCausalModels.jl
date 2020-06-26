@@ -26,12 +26,18 @@ a = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));
 
 dag = DAG("ex_11", a)
 
+@test dag.df == nothing
+
 try
   set_dag_df!(dag, DataFrame())
 catch ex
-  println(ex)
+  @test ex == AssertionError("DataFrame has different number of columns")
 end
 
+@test dag.df == nothing
 set_dag_df!(dag, nothing)
+@test dag.df == nothing
 set_dag_df!(dag, DataFrame(); force=true)
+@test dag.df == DataFrame()
 set_dag_df!(dag, nothing)
+@test dag.df == nothing

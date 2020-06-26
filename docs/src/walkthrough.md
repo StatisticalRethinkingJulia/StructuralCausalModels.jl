@@ -24,7 +24,7 @@ d_string = "DAG(
     statistics ~ algebra+analysis, 
     analysis ~ algebra)"
 
-dag = DAG("marks", d_string, df);
+dag = DAG("marks", d_string; df=df);
 show(dag)
 ```
 
@@ -50,7 +50,6 @@ OrderedDict{Symbol,Union{Nothing, Array{Symbol,1}, Symbol}} with 4 entries:
 
 Internally, a DAG object will always contain an OrderedDict representation of the DAG. This representation is used in all functions. In the definition of the OrderedDict, read `=>` as `~` in regression models or `<-` in causal models.
 
-
 Optional display the DAG using GraphViz:
 ```julia
 fname = ProjDir * "/marks.dot"
@@ -60,7 +59,7 @@ Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 The DAG pdf is [here](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/docs/src/marks.pdf).
 
-In this case a DataFrame with observed values has been provided and the related covariance matrix has been computed and stored in the DAG object:
+In this example a DataFrame with observed values has been provided and the related covariance matrix will be computed and stored in the DAG object:
 ```julia
 display(dag.s)
 
@@ -93,68 +92,27 @@ Although this initial version of StructuralCausalModels does not support latent 
 
 # Directed separation
 
-Given a causal graph, `d_separation(dag, f, l, cond)` determines if the vertices in set `f` are `d-separated` from the vertices in set `l` given the conditioning set `cond`.
+Given a causal graph `dag`, `d_separation(dag, f, l, cond)` determines if the vertices in set `f` are `d-separated` from the vertices in set `l` given the conditioning set `cond`.
 
 Show several `d_separation` results for the marks model:
 ```julia
-f = [:statistics]; s = [:mechanics]; sel = vcat(f, s)
-cond = [:algebra]
+f = [:statistics]; s = [:mechanics];
 
-e = d_separation(dag, f, s, cond)
-println("d_separation($(dag.name), $f, $s, $cond) = $e")
+e = d_separation(dag, f, s; cond=:algebra);
+println("d_separation($(dag.name), $f, $s; cond=:algebra) = $e")
 
-e = d_separation(dag, f, s)
+e = d_separation(dag, f, s);
 println("d_separation($(dag.name), $f, $s) = $e")
 
-print("d_separation($(dag.name), [:statistics], [:mechanics], [:vectors]) = ")
-println(d_separation(dag, [:statistics], [:mechanics], [:vectors]))
-
-print("d_separation($(dag.name), [:statistics], [:mechanics], [:analysis, :vectors]) = ")
-println(d_separation(dag, [:statistics], [:mechanics], [:analysis, :vectors]))
-
-print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics], [:algebra]) = ")
-println(d_separation(dag, [:statistics, :analysis], [:mechanics], [:algebra]))
-
-print("d_separation($(dag.name), [:statistics], [:mechanics, :vectors], [:algebra]) = ")
-println(d_separation(dag, [:statistics], [:mechanics, :vectors], [:algebra]))
-
-print("d_separation($(dag.name), [:statistics], [:mechanics, :analysis], [:algebra]) = ")
-println(d_separation(dag, [:statistics], [:mechanics, :analysis], [:algebra]))
-
-print("d_separation($(dag.name), [:analysis], [:vectors]) = ")
-println(d_separation(dag, [:analysis], [:vectors]))
-
-print("d_separation($(dag.name), [:analysis], [:vectors], [:algebra]) = ")
-println(d_separation(dag, [:analysis], [:vectors], [:algebra]))
-
-print("d_separation($(dag.name), [:vectors], [:statistics], [:algebra]) = ")
-println(d_separation(dag, [:analysis], [:vectors], [:algebra]))
-
-print("d_separation($(dag.name), [:statistics], [:algebra], [:analysis]) = ")
-println(d_separation(dag, [:statistics], [:algebra], [:analysis]))
-
-print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors]) = ")
-println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors]))
-
-print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors], [:algebra]) = ")
-println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors], [:algebra]))
+print("d_separation($(dag.name), [:statistics], [:mechanics, :analysis]; cond=[:algebra]) = ");
+println(d_separation(dag, [:statistics], [:mechanics, :analysis]; cond=[:algebra]))
 ```
 
 will produce:
 ```julia
-d_separation(marks, [:statistics], [:mechanics], [:algebra]) = false
+d_separation(marks, [:statistics], [:mechanics]; cond=:algebra) = false
 d_separation(marks, [:statistics], [:mechanics]) = true
-d_separation(marks, [:statistics], [:mechanics], [:vectors]) = true
-d_separation(marks, [:statistics], [:mechanics], [:analysis, :vectors]) = true
-d_separation(marks, [:statistics, :analysis], [:mechanics], [:algebra]) = false
-d_separation(marks, [:statistics], [:mechanics, :vectors], [:algebra]) = false
-d_separation(marks, [:statistics], [:mechanics, :analysis], [:algebra]) = false
-d_separation(marks, [:analysis], [:vectors]) = true
-d_separation(marks, [:analysis], [:vectors], [:algebra]) = false
-d_separation(marks, [:vectors], [:statistics], [:algebra]) = false
-d_separation(marks, [:statistics], [:algebra], [:analysis]) = false
-d_separation(marks, [:statistics, :analysis], [:mechanics, :vectors]) = true
-d_separation(marks, [:statistics, :analysis], [:mechanics, :vectors], [:algebra]) = false
+d_separation(marks, [:statistics], [:mechanics, :analysis]: cond=[:algebra]) = false
 ```
 
 # Basis set
@@ -176,19 +134,9 @@ BasisSet[
 ]
 ```
 
-# Shipley test
-
-Perform the Shipley test:
-```julia
-t = shipley_test(dag)
-display(t)
-
-(ctest = 2.816854003338401, df = 8, pv = 0.9453198036802164)
-```
-
 # Adjustment sets
 
-D_separation provides a set of conditional independencies given the causal model. The conditioning set closes (blocks) all paths. It provides ways to test the chosen causal model given observational data.
+The function  `basis_set()` provides a set of conditional independencies given the causal model. The conditioning set closes ("blocks the flow of causal info") all paths. The conditioning_set can be empty. It provides ways to test the chosen causal model given observational data.
 
 The function `adjustment_sets()` answers a related question, i.e. how to prevent confounding in multiple regression models assuming the chosen causal model is correct.
 
@@ -229,6 +177,16 @@ Adjustment sets:
 2-element Array{Array{Symbol,1},1}:
  [:s]
  [:a, :m]
+```
+
+# Shipley test
+
+Perform the Shipley test:
+```julia
+t = shipley_test(dag)
+display(t)
+
+(ctest = 2.816854003338401, df = 8, pv = 0.9453198036802164)
 ```
 
 # Paths
