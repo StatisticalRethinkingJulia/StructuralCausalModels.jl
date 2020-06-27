@@ -27,11 +27,11 @@ A ⊥ B
 f = :A; s = :B;
 
 e = d_separation(dag, f, s)
-fprintln("d_separation($(dag.name), $f, $s) = $e\n")
+println("d_separation($(dag.name), $f, $s) = $e\n")
 
 f = [:B]; s = [:E];
 
-e = d_separation(dag, f, s; cond=[:A, :Z])
+e = d_separation(dag, f, s; cset=[:A, :Z])
 println("d_separation($(dag.name), $f, $s; cond=[:A, :Z]) = $e\n")
 
 ap = all_paths(dag, :E, :D)

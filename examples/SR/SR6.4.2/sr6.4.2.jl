@@ -35,7 +35,7 @@ d = OrderedDict(
 );
 u = [:u]
 
-dag = DAG("sr6_4_2", d, df);
+dag = DAG("sr6_4_2", d, df=df);
 show(dag)
 
 fname = joinpath(mktempdir(), "sr6.4.2.dot")
@@ -46,7 +46,7 @@ to_ggm(dag) |> display
 
 display(dag.s); println()
 
-bs = basis_set(dag, debug=true)
+bs = basis_set(dag)
 display(bs); println()
 
 t = shipley_test(dag)
@@ -54,8 +54,8 @@ display(t); println()
 
 f = [:a]; s = [:b]; conditioning_set = [:u, :c]
 
-e = d_separation(dag, f, s, conditioning_set)
-println("d_separation($(dag.name), $f, $s, $conditioning_set) = $e")
+e = d_separation(dag, f, s, cset=conditioning_set)
+println("d_separation($(dag.name), $f, $s, cset=$conditioning_set) = $e")
 println()
 
 adjustmentsets = adjustment_sets(dag, :x, :y)

@@ -32,7 +32,7 @@ d = OrderedDict(
   :D => [:A]
 );
 
-dag = DAG("fork_correlated", d, df);
+dag = DAG("fork_correlated", d, df=df);
 show(dag)
 
 display(dag.s); println()
@@ -44,13 +44,13 @@ end
 println()
 
 f = [:M]; s = [:D]; sel = vcat(f, s)
-cond = [:A]
+cset = [:A]
 
 e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")
 
-e = d_separation(dag, f, s, cond)
-println("d_separation($(dag.name), $f, $s, $cond) = $e")
+e = d_separation(dag, f, s, cset=cset)
+println("d_separation($(dag.name), $f, $s, cset=$cset) = $e")
 println()
 N = 100
 df = DataFrame();
@@ -82,7 +82,7 @@ d = OrderedDict(
   :D => [:A]
 );
 
-dag = DAG("fork_correlated", d, df);
+dag = DAG("fork_correlated", d, df=df);
 show(dag)
 
 display(dag.s); println()
@@ -94,13 +94,13 @@ end
 println()
 
 f = :M; s = :D; sel = vcat(f, s)
-cond = :A
+cset = :A
 
 e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")
 
-e = d_separation(dag, f, s, cond)
-println("d_separation($(dag.name), $f, $s, $cond) = $e")
+e = d_separation(dag, f, s, cset=cset)
+println("d_separation($(dag.name), $f, $s, cset=$cset) = $e")
 
 as = adjustment_sets(dag, :A, :D)
 as |> display

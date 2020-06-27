@@ -34,7 +34,7 @@ d = OrderedDict(
   :D => [:M]
 );
 
-dag = DAG("chain", d, df);
+dag = DAG("chain", d; df=df);
 show(dag)
 
 display(dag.s); println()
@@ -46,10 +46,10 @@ end
 println()
 
 f = [:A]; s = [:D]; sel = vcat(f, s)
-cond = [:M]
+cset = [:M]
 
 e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")
 
-e = d_separation(dag, f, s, cond)
-println("d_separation($(dag.name), $f, $s, $cond) = $e")
+e = d_separation(dag, f, s; cset=cset)
+println("d_separation($(dag.name), $f, $s; cset=$cset) = $e")

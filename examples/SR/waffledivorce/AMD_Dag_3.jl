@@ -20,7 +20,7 @@ d = OrderedDict(
   :D => [:A]
 );
 
-dag = DAG("waffles", d, df);
+dag = DAG("waffles", d, df=df);
 show(dag)
 
 fname = ProjDir * "/AMD_3.dot"
@@ -36,13 +36,13 @@ end
 println()
 
 f = [:M]; s = [:D]; sel = vcat(f, s)
-cond = [:A]
+cset = [:A]
 
 e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")
 
-e = d_separation(dag, f, s, cond)
-println("d_separation($(dag.name), $f, $s, $cond) = $e\n")
+e = d_separation(dag, f, s, cset=cset)
+println("d_separation($(dag.name), $f, $s, cset=$cset) = $e\n")
 
 bs = basis_set(dag)
 display(bs)

@@ -26,7 +26,7 @@ d = OrderedDict(
   :m => [:a]
 );
 
-dag = DAG("sr6_4_3", d, df);
+dag = DAG("sr6_4_3", d, df=df);
 show(dag)
 
 fname = ProjDir * "/sr6.4.3.dot"
@@ -43,10 +43,9 @@ t = shipley_test(dag)
 display(t); println()
 
 f = :w; s = :d;
-#cond = [:m, :a]
 
-e = d_separation(dag, [f], [s], [:m, :a])
-println("d_separation($(dag.name), $f, $s, $cond) = $e\n")
+e = d_separation(dag, [f], [s], cset=[:m, :a])
+println("d_separation($(dag.name), $f, $s, cset=[:m, :a]) = $e\n")
 
 #ap = all_paths(dag, f, s)
 ap = all_paths(dag, f, s)

@@ -55,44 +55,44 @@ display("pcor_test = $pt"); println()
 
 f = [:statistics]; s = [:mechanics]; sel = vcat(f, s)
 
-e = d_separation(dag, f, s; cond=:algebra)
-println("d_separation($(dag.name), $f, $s; cond=:algebra) = $e")
+e = d_separation(dag, f, s; cset=:algebra)
+println("d_separation($(dag.name), $f, $s; cset=:algebra) = $e")
 
 e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")
 
-print("d_separation($(dag.name), [:statistics], [:mechanics]; cond=[:vectors]) = ")
-println(d_separation(dag, [:statistics], [:mechanics]; cond=[:vectors]))
+print("d_separation($(dag.name), [:statistics], [:mechanics]; cset=[:vectors]) = ")
+println(d_separation(dag, [:statistics], [:mechanics]; cset=[:vectors]))
 
-print("d_separation($(dag.name), [:statistics], [:mechanics]; cond=[:analysis, :vectors]) = ")
-println(d_separation(dag, [:statistics], [:mechanics]; cond=[:analysis, :vectors]))
+print("d_separation($(dag.name), [:statistics], [:mechanics]; cset=[:analysis, :vectors]) = ")
+println(d_separation(dag, [:statistics], [:mechanics]; cset=[:analysis, :vectors]))
 
-print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics]; cond=[:algebra]) = ")
-println(d_separation(dag, [:statistics, :analysis], [:mechanics]; cond=[:algebra]))
+print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics]; cset=[:algebra]) = ")
+println(d_separation(dag, [:statistics, :analysis], [:mechanics]; cset=[:algebra]))
 
-print("d_separation($(dag.name), [:statistics], [:mechanics, :vectors]; cond=[:algebra]) = ")
-println(d_separation(dag, [:statistics], [:mechanics, :vectors]; cond=[:algebra]))
+print("d_separation($(dag.name), [:statistics], [:mechanics, :vectors]; cset=[:algebra]) = ")
+println(d_separation(dag, [:statistics], [:mechanics, :vectors]; cset=[:algebra]))
 
-print("d_separation($(dag.name), [:statistics], [:mechanics, :analysis]; cond=[:algebra]) = ")
-println(d_separation(dag, [:statistics], [:mechanics, :analysis]; cond=[:algebra]))
+print("d_separation($(dag.name), [:statistics], [:mechanics, :analysis]; cset=[:algebra]) = ")
+println(d_separation(dag, [:statistics], [:mechanics, :analysis]; cset=[:algebra]))
 
 print("d_separation($(dag.name), [:analysis], [:vectors]) = ")
 println(d_separation(dag, [:analysis], [:vectors]))
 
-print("d_separation($(dag.name), [:analysis], [:vectors]; cond=[:algebra]) = ")
-println(d_separation(dag, [:analysis], [:vectors]; cond=[:algebra]))
+print("d_separation($(dag.name), [:analysis], [:vectors]; cset=[:algebra]) = ")
+println(d_separation(dag, [:analysis], [:vectors]; cset=[:algebra]))
 
-print("d_separation($(dag.name), [:vectors], [:statistics]; cond=[:algebra]) = ")
-println(d_separation(dag, [:analysis], [:vectors]; cond=[:algebra]))
+print("d_separation($(dag.name), [:vectors], [:statistics]; cset=[:algebra]) = ")
+println(d_separation(dag, [:analysis], [:vectors]; cset=[:algebra]))
 
-print("d_separation($(dag.name), [:statistics], [:algebra]; cond=[:analysis]) = ")
-println(d_separation(dag, [:statistics], [:algebra]; cond=[:analysis]))
+print("d_separation($(dag.name), [:statistics], [:algebra]; cset=[:analysis]) = ")
+println(d_separation(dag, [:statistics], [:algebra]; cset=[:analysis]))
 
 print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors]) = ")
 println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors]))
 
-print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors]; cond=[:algebra]) = ")
-println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors]; cond=[:algebra]))
+print("d_separation($(dag.name), [:statistics, :analysis], [:mechanics, :vectors]; cset=[:algebra]) = ")
+println(d_separation(dag, [:statistics, :analysis], [:mechanics, :vectors]; cset=[:algebra]))
 
 adjustmentsets = adjustment_sets(dag, :statistics, :mechanics)
 println("\nAdjustment sets:")
