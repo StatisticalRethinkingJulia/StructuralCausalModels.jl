@@ -1,33 +1,50 @@
-using StructuralCausalModels
-SymbolList = Union{Nothing, Symbol, Vector{Symbol}}
+using StructuralCausalModels, Test
 
 ggm_1 = " DAG(U ~X+V, S1~U, W~V+Y, S2~W, order=FALSE)";
 ggm_2 = " DAG(U ~X+V, S1~U, W~V+Y, S2~W)";
 
-d1 = from_ggm(ggm_1)
-d1 |> display
-d2 = from_ggm(ggm_2)
-d2 |> display
-println()
+@testset "ggm conversions" begin
 
-g1 = to_ggm(d1)
-g1 |> display
-g2 = to_ggm(d2)
-g2 |> display
+  d1 = from_ggm(ggm_1)
+  @test d1 == OrderedDict(
+    :U  => [:X, :V],
+    :S1 => :U,
+    :W  => [:V, :Y],
+    :S2 => :W
+  )
+  d2 = from_ggm(ggm_2)
+  @test d2 == OrderedDict(
+    :U  => [:X, :V],
+    :S1 => :U,
+    :W  => [:V, :Y],
+    :S2 => :W
+  )
 
-d3 =OrderedDict{SymbolList, SymbolList}(
-  [:u, :w] => :v,
-  [:u] => :x,
-  :s1 => [:u],
-  :w => :y,
-  [:s2] => [:w]
-)
+  g1 = to_ggm(d1)
+  @test g1 == "DAG(U ~ X + V, S1 ~ U, W ~ V + Y, S2 ~ W)"
+  g2 = to_ggm(d2)
+  @test g2 == "DAG(U ~ X + V, S1 ~ U, W ~ V + Y, S2 ~ W)"
 
-g3 = to_ggm(d3)
-g3 |> display
+  d3 =OrderedDict(
+    [:u, :w] => :v,
+    [:u] => :x,
+    :s1 => [:u],
+    :w => :y,
+    [:s2] => [:w]
+  );
 
-g4 = to_ggm(d3, order=true)
-g4 |> display
+  g3 = to_ggm(d3)
+  @test g3 == "DAG(u ~ v, w ~ v, u ~ x, s1 ~ u, w ~ y, s2 ~ w)"
 
-dag = DAG("ggm_1", ggm_1)
-dag |> display
+  g4 = to_ggm(d3, order=true)
+  @test g4 == "DAG(u ~ v, w ~ v, u ~ x, s1 ~ u, w ~ y, s2 ~ w, order=TRUE)"
+
+  dag = DAG("ggm_1", ggm_1)
+  @test dag.d == OrderedDict(
+    :U  => [:X, :V],
+    :S1 => :U,
+    :W  => [:V, :Y],
+    :S2 => :W
+  )
+
+end

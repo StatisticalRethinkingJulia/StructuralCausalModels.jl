@@ -1,7 +1,7 @@
-using StructuralCausalModels
+using StructuralCausalModels, Test
 
 ProjDir = @__DIR__
-cd(ProjDir) #do
+cd(ProjDir)
 
 df = CSV.read(scm_path("..", "data", "WaffleDivorce.csv"), delim=';');
 df = DataFrame(
@@ -13,7 +13,7 @@ df = DataFrame(
 );
 
 fname = scm_path("..", "examples", "SR", "SR6.4.3", "sr6.4.3.dot")
-Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+#Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 d = OrderedDict(
   :s => [:a, :m, :w],
@@ -23,13 +23,20 @@ d = OrderedDict(
 );
 
 dag = DAG("sr6.4.3", d, df=df);
-show(dag)
 
-adjustmentsets = adjustment_sets(dag, :w, :d)
-println("Adjustment sets:\n")
-adjustmentsets |> display
-println()
+@testset "sr6_4_3b" begin
+  
+  adjustmentsets = adjustment_sets(dag, :w, :d)
+  @test adjustmentsets == Array{Symbol,1}[]
 
-c = [:s]
-ag = ancestral_graph(dag; c=c)
-ag |> display
+  c = [:s]
+  ag = ancestral_graph(dag; c=c)
+  @test names(ag, 1) == [:a, :m, :w, :d]
+  @test Array(ag) == [
+    0  10  10  10;
+   10   0  10  10;
+   10  10   0  10;
+   10  10  10   0
+  ]
+
+end

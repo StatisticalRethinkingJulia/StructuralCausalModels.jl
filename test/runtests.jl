@@ -8,38 +8,9 @@ using Test
 
 end
   
-@testset "DAG conversionss" begin
+@testset "DAG conversions" begin
 
   include("test_dagitty_conversion.jl")
-  @test d1 == OrderedDict(
-    :S2 => :W,
-    :W  => [:Y, :V],
-    :S1 => :U,
-    :U  => [:X, :V]
-  )
-  @test d2 == OrderedDict(
-    :S2 => :W,
-    :W  => [:Y, :V],
-    :U  => [:X, :V],
-    :S1 => :U
-  )
-  @test d3 == OrderedDict(
-    :S2 => :W,
-    :W  => [:V, :Y],
-    :U  => [:V, :X],
-    :S1 => :U
-  )
-  @test g1 == "dag { S2 <- W; W <- { Y V }; S1 <- U; U <- { X V } }"
-  @test g2 == "dag { S2 <- W; W <- { Y V }; U <- { X V }; S1 <- U }"
-  @test g3 == "dag { S2 <- W; W <- { V Y }; U <- { V X }; S1 <- U }"
-  @test g4 == "dag { u <- v; w <- v; u <- x; s1 <- u; w <- y; s2 <- w }"
-  @test dag.d == OrderedDict(
-    :S2 => :W,
-    :W  => [:Y, :V],
-    :S1 => :U,
-    :U  => [:X, :V]
-  )
-
   include("test_ggm_conversion.jl")
   include("test_graphviz_conversions.jl")
 
@@ -63,12 +34,10 @@ end
 
 end
 
-
 @testset "Methods" begin
 
   include("test_sr6_4_3b.jl")
   include("test_ag.jl")
-  println("\n")
 
 end
 
@@ -78,46 +47,17 @@ end
   include("test_open_paths_02.jl")
   include("test_open_paths_03.jl")
   include("test_open_paths_04.jl")
-  #=
-  @test allpaths[1] == [:w, :s, :a, :d]
-  @test length(allpaths) == 4
-  @test backdoorpaths == Array{Symbol,1}[]
-  @test length(backdoorpaths) == 0
-  @test show_dag_path(dag, allpaths[1]) == ":w ⇒ :s ⇐ :a ⇐ :d"
-  @test adjustmentsets == Array{Symbol,1}[]
-  =#
-  println("\n")
 
 end 
+
 @testset "SR6.4.2" begin
 
   include("test_sr6_4_2.jl")
-  #=
-  @test allpaths[1] == [:x, :u, :b, :c, :y]
-  @test length(allpaths) == 2
-  @test backdoorpaths[1] == [:x, :u, :b, :c, :y]
-  @test length(backdoorpaths) == 2
-  @test show_dag_path(dag, backdoorpaths[1]) == ":x ⇐ :u ⇐ :a ⇒ :c ⇒ :y"
-  @test adjustmentsets == [[:a], [:c]]
-  include("test_sr6_4_2a.jl")
-  @test adjustmentsets == [[:a], [:c]]
-  =#
-  println("\n")
 
 end
 
 @testset "SR6.4.3" begin
 
   include("test_sr6_4_3.jl")
-  #=
-  @test allpaths[1] == [:w, :s, :a, :d]
-  @test length(allpaths) == 4
-  @test backdoorpaths == Array{Symbol,1}[]
-  @test length(backdoorpaths) == 0
-  @test show_dag_path(dag, allpaths[1]) == ":w ⇒ :s ⇐ :a ⇐ :d"
-  @test adjustmentsets == Array{Symbol,1}[]
-  =#
-  println("\n")
   
 end 
-

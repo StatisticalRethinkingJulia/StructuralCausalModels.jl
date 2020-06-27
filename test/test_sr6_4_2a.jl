@@ -36,6 +36,6 @@ fn = joinpath(mktempdir(), "sr6_4_2a.dot")
 to_graphviz(dag, fn)
 Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 
-adjustmentsets = adjustment_sets(dag, :x, :y, u)
+adjustmentsets = adjustment_sets(dag, :x, :y)
 println("Adjustment sets:")
 adjustmentsets |> display

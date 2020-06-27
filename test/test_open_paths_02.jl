@@ -1,78 +1,35 @@
-#using Revise
 using StructuralCausalModels
-using Combinatorics
 
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
-function syms_in_paths(paths, f, l)
-  thepaths = deepcopy(paths)
-  syms = Symbol[]
-  for p in thepaths
-    setdiff!(p, [f, l])
-    append!(syms, p)
-    unique!(syms)
-  end
-  syms
-end
-
-function sym_in_all_paths(paths, sym)
-  all([sym in p for p in paths])
-end
-
 d_string = "dag {A -> {E Z}; B -> {D Z}; Z -> {D E}; E -> D}"
 dag = DAG("test_open_paths_02", d_string);
-show(dag)
 
-to_dagitty(dag.d) |> display
+@test to_dagitty(dag.d) == "dag { D <- E; D <- Z; E <- Z; D <- B; Z <- B; E <- A; Z <- A }"
 
 bs = basis_set(dag)
-bs |> display
+@test bs[1].f == :B
+@test bs[1].s == :A
+@test bs[1].c == nothing
+@test bs[2].f == :B
+@test bs[2].s == :E
+@test bs[2].c == [:A, :Z]
+@test bs[3].f == :A
+@test bs[3].s == :D
+@test bs[3].c == [:B, :Z, :E]
 
 fname = joinpath(ProjDir, "test_open_paths_02.dot")
 to_graphviz(dag, fname)
-Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+#Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 ap  = all_paths(dag, :D, :E)
 bp = backdoor_paths(dag, ap, :D)
-bp |> display
+adjs = adjustment_sets(dag, :E, :D)
 
-cs = Vector{Symbol}[]
-syms = syms_in_paths(bp, :w, :d)
-#syms |> display
+@testset "Open_path_02" begin
 
-function adjsets(d::DAG, paths, syms)
-  lsyms = deepcopy(syms)
-  adjustment_sets = Vector{Symbol}[]
-  for s in lsyms
-    if sym_in_all_paths(bp, s)
-      if length(open_paths(dag, bp, [s])) == 0
-        println("$s closes all paths")
-        append!(adjustment_sets, [[s]])
-        setdiff!(lsyms, [s])
-      end
-    end
-  end
-  lsyms |> display
-  len = 2
-  local csyms
-  while length(lsyms) >= len
-    csyms = collect(combinations(lsyms, len))
-    csyms |> display
-    for s in csyms
-      if length(open_paths(dag, bp, s)) == 0
-        println("$s closes all paths")
-        append!(adjustment_sets, [s])
-        setdiff!(lsyms, s)
-      end
-    end
-    len += 1
-  end
-  lsyms |> display
+  @test bp == [[:D, :Z, :E], [:D, :Z, :A, :E], [:D, :B, :Z, :E], [:D, :B, :Z, :A, :E]]
+  @test adjs == [[:Z, :B], [:Z, :A]]
 
-  adjustment_sets
 end
-
-println()
-adjs = adjsets(dag, bp, syms)
-adjs |> display

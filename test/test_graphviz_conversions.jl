@@ -26,9 +26,12 @@ d = from_ggm("DAG(
 );
 
 dag = DAG("marks", d, df=df);
-show(dag)
-
 fn = joinpath(mktempdir(), "marks.dot")
 to_graphviz(dag, fn)
-Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
+#Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
 
+@testset "GraphViz conversion" begin
+
+  @test read(fn, String) == "digraph marks {\n  algebra -> vectors;\n  algebra -> mechanics;\n  algebra -> analysis;\n  algebra -> statistics;\n  vectors -> mechanics;\n  analysis -> statistics;\n}\n"
+
+end

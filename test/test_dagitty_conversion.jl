@@ -22,3 +22,36 @@ d4 =OrderedDict(
 g4 = to_dagitty(d4)
 
 dag = DAG("dag_1", dag_1)
+
+@testset "dagitty conversions" begin
+
+  @test d1 == OrderedDict(
+    :S2 => :W,
+    :W  => [:Y, :V],
+    :S1 => :U,
+    :U  => [:X, :V]
+  )
+  @test d2 == OrderedDict(
+    :S2 => :W,
+    :W  => [:Y, :V],
+    :U  => [:X, :V],
+    :S1 => :U
+  )
+  @test d3 == OrderedDict(
+    :S2 => :W,
+    :W  => [:V, :Y],
+    :U  => [:V, :X],
+    :S1 => :U
+  )
+  @test g1 == "dag { S2 <- W; W <- { Y V }; S1 <- U; U <- { X V } }"
+  @test g2 == "dag { S2 <- W; W <- { Y V }; U <- { X V }; S1 <- U }"
+  @test g3 == "dag { S2 <- W; W <- { V Y }; U <- { V X }; S1 <- U }"
+  @test g4 == "dag { u <- v; w <- v; u <- x; s1 <- u; w <- y; s2 <- w }"
+  @test dag.d == OrderedDict(
+    :S2 => :W,
+    :W  => [:Y, :V],
+    :S1 => :U,
+    :U  => [:X, :V]
+  )
+
+end
