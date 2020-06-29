@@ -4,7 +4,7 @@
 ProjDir = @__DIR__
 cd(ProjDir)
 
-df = CSV.read(scm_path(&quot;..&quot;, &quot;data&quot;, &quot;marks.csv&quot;));</code></pre><h1 id="DAG-directed-acyclic-graphs-1"><a class="docs-heading-anchor" href="#DAG-directed-acyclic-graphs-1">DAG - directed acyclic graphs</a><a class="docs-heading-anchor-permalink" href="#DAG-directed-acyclic-graphs-1" title="Permalink"></a></h1><p><code>DAG()</code> accepts either an OrderedDict, an <code>adjacency_matrix</code> or a ggm/dagitty string. See the <code>ancestral_graph</code> section below for an example using an <code>adjacency_matrix</code>.</p><p>Below <code>d_string</code> holds a ggm DAG definition.</p><pre><code class="language-julia">d_string = &quot;DAG(
+df = DataFrame!(CSV.File(scm_path(&quot;..&quot;, &quot;data&quot;, &quot;marks.csv&quot;)));</code></pre><h1 id="DAG-directed-acyclic-graphs-1"><a class="docs-heading-anchor" href="#DAG-directed-acyclic-graphs-1">DAG - directed acyclic graphs</a><a class="docs-heading-anchor-permalink" href="#DAG-directed-acyclic-graphs-1" title="Permalink"></a></h1><p><code>DAG()</code> accepts either an OrderedDict, an <code>adjacency_matrix</code> or a ggm/dagitty string. See the <code>ancestral_graph</code> section below for an example using an <code>adjacency_matrix</code>.</p><p>Below <code>d_string</code> holds a ggm DAG definition.</p><pre><code class="language-julia">d_string = &quot;DAG(
     mechanics ~ vectors+algebra, 
     vectors ~ algebra, 
     statistics ~ algebra+analysis, 
@@ -57,7 +57,7 @@ BasisSet[
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
-df = CSV.read(scm_path(&quot;..&quot;, &quot;data&quot;, &quot;WaffleDivorce.csv&quot;), delim=&#39;;&#39;);
+df = DataFrame!(CSV.File(scm_path(&quot;..&quot;, &quot;data&quot;, &quot;WaffleDivorce.csv&quot;), delim=&#39;;&#39;);
 df = DataFrame(
   :s =&gt; df[:, :South],
   :a =&gt; df[:, :MedianAgeMarriage],
@@ -153,4 +153,4 @@ fr2 = StructuralCausalModels.test_ag(dag.a; m=m, c=c)
 
 println()
 display(fr)
-println()</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../introduction/">« Introduction</a><a class="docs-footer-nextpage" href="../versions/">Versions »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 29 June 2020 14:17">Monday 29 June 2020</span>. Using Julia version 1.6.0-DEV.312.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+println()</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../introduction/">« Introduction</a><a class="docs-footer-nextpage" href="../versions/">Versions »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Monday 29 June 2020 19:01">Monday 29 June 2020</span>. Using Julia version 1.6.0-DEV.312.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
