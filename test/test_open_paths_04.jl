@@ -24,9 +24,9 @@ to_graphviz(dag, fname)
   :q => :r, :p => :q, :o => :p, :n => :o, :m => :n, :k => :l, 
   :l => :m, :i => :k)
 @test length(bs) == 117
-@test bs[116].f == :b
-@test bs[116].s == :D
-@test bs[116].c == [:c, :r, :k, :E]
+@test bs[3][1] == :b
+@test bs[3][2] == :D
+@test bs[3][3:end] == [:c, :r, :k, :E]
 @test adjs == [[:i], [:k]]
 
 end

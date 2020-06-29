@@ -9,15 +9,15 @@ dag = DAG("test_open_paths_02", d_string);
 @test to_dagitty(dag.d) == "dag { D <- E; D <- Z; E <- Z; D <- B; Z <- B; E <- A; Z <- A }"
 
 bs = basis_set(dag)
-@test bs[1].f == :B
-@test bs[1].s == :A
-@test bs[1].c == nothing
-@test bs[2].f == :B
-@test bs[2].s == :E
-@test bs[2].c == [:A, :Z]
-@test bs[3].f == :A
-@test bs[3].s == :D
-@test bs[3].c == [:B, :Z, :E]
+@test bs[1][1] == :A
+@test bs[1][2] == :D
+@test bs[1][3:end] == [:B, :Z, :E]
+@test bs[2][1] == :B
+@test bs[2][2] == :A
+@test length(bs[2]) == 2
+@test bs[3][1] == :B
+@test bs[3][2] == :E
+@test bs[3][3:end] == [:A, :Z]
 
 fname = joinpath(ProjDir, "test_open_paths_02.dot")
 to_graphviz(dag, fname)

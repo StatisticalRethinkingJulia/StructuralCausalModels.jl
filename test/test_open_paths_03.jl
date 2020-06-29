@@ -19,9 +19,9 @@ adjs = adjustment_sets(dag, :X, :Y)
 
 @testset "Open_path_03" begin
 
-  @test bs[1].f == :Z
-  @test bs[1].s == :Y
-  @test bs[1].c == [:X, :I]
+  @test bs[1][1] == :Z
+  @test bs[1][2] == :Y
+  @test bs[1][3:end] == [:X, :I]
   @test bp[1] == [:X, :Z, :I, :Y]
   @test adjs == [[:Z], [:I]]
 

@@ -44,12 +44,12 @@ adjustmentsets = adjustment_sets(dag, :x, :y)
 @testset "sr6_4_2" begin
 
   @test length(basisset) == 8
-  @test basisset[6].f == :u
-  @test basisset[6].s == :y
-  @test basisset[6].c == [:a, :c, :x]
-  @test basisset[8].f == :y
-  @test basisset[8].s == :b
-  @test basisset[8].c == [:c, :x, :u]
+  @test basisset[6][1] == :u
+  @test basisset[6][2] == :y
+  @test basisset[6][3:end] == [:a, :c, :x]
+  @test basisset[8][1] == :y
+  @test basisset[8][2] == :b
+  @test basisset[8][3:end] == [:c, :x, :u]
 
   @test allpaths[1] == [:x, :u, :b, :c, :y]
   @test allpaths[2] == [:x, :u, :a, :c, :y]
