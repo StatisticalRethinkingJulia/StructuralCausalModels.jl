@@ -32,7 +32,7 @@ where:
 ```julia
 using StructuralCausalModels, CSV
 
-df = CSV.read(scm_path("..", "data", "marks.csv");
+df = DataFrame!(CSV.File(scm_path("..", "data", "marks.csv"));
 S = cov(Array(df))
 
 u = [2, 3, 4, 5]

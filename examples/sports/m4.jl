@@ -6,7 +6,7 @@ using StanSample, MonteCarloMeasurements
 
 ProjDir = @__DIR__
 
-df = CSV.read(joinpath(ProjDir, "sports.csv"), delim=',');
+df = DataFrame!(CSV.File(joinpath(ProjDir, "sports.csv"), delim=','));
 scale!(df, [:C, :FL, :TM, :WUE, :PGP])
 println()
 

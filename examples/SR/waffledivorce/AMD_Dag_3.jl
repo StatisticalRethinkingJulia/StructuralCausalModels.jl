@@ -8,7 +8,7 @@ cd(ProjDir) #do
 
 # ### snippet 5.1
 
-df1 = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';');
+df1 = DataFrame!(CSV.File(rel_path("..", "data", "WaffleDivorce.csv"), delim=';'));
 
 df = DataFrame()
 df[!, :A] = df1[:, :MedianAgeMarriage]

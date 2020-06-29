@@ -15,7 +15,7 @@ end
 models=[m1s, m2s, m3s, m4s, m5s];
 pars=[:bC, :bFL, :bPGP, :bTM]
 
-df = CSV.read(scm_path("..", "examples", "sports", "sports.csv"), delim=',')
+df = DataFrame!(CSV.File(scm_path("..", "examples", "sports", "sports.csv"), delim=','));
 
 scatter(df[:, :TM], df[:, :WUE])
 savefig("$(ProjDir)/sports_01.png")

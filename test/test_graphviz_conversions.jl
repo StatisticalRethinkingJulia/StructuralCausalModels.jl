@@ -5,7 +5,7 @@ using StructuralCausalModels
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
-df = CSV.read(scm_path("..", "data", "marks.csv"));
+df = DataFrame!(CSV.File(scm_path("..", "data", "marks.csv")));
 
 #=
 R_dag = "

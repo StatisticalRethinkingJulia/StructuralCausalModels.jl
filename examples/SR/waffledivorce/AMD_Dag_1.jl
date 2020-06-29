@@ -9,7 +9,7 @@ cd(ProjDir) #do
 # ### snippet 5.1
 
 println()
-df1 = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';');
+df1 = DataFrame!(CSV.File(rel_path("..", "data", "WaffleDivorce.csv"), delim=';'));
 first(df1, 5) |> display
 
 df = DataFrame()

@@ -6,7 +6,7 @@ ProjDir = @__DIR__
 
 # ### snippet 5.1
 
-df = CSV.read(rel_path("..", "data", "WaffleDivorce.csv"), delim=';')
+df = DataFrame!(CSV.File(rel_path("..", "data", "WaffleDivorce.csv"), delim=';'))
 scale!(df, [:Marriage, :MedianAgeMarriage, :Divorce])
 
 # Define the Stan language model

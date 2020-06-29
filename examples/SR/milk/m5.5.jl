@@ -6,7 +6,7 @@ ProjDir = @__DIR__
 # ### snippet 5.29
 
 println()
-df = CSV.read(rel_path("..", "data", "milk.csv"), delim=';');
+df = DataFrame!(CSV.File(rel_path("..", "data", "milk.csv"), delim=';'));
 df = filter(row -> !(row[:neocortex_perc] == "NA"), df);
 df[!, :neocortex_perc] = parse.(Float64, df[:, :neocortex_perc])
 df[!, :lmass] = log.(df[:, :mass])

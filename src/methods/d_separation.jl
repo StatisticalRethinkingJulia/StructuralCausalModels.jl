@@ -35,7 +35,7 @@ d_separation(
 ```julia
 using StructuralCausalModels, CSV
 
-df = CSV.read(scm_path("..", "data", "marks.csv");
+df = DataFrame!(CSV.File(scm_path("..", "data", "marks.csv"));
 
 d = OrderedDict(
   :mechanics => [:vectors, :algebra],

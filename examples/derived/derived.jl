@@ -5,7 +5,7 @@ using StructuralCausalModels
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
-derived_df = CSV.read(scm_path("..", "data", "derived.csv"));
+derived_df = DataFrame!(CSV.File(scm_path("..", "data", "derived.csv")));
 
 df = DataFrame(
   :y => log.(derived_df.Sys ./ derived_df.Dia),
