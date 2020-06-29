@@ -1,0 +1,11 @@
+digraph test_desc {
+  x1 -> v;
+  x1 -> w;
+  v -> x2;
+  x2 -> y;
+  x3 -> w;
+  x3 -> y;
+  w -> k1;
+  k1 -> k2;
+  k2 -> y;
+}
