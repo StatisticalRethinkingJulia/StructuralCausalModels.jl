@@ -1,8 +1,86 @@
-import Base: show, getindex, iterate, HasLength, HasEltype, length
+import Base: show, getindex, iterate, HasLength, HasEltype, length, sort
+
+
+
+function sort(dag::DAG, bs::Vector{Vector{Symbol}})
+
+  #topological_sort!(dag)
+
+  dct = OrderedDict()
+  for (i, s) in enumerate(dag.vars)
+    dct[s] = i
+  end
+
+  # Arrange first sym < second sym
+
+  for (i, s) in enumerate(bs)
+    if isless(dct[s[2]], dct[s[1]])
+      tmp = s[1]
+      bs[i][1] = s[2]
+      bs[i][2] = tmp
+    end
+  end
+  fset = Symbol[]
+  for (i, s) in enumerate(bs)
+    push!(fset, s[1])
+  end
+  sort!(unique!(fset))
+  bs2 = sort(bs; by = x -> x[1])
+
+  # Now sort on second symbol within first symbol
+
+  bs3 = Vector{Symbol}[]
+  for s in fset
+    indx = filter(x -> x[1] == s, bs2)
+    sort!(indx; by = x -> dct[x[2]])
+    for i in indx
+      push!(bs3, i)
+    end
+  end
+  bs3
+end
+
+function d_sep_combinations(dag::DAG, bs::Vector{Symbol})
+  csets = Vector{Symbol}[Symbol[]]
+  if length(bs) > 2
+    for c in combinations(bs[3:end])
+      push!(csets, c)
+    end
+  end
+  bs_new = Vector{Symbol}[]
+  for cset in csets
+    if length(cset) == 0
+      if d_separation(dag, bs[1], bs[2])
+        push!(bs_new, [bs[1], bs[2]])
+      end
+    else
+      if d_separation(dag, bs[1], bs[2]; cset=cset)
+        push!(bs_new, [bs[1], bs[2], cset...])
+      end
+    end
+  end
+  bs_new
+end
+
 
 struct BasisSet
+  dag::DAG
   bs::Vector{Vector{Symbol}}
-  BasisSet(bs) = new(sort(bs; by = x -> x[1]))
+
+  # Inner constructor
+  #BasisSet(dag, bs) = new(dag, sort(bs; by = x -> x[1]))
+
+  
+  function BasisSet(dag, bs)
+    # Update,create and return the sorted BasisSet
+    bs2 = sort(dag, bs)
+    bs3 = Vector{Symbol}[]
+    for b in bs2
+      bs3 = vcat(bs3, d_sep_combinations(dag, b))
+    end
+    new(dag, bs3)
+  end
+  
 end
 
 iterate(b::BasisSet, state=1) =

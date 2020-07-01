@@ -3,21 +3,6 @@ using StructuralCausalModels, Test
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
-function syms_in_paths(paths, f, l)
-  thepaths = deepcopy(paths)
-  syms = Symbol[]
-  for p in thepaths
-    setdiff!(p, [f, l])
-    append!(syms, p)
-    unique!(syms)
-  end
-  syms
-end
-
-function sym_in_all_paths(paths, sym)
-  all([sym in p for p in paths])
-end
-
 d = OrderedDict(
   :w => :s,
   :d => [:a, :w, :m],

@@ -15,7 +15,7 @@ end
 
 """
 
-# indicator_matrix
+## indicator_matrix
 
 $(SIGNATURES)
 

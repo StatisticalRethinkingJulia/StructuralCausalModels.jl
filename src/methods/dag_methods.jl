@@ -215,6 +215,38 @@ function topological_sort(a::NamedArray)
   a[ord, ord]
 end
 
+"""
+
+# `topological_sort`
+
+$(SIGNATURES)
+
+Part of the API, exported
+"""
+function topological_sort(dag::DAG)
+  new_dag = deepcopy(dag)
+  ord = topological_order(new_dag.a)
+  new_dag.a = new_dag.a[ord, ord]
+  new_dag.e = new_dag.a[ord, ord]
+  new_dag.vars = new_dag.vars[ord]
+  new_dag
+end
+
+"""
+
+# `topological_sort!`
+
+$(SIGNATURES)
+
+Part of the API, exported
+"""
+function topological_sort!(dag::DAG)
+  ord = topological_order(dag.a)
+  dag.a = dag.a[ord, ord]
+  dag.e = dag.a[ord, ord]
+  dag.vars = dag.vars[ord]
+end
+
 export
   dag_vars,
   adjacency_matrix,
