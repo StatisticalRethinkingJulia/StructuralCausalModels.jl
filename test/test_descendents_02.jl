@@ -15,7 +15,26 @@ Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 =#
 
 bs = basis_set(dag)
-display(bs)
-
 as = adjustment_sets(dag, :x2, :y)
-display(as)
+
+@testset "Test_descendents_02" begin
+
+  @test length(bs) == 48
+  @test bs[44] == [:y, :k1, :w, :k2]
+  @test bs[45] == [:y, :k1, :w, :x2, :k2]
+  @test bs[46] == [:y, :k1, :w, :x3, :k2]
+  @test bs[47] == [:y, :k1, :x2, :x3, :k2]
+  @test bs[48] == [:y, :k1, :w, :x2, :x3, :k2]
+
+end
+
+@testset "Adjustment_sets" begin
+
+  @test length(as) == 5
+  @test as[1] == [:v]
+  @test as[2] == [:x1]
+  @test as[3] == [:k1]
+  @test as[4] == [:k2]
+  @test as[5] == [:w, :x3]
+
+end

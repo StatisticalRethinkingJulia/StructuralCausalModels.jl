@@ -26,6 +26,7 @@ d = from_ggm("DAG(
 );
 
 dag = DAG("marks", d, df=df);
+
 fn = joinpath(mktempdir(), "marks.dot")
 to_graphviz(dag, fn)
 #Sys.isapple() && run(`open -a GraphViz.app $(fn)`)
