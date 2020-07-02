@@ -23,6 +23,7 @@ to_graphviz(dag, fname)
   :h => :i, :g => :h, :f => :g, :c => :f, :b => :c, :a => :b, 
   :q => :r, :p => :q, :o => :p, :n => :o, :m => :n, :k => :l, 
   :l => :m, :i => :k)
+
 @test length(bs) == 272
 @test bs[3][1] == :D
 @test bs[3][2] == :a

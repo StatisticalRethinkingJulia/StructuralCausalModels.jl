@@ -10,7 +10,7 @@ function ancester_graph(e::NamedArray)
   if sum(size(e)) == 0
     return(e)
   end
-  indicator_matrix(Int.(inv(2 * I(size(e, 1)) - e)))
+  indicator_matrix(Int.(round.(Int, inv(2 * I(size(e, 1)) - e))))
 end
 
 """
