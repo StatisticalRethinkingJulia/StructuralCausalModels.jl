@@ -9,9 +9,8 @@ $(SIGNATURES)
 Part of the API, Exported
 """
 function syms_in_paths(paths, f, l)
-  thepaths = deepcopy(paths)
   syms = Symbol[]
-  for p in thepaths
+  for p in paths
     setdiff!(p, [f, l])
     append!(syms, p)
     unique!(syms)
@@ -44,22 +43,22 @@ $(SIGNATURES)
 
 Part of the API, Exported
 """
-function adjustment_sets(d::DAG, f::Symbol, l::Symbol; debug=false)
+function adjustment_sets(dag::DAG, f::Symbol, l::Symbol; debug=false)
 
-  ap  = all_paths(d, f, l)
-  paths = backdoor_paths(d, ap, f)
+  ap  = all_paths(dag, f, l)
+  paths = backdoor_paths(dag, ap, f)
   debug && display(paths)
   lsyms = syms_in_paths(paths, f, l)
   adjustmentsets = Vector{Symbol}[]
   for s in lsyms
     debug && println("checking $s in $lsyms")
     if sym_in_all_paths(paths, s)
-      opensets = length(open_paths(d, paths, [s]))
+      opensets = length(open_paths(dag, paths, [s]))
       if  opensets == 0
         debug && println("$s closes all paths.")
         append!(adjustmentsets, [[s]])
       end
-    elseif length(open_paths(d, paths, [s])) == 0
+    elseif length(open_paths(dag, paths, [s])) == 0
         debug && println("$s not in all paths but no open paths.")
         append!(adjustmentsets, [[s]])
     end
@@ -74,7 +73,7 @@ function adjustment_sets(d::DAG, f::Symbol, l::Symbol; debug=false)
     csyms = collect(combinations(lsyms, len))
     debug && csyms |> display
     for s in csyms
-      if length(open_paths(d, paths, s)) == 0
+      if length(open_paths(dag, paths, s)) == 0
         debug && println("$s closes all paths")
         append!(adjustmentsets, [s])
         setdiff!(lsyms, s)

@@ -53,7 +53,7 @@ The Julia translation is licenced under: MIT.
 
 Part of the api, not exported.
 """
-function pcor(d:: DAG, u::SymbolList)
+function pcor(d::DAG, u::SymbolList)
   us = String.(u)
   k = inv(d.s[us, us])
   -k[1,2] / sqrt(k[1,1] * k[2,2])
