@@ -9,8 +9,9 @@ $(SIGNATURES)
 Part of the API, Exported
 """
 function syms_in_paths(paths, f, l)
+  thepaths = deepcopy(paths)
   syms = Symbol[]
-  for p in paths
+  for p in thepaths
     setdiff!(p, [f, l])
     append!(syms, p)
     unique!(syms)
@@ -37,11 +38,38 @@ end
 
 # `adjustment_sets`
 
-Compute the covariance adjustment vertex set.
-
 $(SIGNATURES)
 
-Part of the API, Exported
+Computes the covariance adjustment vertex set. 
+
+### Required arguments
+```julia
+* `dag::DAG`                           : DAG
+* `f::Symbol`                          : Start variable
+* `l::Symbol`                          : End variable
+```
+
+### Optional arguments
+```julia
+* `debug::Bool`                        : Show debug trace
+```
+
+### Returns
+```julia
+* `adjustmentsets=Vector{Symbol}[]`    : Array of adjustment sets
+```
+
+# Extended help
+
+### Acknowledgements
+
+Original author                        : Rob J Goedman
+
+### Licence
+
+Licenced under: MIT.
+
+Part of the api, exported.
 """
 function adjustment_sets(dag::DAG, f::Symbol, l::Symbol; debug=false)
 

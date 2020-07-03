@@ -10,7 +10,7 @@ to_dagitty(dag)
 
 fname = joinpath(ProjDir, "test_descendents_03.dot")
 to_graphviz(dag, fname)
-Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
+#Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 bs = basis_set(dag)
 as = adjustment_sets(dag, :x2, :y)
