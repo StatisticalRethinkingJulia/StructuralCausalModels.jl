@@ -28,7 +28,7 @@ dag = DAG("marks", d_string; df=df);
 show(dag)
 ```
 
-The `d_string` could also contain a dagitty causal model.
+The `d_string` can also contain a dagitty causal model.
 ```julia
 # fig2.6.dag <- dagitty("dag { {X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}")
 dag = DAG("fig_2_6", "dag {{X V} -> U; S1 <- U; {Y V} -> W; S2 <- W}")
@@ -62,7 +62,9 @@ The DAG pdf is [here](https://github.com/StatisticalRethinkingJulia/StructuralCa
 In this example a DataFrame with observed values has been provided and the related covariance matrix will be computed and stored in the DAG object:
 ```julia
 display(dag.s)
+```
 
+```julia
 5×5 Named Array{Float64,2}
 Rows ╲ Cols │  :mechanics     :vectors     :algebra    :analysis  :statistics
 ────────────┼────────────────────────────────────────────────────────────────
@@ -71,14 +73,13 @@ Rows ╲ Cols │  :mechanics     :vectors     :algebra    :analysis  :statistic
 :algebra    │     101.579      85.1573      112.886      112.113      121.871
 :analysis   │     106.273      94.6729      112.113       220.38      155.536
 :statistics │     117.405       99.012      121.871      155.536      297.755
-
 ```
 
 Additional DAG related functions are `adjacency_matrix()`, `edge_matrix()` and `dag_vars()`.
 
 # Importing from and exporting to [dagitty.net](http://www.dagitty.net/dags.html#), dagitty and ggm (both are R packages)
 
-Importing is easiest using the functions `from_dagitty()` and `from_ggm()` as shown above.
+Importing is easiest implicitly using the functions `from_dagitty()` and `from_ggm()` while constructing a DAG object, as shown above.
 
 To export to dagitty.net, copy and paste the output from `to_dagitty()` into the `Model code` field on the dagitty.net web interface.
 

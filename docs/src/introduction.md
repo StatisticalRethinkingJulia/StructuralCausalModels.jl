@@ -4,7 +4,7 @@ StructuralCausalModels.jl (SCM) is a Julia package to analyse directed acyclic g
 
 My initial goal for this package is to have a way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `basis_set()`, `d_separation()`, `pcor_test()` and `adjustment_sets()`.
 
-All three above references are great introductions to the use of causal models to help in understanding confounding in statistical models. 
+All three above references are great introductions to the use of causal models to help in understanding confounding in statistical multiple regression models based on observational data. 
 
 [StructuralCausalModels.jl](https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl) is part of the [StatisticalRethinkingJulia](https://github.com/StatisticalRethinkingJulia) eco system. The package, once registered, can be installed using `] add StructuralCausalModels`.
 

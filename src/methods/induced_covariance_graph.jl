@@ -51,7 +51,7 @@ end
 
 """
 
-# induced_covariance_graph
+# `induced_covariance_graph`
 
 $(SIGNATURES)
 

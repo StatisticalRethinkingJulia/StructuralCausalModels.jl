@@ -102,7 +102,7 @@ function shipley_test(d::DAG)
   end
   p = zeros(k)
   for i in 1:k
-    u = append(l[i])
+    u = l[i]
     println(u)
     r = pcor(d, u)
     q = length(u) - 2

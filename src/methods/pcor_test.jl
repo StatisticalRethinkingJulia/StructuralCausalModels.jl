@@ -1,17 +1,6 @@
-#=
-"pcor.test" <-
-function(r, q, n){
-                df = n - 2 - q
-                tval <- r * sqrt(df)/sqrt(1-r*r)
-                pv <- 2 * pt(-abs(tval), df)
-  list(tval = tval, df = df, pvalue = pv)
-
-}
-=#
-
 """
     
-# pcor
+# pcor_test
 
 $(SIGNATURES)
 
@@ -22,6 +11,8 @@ variables.
 ```julia
 pcor_test(;
 * `u::Vector{Symbol}`                  : Variables used to compute correlation
+* `q::Int`                             : Number of variables in conditioning set
+* `n::Int`                             : Number of observations
 * `S::Matrix`                          : Sample covariance matrix
 )
 ```
