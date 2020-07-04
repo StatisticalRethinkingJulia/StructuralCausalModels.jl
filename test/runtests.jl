@@ -17,16 +17,16 @@ include("test_descendents_01.jl")
 include("test_descendents_02.jl")
 include("test_descendents_03.jl")
 
-include("test_sr6_4_3b.jl")
-
-include("test_ag.jl")
-
 include("test_open_paths_01.jl")
 include("test_open_paths_02.jl")
 include("test_open_paths_03.jl")
 include("test_open_paths_04.jl")
 
+include("test_ag.jl")
+
 include("test_sr6_4_2.jl")
 
 include("test_sr6_4_3.jl")
   
+include("test_sr6_4_3b.jl")
+
