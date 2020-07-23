@@ -1,6 +1,15 @@
 ```@meta
 CurrentModule = StructuralCausalModels
 ```
+## StructuralCausalModels
+```@docs
+StructuralCausalModels
+```
+
+## SCM
+```@docs
+SCM
+```
 
 ## scm_path
 ```@docs
@@ -72,6 +81,7 @@ node_edges(p::Path, s::Symbol, l::Symbol)
 open_paths(d::DAG, paths::Vector{Vector{Symbol}}, cond::Vector{Symbol};debug=false)
 pcor(d::DAG, u::SymbolList)
 pcor_test(d::DAG, u::SymbolList, q, n)
+ribbon_graph(a::NamedArray{Int, 2}; m=Symbol[], c=Symbol[])
 sym_in_all_paths(paths, sym)
 syms_in_paths(paths, f, l)
 topological_order(a::NamedArray)
