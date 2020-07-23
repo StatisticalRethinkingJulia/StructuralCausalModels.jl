@@ -31,7 +31,7 @@ println("d_separation($(dag.name), $f, $s) = $e\n")
 
 f = [:B]; s = [:E];
 
-e = d_separation(dag, f, s; cset=[:A, :Z])
+e = d_separation(dag, f, s; c=[:A, :Z])
 println("d_separation($(dag.name), $f, $s; cond=[:A, :Z]) = $e\n")
 
 ap = all_paths(dag, :E, :D)

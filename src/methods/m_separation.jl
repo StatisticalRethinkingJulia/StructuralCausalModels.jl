@@ -1,18 +1,17 @@
-
 """
 
-# d_separation
+# m_separation
 
 $(SIGNATURES)
 
-Computes the d_separation between 2 sets of nodes conditioned on a third set.
+Computes the m_separation between 2 sets of nodes conditioned on a third set.
 
 ### Required arguments
 ```julia
 d_separation(
 * `d::DAG`                             : DAG
-* `f::SymbolList`                      : First set
-*  s::SymbolList`                      : Second set
+* `f::SymbolList`                      : First vertex or set
+*  s::SymbolList`                      : Second vertex or set
 )
 ```
 
@@ -31,7 +30,7 @@ d_separation(
 
 ### Example
 
-### d_separation between mechanics and statistics, conditioning on algebra
+### m_separation between mechanics and statistics, conditioning on algebra
 ```julia
 using StructuralCausalModels, CSV
 
@@ -45,7 +44,7 @@ d = OrderedDict(
 );
 
 dag = DAG("marks", d, df);
-d_separation(marks, [:statistics], [:mechanics]; c=[:algebra]))
+m_separation(marks, [:statistics], [:mechanics]; c=[:algebra]))
 ```
 ### Acknowledgements
 
@@ -61,13 +60,23 @@ The Julia translation is licenced under: MIT.
 
 Part of the API, exported.
 """
-function d_separation(d::DAG, f::SymbolList, s::SymbolList; 
+function m_separation(d::DAG, f::SymbolList, s::SymbolList;
   c::SymbolListOrNothing=nothing, debug=false)
-  
-  e = induced_covariance_graph(d, vcat(f, s), c; debug=debug)
-  sum(e[f, s]) == 0
 
+  if isnothing(c)
+    m = setdiff(d.vars, vcat(f, s))
+    debug && println("m = $m")
+    ar = maximize(ribbon_graph(d, m=m))
+    debug && println("ar = $ar")
+  else
+    m = setdiff(d.vars, vcat(f, s, c))
+    debug && println("m = $m, c = $c")
+    ar = maximize(ribbon_graph(d, m=m, c=c))
+    debug && println("ar = $ar")
+  end
+
+  all(ar[f, s] + ar[s, f] .== 0)
 end
 
 export
-  d_separation
+  m_separation

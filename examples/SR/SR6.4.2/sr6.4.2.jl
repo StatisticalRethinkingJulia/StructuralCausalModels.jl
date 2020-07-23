@@ -54,8 +54,8 @@ display(t); println()
 
 f = [:a]; s = [:b]; conditioning_set = [:u, :c]
 
-e = d_separation(dag, f, s, cset=conditioning_set)
-println("d_separation($(dag.name), $f, $s, cset=$conditioning_set) = $e")
+e = d_separation(dag, f, s, c=conditioning_set)
+println("d_separation($(dag.name), $f, $s, c=$conditioning_set) = $e")
 println()
 
 adjustmentsets = adjustment_sets(dag, :x, :y)

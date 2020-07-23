@@ -22,7 +22,11 @@ include("test_open_paths_02.jl")
 include("test_open_paths_03.jl")
 include("test_open_paths_04.jl")
 
-include("test_ag.jl")
+include("test_ancestral_graph.jl")
+include("test_ribbon_graph.jl")
+include("test_maximize.jl")
+#include("test_maximize_02.jl")
+include("test_m_separation.jl")
 
 include("test_sr6_4_2.jl")
 

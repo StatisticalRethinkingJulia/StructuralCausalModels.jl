@@ -44,8 +44,8 @@ display(t); println()
 
 f = :w; s = :d;
 
-e = d_separation(dag, [f], [s], cset=[:m, :a])
-println("d_separation($(dag.name), $f, $s, cset=[:m, :a]) = $e\n")
+e = d_separation(dag, [f], [s], c=[:m, :a])
+println("d_separation($(dag.name), $f, $s, c=[:m, :a]) = $e\n")
 
 #ap = all_paths(dag, f, s)
 ap = all_paths(dag, f, s)

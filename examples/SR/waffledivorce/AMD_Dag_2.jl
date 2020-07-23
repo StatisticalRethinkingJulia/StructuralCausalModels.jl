@@ -36,13 +36,13 @@ end
 println()
 
 f = [:A]; s = [:D]; sel = vcat(f, s)
-cset = [:M]
+c = [:M]
 
 e = d_separation(dag, f, s)
 println("d_separation($(dag.name), $f, $s) = $e")
 
-e = d_separation(dag, f, s, cset=cset)
-println("d_separation($(dag.name), $f, $s, cset=$cset) = $e\n")
+e = d_separation(dag, f, s, c=c)
+println("d_separation($(dag.name), $f, $s, c=$c) = $e\n")
 
 bs = basis_set(dag)
 display(bs)

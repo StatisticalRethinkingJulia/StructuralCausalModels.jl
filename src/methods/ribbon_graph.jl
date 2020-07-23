@@ -8,7 +8,7 @@ Ribbon graphs after marginalization and conditioning.
 
 ### Required arguments
 ```julia
-* `a::NamedArray{Int, 2}`              : Adjacency matrix of a DAG
+* `amat::NamedArray{Int, 2}`           : Adjacency matrix of a DAG
 ```
 
 ### Optional arguments
@@ -49,11 +49,11 @@ amat_data = transpose(reshape([
 ], (16,16)));
 
 vars = [Symbol("n\\\$i") for i in 1:size(amat_data, 1)]
-a = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));
+amat = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));
 m = [:n3, :n5, :n6, :n15, :n16];
 c = [:n4, :n7];
 
-rg = ribbon_graph(a; m = m, c = c)
+rg = ribbon_graph(amat; m = m, c = c)
 ```
 
 ### Acknowledgements
@@ -81,8 +81,9 @@ The Julia translation is licenced under: MIT.
 
 Part of the api, exported.
 """
-function ribbon_graph(a::NamedArray{Int, 2}; m=Symbol[], c=Symbol[])
+function ribbon_graph(amat::NamedArray{Int, 2}; m=Symbol[], c=Symbol[])
   
+  a = amat'
   vars = names(a, 1)
   s = update_s(a, c)
 
@@ -140,7 +141,7 @@ Ribbon graphs after marginalization and conditioning.
 ```
 """
 function ribbon_graph(d::DAG; m=Symbol[], c=Symbol[])
-  ribbon_graph(d.e; m=m, c=c)
+  ribbon_graph(d.a; m=m, c=c)
 end
 
 export

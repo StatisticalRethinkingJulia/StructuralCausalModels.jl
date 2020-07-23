@@ -1,3 +1,15 @@
+"""
+
+# StructuralCausalModels (SCM)
+
+StructuralCausalModels.jl provides functionality to analyse directed acyclic
+graph (DAG) based causal models as described in `StatisticalRethinking`, `Causal
+Inference in Statistics` and `Cause and Correlation in Biology`.
+
+My initial goal for this package is to have a way to apply SCM ideas to the
+examples in the context of StatisticalRethinking, i.e. a working version of
+`basis_set()`, `d_separation()`, `m_separation()` and `adjustment_sets()`.
+"""
 module StructuralCausalModels
 
 using Reexport
@@ -11,6 +23,7 @@ src_path = @__DIR__
 using DocStringExtensions: SIGNATURES, FIELDS, TYPEDEF
 
 const scm_src_path = @__DIR__
+const SCM = StructuralCausalModels
 
 """
 
@@ -53,6 +66,8 @@ include("methods/adjustment_sets.jl")
 include("methods/graph_utils.jl")
 include("methods/ancestral_graph.jl")
 include("methods/ribbon_graph.jl")
+include("methods/maximize.jl")
+include("methods/m_separation.jl")
 
 include("utils/show_dag_path.jl")
 include("utils/ggm_conversions.jl")
@@ -60,6 +75,7 @@ include("utils/dagitty_conversions.jl")
 include("utils/graphviz_conversions.jl")
 
 export
+  SCM,
   scm_path
 
 end # module

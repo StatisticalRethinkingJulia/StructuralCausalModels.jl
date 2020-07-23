@@ -14,7 +14,12 @@ DAG(name::AbstractString, model::ModelDefinition; df::DataFrameOrNothing=nothing
 
 ## d_separation
 ```@docs
-d_separation(d::DAG, first::SymbolList, second::SymbolList; cond::SymbolListOrNothing, debug=false)
+d_separation(d::DAG, f::SymbolList, s::SymbolList; c::SymbolListOrNothing, debug=false)
+```
+
+## m_separation
+```@docs
+m_separation(d::DAG, f::SymbolList, s::SymbolList; c::SymbolListOrNothing, debug=false)
 ```
 
 ## shipley_test
@@ -30,6 +35,11 @@ basis_set(dag::DAG)
 ## ancestral_graph
 ```@docs
 ancestral_graph(d::DAG; m=Symbol[], c=Symbol[])
+```
+
+## ribbbon_graph
+```@docs
+ribbon_graph(d::DAG; m=Symbol[], c=Symbol[])
 ```
 
 ## adjustment_sets

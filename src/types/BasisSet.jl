@@ -41,21 +41,21 @@ function sort(dag::DAG, bs::Vector{Vector{Symbol}})
 end
 
 function d_sep_combinations(dag::DAG, bs::Vector{Symbol})
-  csets = Vector{Symbol}[Symbol[]]
+  cs = Vector{Symbol}[Symbol[]]
   if length(bs) > 2
     for c in combinations(bs[3:end])
-      push!(csets, c)
+      push!(cs, c)
     end
   end
   bs_new = Vector{Symbol}[]
-  for cset in csets
-    if length(cset) == 0
+  for c in cs
+    if length(c) == 0
       if d_separation(dag, bs[1], bs[2])
         push!(bs_new, [bs[1], bs[2]])
       end
     else
-      if d_separation(dag, bs[1], bs[2]; cset=cset)
-        push!(bs_new, [bs[1], bs[2], cset...])
+      if d_separation(dag, bs[1], bs[2]; c=c)
+        push!(bs_new, [bs[1], bs[2], c...])
       end
     end
   end

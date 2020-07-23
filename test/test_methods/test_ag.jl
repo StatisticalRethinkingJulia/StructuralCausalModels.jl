@@ -1,4 +1,4 @@
-function test_ag(a::NamedArray; m=Symbol[], c=Symbol[], debug=false)
+function test_ag(amat::NamedArray; m=Symbol[], c=Symbol[], debug=false)
 
   function show_differences(res)
     if length(res) > 0
@@ -8,6 +8,7 @@ function test_ag(a::NamedArray; m=Symbol[], c=Symbol[], debug=false)
     end
   end
 
+  a = amat'
   vars = names(a, 1)
   zna = NamedArray(zeros(Int, size(a)), (vars, vars), ("Rows", "Cols"));
 

@@ -1,7 +1,6 @@
 mod10(x) = mod(x, 10)
 mod100(x) = mod(x, 100)
 
-
 function update_s(a::NamedArray, c::Vector{Symbol}, debug=false)
   vars = names(a, 1)
   s = copy(c)
