@@ -75,7 +75,7 @@ function m_separation(d::DAG, f::SymbolList, s::SymbolList;
     debug && println("ar = $ar")
   end
 
-  all(ar[f, s] + ar[s, f] .== 0)
+  all(Array(ar[f, s]) + Array(ar[s, f]) .== 0)
 end
 
 export

@@ -20,7 +20,7 @@ f = [:n1]
 s = [:n4]
 c = [:n3]
 
-ms1 = m_separation(dag, f, s; debug=true)
+ms1 = m_separation(dag, f, s; debug=false)
 ms2 = m_separation(dag, f, s; c=c)
 
 @testset "m_separation" begin

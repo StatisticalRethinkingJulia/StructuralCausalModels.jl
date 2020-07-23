@@ -16,7 +16,9 @@
 
 StructuralCausalModels.jl is part of the StatisticalRethinkingJulia eco system and contains functionality to analyse directed acyclic graph (DAG) based causal models as described in [StatisticalRethinking](https://xcelab.net/rm/statistical-rethinking/), [Causal Inference in Statistics](http://bcs.wiley.com/he-bcs/Books?action=index&bcsId=10288&itemId=1119186846) and [Cause and Correlation in Biology](https://www.cambridge.org/core/books/cause-and-correlation-in-biology/247799189B31939D24BC0F61FD59E9BB#).
 
-My initial goal for this package is to have a way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `basis_set()`, `d_separation()` and `adjustment_sets()`.
+My initial goal for this package is to have a way to apply SCM ideas to the examples in [StatisticalRethinking.jl](https://github.com/StatisticalRethinkingJulia), i.e. a working version of `basis_set()`, `d_separation()` `m_separations()` and `adjustment_sets()`.
+
+From the point of view of above functionality, I believe the package is close to R's `ggm` (including most of Sadeghi's additions). I'm hoping version 1.0.0 has a similar API but many more test cases, including more comparisons with R's `dagitty`.
 
 StructuralCausalModels.jl will be registered and, once registered, can be installed using
 `] add StructuralCausalModels`.
