@@ -68,6 +68,7 @@ function induced_covariance_graph(d::DAG, sel, c; debug=false)
   elseif length(c) > 0
     cs = c
   end
+  
   @assert all([c in d.vars for c in cs]) "Conditioning nodes are not among vertices."
   #@assert !(length([cs in sel]) > 0) "Conditioning nodes in selected nodes."
   

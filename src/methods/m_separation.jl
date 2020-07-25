@@ -63,6 +63,16 @@ Part of the API, exported.
 function m_separation(d::DAG, f::SymbolList, s::SymbolList;
   c::SymbolListOrNothing=nothing, debug=false)
 
+  if typeof(f) == Symbol
+    f = [f]
+  end
+  if typeof(s) == Symbol
+    s = [s]
+  end
+  if typeof(c) == Symbol
+    c = [c]
+  end
+
   if isnothing(c)
     m = setdiff(d.vars, vcat(f, s))
     debug && println("m = $m")

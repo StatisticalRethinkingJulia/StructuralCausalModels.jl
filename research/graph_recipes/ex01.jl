@@ -1,9 +1,15 @@
 using StructuralCausalModels
 using GraphRecipes, Plots
 
-include("/Users/rob/.julia/dev/StructuralCausalModels/examples/dagitty/confounding_triangle.jl");
+ProjDir = @__DIR__
+cd(ProjDir) #do
 
-graphplot(dag.e, names=names(dag.e, 1), curvature_scalar=0.1, nodesize=0.5,
-  method=:spring, fontsize=10, arrow=1.0)
+d_string = "dag {A -> {E Z}; B -> {D Z}; Z -> {D E}; E -> D}"
+
+dag = DAG("conf_triangles", d_string);
+show(dag)
+
+graphplot(dag.e, names=names(dag.e, 1), curvature_scalar=0.1, nodesize=0.2,
+  method=:spring, fontsize=10, arrow=1.0, nodeshape=:circle)
 
 gui()
