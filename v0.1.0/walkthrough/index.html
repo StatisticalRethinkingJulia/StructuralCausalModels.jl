@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Walkthrough · StructuralCausalModels.jl</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">StructuralCausalModels.jl</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../introduction/">Introduction</a></li><li class="is-active"><a class="tocitem" href>Walkthrough</a><ul class="internal"><li class="toplevel"><a class="tocitem" href="#DAG-directed-acyclic-graphs-1"><span>DAG - directed acyclic graphs</span></a></li><li class="toplevel"><a class="tocitem" href="#Importing-from-and-exporting-to-[dagitty.net](http://www.dagitty.net/dags.html#),-dagitty-and-ggm-(both-are-R-packages)-1"><span>Importing from and exporting to dagitty.net, dagitty and ggm (both are R packages)</span></a></li><li class="toplevel"><a class="tocitem" href="#Adding-a-observations-DataFrame-or-a-covariance-matrix-1"><span>Adding a observations DataFrame or a covariance matrix</span></a></li><li class="toplevel"><a class="tocitem" href="#Directed-separation-1"><span>Directed separation</span></a></li><li class="toplevel"><a class="tocitem" href="#Basis-set-1"><span>Basis set</span></a></li><li class="toplevel"><a class="tocitem" href="#Adjustment-sets-1"><span>Adjustment sets</span></a></li><li class="toplevel"><a class="tocitem" href="#Shipley-test-1"><span>Shipley test</span></a></li><li class="toplevel"><a class="tocitem" href="#Paths-1"><span>Paths</span></a></li><li class="toplevel"><a class="tocitem" href="#Ancestral-graph-1"><span>Ancestral graph</span></a></li></ul></li><li><a class="tocitem" href="../versions/">Versions</a></li><li><a class="tocitem" href="../acknowledgements/">Acknowledgements</a></li><li><a class="tocitem" href="../references/">References</a></li><li><a class="tocitem" href="../">StructuralCausalModels API</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Walkthrough</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Walkthrough</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/docs/src/walkthrough.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Structural-Causal-Models-1"><a class="docs-heading-anchor" href="#Structural-Causal-Models-1">Structural Causal Models</a><a class="docs-heading-anchor-permalink" href="#Structural-Causal-Models-1" title="Permalink"></a></h1><p>To demonstrate the fuctionality in this package, setup of the &#39;marks&#39; example from the ggm R package:</p><pre><code class="language-julia">using StructuralCausalModels
+
+ProjDir = @__DIR__
+cd(ProjDir)
+
+df = DataFrame!(CSV.File(scm_path(&quot;..&quot;, &quot;data&quot;, &quot;marks.csv&quot;)));</code></pre><h1 id="DAG-directed-acyclic-graphs-1"><a class="docs-heading-anchor" href="#DAG-directed-acyclic-graphs-1">DAG - directed acyclic graphs</a><a class="docs-heading-anchor-permalink" href="#DAG-directed-acyclic-graphs-1" title="Permalink"></a></h1><p><code>DAG()</code> accepts either an OrderedDict, an <code>adjacency_matrix</code> or a ggm/dagitty string. See the <code>ancestral_graph</code> section below for an example using an <code>adjacency_matrix</code>.</p><p>Below <code>d_string</code> holds a ggm DAG definition.</p><pre><code class="language-julia">d_string = &quot;DAG(
+    mechanics ~ vectors+algebra, 
+    vectors ~ algebra, 
+    statistics ~ algebra+analysis, 
+    analysis ~ algebra)&quot;
+
+dag = DAG(&quot;marks&quot;, d_string; df=df);
+show(dag)</code></pre><p>The <code>d_string</code> can also contain a dagitty causal model.</p><pre><code class="language-julia"># fig2.6.dag &lt;- dagitty(&quot;dag { {X V} -&gt; U; S1 &lt;- U; {Y V} -&gt; W; S2 &lt;- W}&quot;)
+dag = DAG(&quot;fig_2_6&quot;, &quot;dag {{X V} -&gt; U; S1 &lt;- U; {Y V} -&gt; W; S2 &lt;- W}&quot;)</code></pre><p>In the REPL <code>show(dag)</code> will display:</p><pre><code class="language-julia">DAG object:
+
+name = &quot;marks&quot;
+vars = [:mechanics, :vectors, :algebra, :statistics, :analysis]
+
+OrderedDict{Symbol,Union{Nothing, Array{Symbol,1}, Symbol}} with 4 entries:
+  :mechanics  =&gt; [:vectors, :algebra]
+  :vectors    =&gt; :algebra
+  :statistics =&gt; [:algebra, :analysis]
+  :analysis   =&gt; :algebra</code></pre><p>Internally, a DAG object will always contain an OrderedDict representation of the DAG. This representation is used in all functions. In the definition of the OrderedDict, read <code>=&gt;</code> as <code>~</code> in regression models or <code>&lt;-</code> in causal models.</p><p>Optional display the DAG using GraphViz:</p><pre><code class="language-julia">fname = ProjDir * &quot;/marks.dot&quot;
+to_graphviz(dag, fname)
+Sys.isapple() &amp;&amp; run(`open -a GraphViz.app $(fname)`)</code></pre><p>The DAG pdf is <a href="https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/docs/src/marks.pdf">here</a>.</p><p>In this example a DataFrame with observed values has been provided and the related covariance matrix will be computed and stored in the DAG object:</p><pre><code class="language-julia">display(dag.s)</code></pre><pre><code class="language-julia">5×5 Named Array{Float64,2}
+Rows ╲ Cols │  :mechanics     :vectors     :algebra    :analysis  :statistics
+────────────┼────────────────────────────────────────────────────────────────
+:mechanics  │     305.768      127.223      101.579      106.273      117.405
+:vectors    │     127.223      172.842      85.1573      94.6729       99.012
+:algebra    │     101.579      85.1573      112.886      112.113      121.871
+:analysis   │     106.273      94.6729      112.113       220.38      155.536
+:statistics │     117.405       99.012      121.871      155.536      297.755</code></pre><p>Additional DAG related functions are <code>adjacency_matrix()</code>, <code>edge_matrix()</code> and <code>dag_vars()</code>.</p><h1 id="Importing-from-and-exporting-to-[dagitty.net](http://www.dagitty.net/dags.html#),-dagitty-and-ggm-(both-are-R-packages)-1"><a class="docs-heading-anchor" href="#Importing-from-and-exporting-to-[dagitty.net](http://www.dagitty.net/dags.html#),-dagitty-and-ggm-(both-are-R-packages)-1">Importing from and exporting to <a href="http://www.dagitty.net/dags.html#">dagitty.net</a>, dagitty and ggm (both are R packages)</a><a class="docs-heading-anchor-permalink" href="#Importing-from-and-exporting-to-[dagitty.net](http://www.dagitty.net/dags.html#),-dagitty-and-ggm-(both-are-R-packages)-1" title="Permalink"></a></h1><p>Importing is easiest implicitly using the functions <code>from_dagitty()</code> and <code>from_ggm()</code> while constructing a DAG object, as shown above.</p><p>To export to dagitty.net, copy and paste the output from <code>to_dagitty()</code> into the <code>Model code</code> field on the dagitty.net web interface.</p><p>For both R packages, copy the output from <code>to_dagitty()</code> or <code>to_ggm()</code> to R.</p><h1 id="Adding-a-observations-DataFrame-or-a-covariance-matrix-1"><a class="docs-heading-anchor" href="#Adding-a-observations-DataFrame-or-a-covariance-matrix-1">Adding a observations DataFrame or a covariance matrix</a><a class="docs-heading-anchor-permalink" href="#Adding-a-observations-DataFrame-or-a-covariance-matrix-1" title="Permalink"></a></h1><p>Use <code>set_dag_df!()</code> and <code>set_dag_cov_matrix!()</code> for this. Note that if a DataFrame is added a covariance matrix is computed.</p><p>Although this initial version of StructuralCausalModels does not support latent variables yet, by using the keyword argument <code>force=true</code> no check is performed if all vertices/variables in the causal diagram are present in the DataFrame or covariance matrix.</p><h1 id="Directed-separation-1"><a class="docs-heading-anchor" href="#Directed-separation-1">Directed separation</a><a class="docs-heading-anchor-permalink" href="#Directed-separation-1" title="Permalink"></a></h1><p>Given a causal graph <code>dag</code>, <code>d_separation(dag, f, l, cond)</code> determines if the vertices in set <code>f</code> are <code>d-separated</code> from the vertices in set <code>l</code> given the conditioning set <code>cond</code>.</p><p>Show several <code>d_separation</code> results for the marks model:</p><pre><code class="language-julia">f = [:statistics]; s = [:mechanics];
+
+e = d_separation(dag, f, s; cond=:algebra);
+println(&quot;d_separation($(dag.name), $f, $s; cond=:algebra) = $e&quot;)
+
+e = d_separation(dag, f, s);
+println(&quot;d_separation($(dag.name), $f, $s) = $e&quot;)
+
+print(&quot;d_separation($(dag.name), [:statistics], [:mechanics, :analysis]; cond=[:algebra]) = &quot;);
+println(d_separation(dag, [:statistics], [:mechanics, :analysis]; cond=[:algebra]))</code></pre><p>will produce:</p><pre><code class="language-julia">d_separation(marks, [:statistics], [:mechanics]; cond=:algebra) = false
+d_separation(marks, [:statistics], [:mechanics]) = true
+d_separation(marks, [:statistics], [:mechanics, :analysis]: cond=[:algebra]) = false</code></pre><h1 id="Basis-set-1"><a class="docs-heading-anchor" href="#Basis-set-1">Basis set</a><a class="docs-heading-anchor-permalink" href="#Basis-set-1" title="Permalink"></a></h1><p>A minimal set of <code>d_separation</code> statements is called a <code>basis_set</code>.</p><p>A <code>basis_set</code> is not necessarily unique but it is sufficient to predict the complete set of <code>d_separation</code> statements.</p><p>Compute the basis_set:</p><pre><code class="language-julia">bs = basis_set(dag)
+display(bs)
+
+BasisSet[
+  vectors ∐ analysis | [:algebra]
+  vectors ∐ statistics | [:algebra, :analysis]
+  mechanics ∐ analysis | [:algebra, :vectors]
+  mechanics ∐ statistics | [:algebra, :vectors, :analysis]
+]</code></pre><h1 id="Adjustment-sets-1"><a class="docs-heading-anchor" href="#Adjustment-sets-1">Adjustment sets</a><a class="docs-heading-anchor-permalink" href="#Adjustment-sets-1" title="Permalink"></a></h1><p>The function  <code>basis_set()</code> provides a set of conditional independencies given the causal model. The conditioning set closes (&quot;blocks the flow of causal info&quot;) all paths. The conditioning_set can be empty. It provides ways to test the chosen causal model given observational data.</p><p>The function <code>adjustment_sets()</code> answers a related question, i.e. how to prevent confounding in multiple regression models assuming the chosen causal model is correct.</p><p>Setup the WaffleDivorce example from StatisticalRethinking:</p><pre><code class="language-julia">using StructuralCausalModels
+
+ProjDir = @__DIR__
+cd(ProjDir) #do
+
+df = DataFrame!(CSV.File(scm_path(&quot;..&quot;, &quot;data&quot;, &quot;WaffleDivorce.csv&quot;), delim=&#39;;&#39;);
+df = DataFrame(
+  :s =&gt; df[:, :South],
+  :a =&gt; df[:, :MedianAgeMarriage],
+  :m =&gt; df[:, :Marriage],
+  :w =&gt; df[:, :WaffleHouses],
+  :d =&gt; df[:, :Divorce]
+);
+
+fname = scm_path(&quot;..&quot;, &quot;examples&quot;, &quot;SR&quot;, &quot;SR6.4.3&quot;, &quot;sr6.4.3.dot&quot;)
+Sys.isapple() &amp;&amp; run(`open -a GraphViz.app $(fname)`)
+
+d = OrderedDict(
+  [:a, :m, :w] =&gt; :s,
+  :d =&gt; [:w, :m, :a],
+  :m =&gt; [:a]
+);
+u = []
+
+dag = DAG(&quot;sr6_4_3&quot;, d, df);
+show(dag)
+
+adjustmentsets = adjustment_sets(dag, :w, :d)
+println(&quot;Adjustment sets for open paths: $(openpaths)\n&quot;)
+adjustmentsets |&gt; display
+
+Adjustment sets:
+2-element Array{Array{Symbol,1},1}:
+ [:s]
+ [:a, :m]</code></pre><h1 id="Shipley-test-1"><a class="docs-heading-anchor" href="#Shipley-test-1">Shipley test</a><a class="docs-heading-anchor-permalink" href="#Shipley-test-1" title="Permalink"></a></h1><p>Perform the Shipley test:</p><pre><code class="language-julia">t = shipley_test(dag)
+display(t)
+
+(ctest = 2.816854003338401, df = 8, pv = 0.9453198036802164)</code></pre><h1 id="Paths-1"><a class="docs-heading-anchor" href="#Paths-1">Paths</a><a class="docs-heading-anchor-permalink" href="#Paths-1" title="Permalink"></a></h1><p>Adjustment_sets is based on several path manipulations and checks:</p><pre><code class="language-julia">allpaths  = all_paths(dag, :w, :d)
+println(&quot;All paths between :w and :d:&quot;)
+allpaths |&gt; display
+println()</code></pre><p>for this <a href="https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl/blob/master/examples/SR/SR6.4.3/sr6.4.3.pdf">DAG</a> returns:</p><pre><code class="language-julia">4-element Array{Array{Symbol,1},1}:
+ [:w, :s, :a, :d]
+ [:w, :s, :a, :m, :d]
+ [:w, :s, :m, :d]
+ [:w, :s, :m, :a, :d]</code></pre><pre><code class="language-julia">backdoorpaths = backdoor_paths(dag, allpaths, :w)
+println(&quot;All backdoors between :w and :d:&quot;)
+backdoorpaths |&gt; display
+println()
+
+4-element Array{Array{Symbol,1},1}:
+ [:w, :s, :a, :d]
+ [:w, :s, :a, :m, :d]
+ [:w, :s, :m, :d]
+ [:w, :s, :m, :a, :d]
+</code></pre><pre><code class="language-julia">println(&quot;Show path: $(allpaths[2])&quot;)
+show_dag_path(dag, allpaths[2]) |&gt; display
+println()
+
+&quot;:w ⇐ :s ⇒ :a ⇒ :m ⇒ :d&quot;</code></pre><h1 id="Ancestral-graph-1"><a class="docs-heading-anchor" href="#Ancestral-graph-1">Ancestral graph</a><a class="docs-heading-anchor-permalink" href="#Ancestral-graph-1" title="Permalink"></a></h1><p>Setup an ancestral_graph example:</p><pre><code class="language-julia">using StructuralCausalModels, Test
+
+ProjDir = @__DIR__
+
+#include(scm_path(&quot;test_methods&quot;, &quot;test_ag.jl&quot;))
+
+amat_data = transpose(reshape([
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,
+  0,0,0,0,1,0,1,0,1,1,0,0,0,0,0,0,
+  1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0
+], (16,16)));
+
+vars = [Symbol(&quot;n$i&quot;) for i in 1:size(amat_data, 1)]
+a = NamedArray(Int.(amat_data), (vars, vars), (&quot;Rows&quot;, &quot;Cols&quot;));
+
+dag = DAG(&quot;ag_example&quot;, a)
+
+m = [:n3, :n5, :n6, :n15, :n16];
+c = [:n4, :n7];
+
+fr = StructuralCausalModels.test_ag(a; m=m, c=c)
+
+fr1 = ancestral_graph(a; m=m, c=c)
+@test all(fr .== fr1)
+
+fr2 = StructuralCausalModels.test_ag(dag.a; m=m, c=c)
+@test all(fr .== fr2);
+
+println()
+display(fr)
+println()</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../introduction/">« Introduction</a><a class="docs-footer-nextpage" href="../versions/">Versions »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 26 July 2020 18:14">Sunday 26 July 2020</span>. Using Julia version 1.6.0-DEV.537.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
