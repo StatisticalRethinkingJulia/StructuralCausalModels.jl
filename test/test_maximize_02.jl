@@ -25,6 +25,8 @@ amat_data = reshape([
 vars = [Symbol("n$i") for i in 1:size(amat_data, 1)]
 a = NamedArray(Int.(amat_data), (vars, vars), ("Rows", "Cols"));
 
+a |> display
+
 dag = DAG("ag_example", a)
 
 fn = joinpath(mktempdir(), "ag.dot")

@@ -16,6 +16,7 @@ Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
 bs = basis_set(dag)
 
+
 @testset "basis_set_01" begin
   
   @test length(bs) == 48

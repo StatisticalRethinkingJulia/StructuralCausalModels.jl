@@ -3,6 +3,8 @@ using StructuralCausalModels
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
+VERSION
+
 fname = scm_path("..", "examples", "Shipley", "fig2.6", "fig2.6.dot")
 Sys.isapple() && run(`open -a GraphViz.app $(fname)`)
 
@@ -15,7 +17,6 @@ d = OrderedDict(
 );
 
 dag = DAG("fig2.6", d);
-show(dag)
 
 f = [:x]; s = [:v]
 g1 = d_separation(dag, f, s)

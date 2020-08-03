@@ -1,0 +1,9 @@
+digraph ancestral
+ {
+  "v" -> "u";
+  "v" -> "w";
+  "u" -> "s1" [dir=both];
+  "x" -> "u" [dir=none, color=red];
+  "y" -> "w";
+  "w" -> "s2";
+}
