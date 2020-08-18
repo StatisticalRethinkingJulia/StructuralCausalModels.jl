@@ -1,27 +1,17 @@
 ### A Pluto.jl notebook ###
-# v0.11.2
+# v0.11.4
 
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ 7079ec54-d3f6-11ea-0034-79a1c1c5b137
-md"# The Basel problem
-_Leonard Euler_ proved in 1741 that the series
-$$\frac{1}{1} + \frac{1}{4} + \frac{1}{9} + \cdots$$
-converges to
-$$\frac{\pi^2}{6}$$"
-
 # ╔═╡ cce045ac-d373-11ea-29af-5be52ed80e36
-md"## Test Pluto notebook"
+md"## Confounding triangles notebook"
 
 # ╔═╡ 30cfc76c-d276-11ea-1e1a-6567e0173d69
 using DrWatson
 
 # ╔═╡ cfa1909e-d278-11ea-215d-4f34edbb8294
 using StructuralCausalModels
-
-# ╔═╡ a1b39506-d278-11ea-1a13-05f75d56dbca
-VERSION
 
 # ╔═╡ dde39c20-d272-11ea-00b1-71e8b3c09e79
 cd(joinpath(homedir(), ".julia/dev/StructuralCausalModels"))
@@ -74,10 +64,11 @@ d_separation(dag, d, :E)
 # ╔═╡ 5712eff0-d279-11ea-3978-2106eb0feb76
 d_separation(dag, d, :E; c=[:A, :Z])
 
+# ╔═╡ 49e58f04-d8c8-11ea-19e0-cb45efe39493
+m_separation(dag, d, :E; c=[:A, :Z])
+
 # ╔═╡ Cell order:
-# ╠═7079ec54-d3f6-11ea-0034-79a1c1c5b137
 # ╠═cce045ac-d373-11ea-29af-5be52ed80e36
-# ╠═a1b39506-d278-11ea-1a13-05f75d56dbca
 # ╠═dde39c20-d272-11ea-00b1-71e8b3c09e79
 # ╠═30cfc76c-d276-11ea-1e1a-6567e0173d69
 # ╠═3ed7655e-d276-11ea-185b-29e9192ba4f0
@@ -97,3 +88,4 @@ d_separation(dag, d, :E; c=[:A, :Z])
 # ╠═582b9c98-d279-11ea-2daf-93e7a13c9966
 # ╠═57534fc8-d279-11ea-0b9b-a99db30bc7b4
 # ╠═5712eff0-d279-11ea-3978-2106eb0feb76
+# ╠═49e58f04-d8c8-11ea-19e0-cb45efe39493

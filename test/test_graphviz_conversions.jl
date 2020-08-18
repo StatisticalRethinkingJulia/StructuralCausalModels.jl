@@ -1,6 +1,6 @@
 
 
-using StructuralCausalModels
+using StructuralCausalModels, Test
 
 ProjDir = @__DIR__
 cd(ProjDir) #do
