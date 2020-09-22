@@ -58,8 +58,8 @@ ModelDefinition = Union{OrderedDict, AbstractString, NamedArray}
 
 include("types/DAG.jl")
 include("types/Path.jl")
-include("types/ConditionalIndependence.jl")
 include("types/BasisSet.jl")
+include("types/ConditionalIndependence.jl")
 
 include("methods/dag_methods.jl")
 include("methods/basis_set.jl")

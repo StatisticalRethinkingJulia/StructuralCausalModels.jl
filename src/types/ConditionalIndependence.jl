@@ -19,7 +19,21 @@ end
 
 import Base.print
 function print(io::IO, x::BasisSet)
-  println(bs.bs)
+  str = ""
+  str *= "BasisSet["
+  for c in bs.bs
+    ci = ConditionalIndependency(c)
+    if isnothing(ci.c)
+      str *= "  :$(ci.f) \u2210 :$(ci.s)"
+    else
+      str *= "  :$(ci.f) \u2210 :$(ci.s) | $(ci.c)"
+    end 
+  end
+  str *= "  ]"
+  str 
+end
+
+function pluto_string(bs::BasisSet)
   str = ""
   str *= "BasisSet["
   for c in bs.bs
@@ -45,4 +59,6 @@ end
 show(io::IO, ci::ConditionalIndependency) = ci_show(io, ci)
 
 export
-  ConditionalIndependency
+  ConditionalIndependency,
+  print,
+  pluto_string
