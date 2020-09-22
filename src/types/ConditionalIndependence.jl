@@ -17,6 +17,23 @@ function ConditionalIndependency(a::Array{Symbol,1})
   ConditionalIndependency(a[1], a[2], a[3:end])
 end
 
+import Base.print
+function print(io::IO, x::BasisSet)
+  println(bs.bs)
+  str = ""
+  str *= "BasisSet["
+  for c in bs.bs
+    ci = ConditionalIndependency(c)
+    if isnothing(ci.c)
+      str *= "  :$(ci.f) \u2210 :$(ci.s)"
+    else
+      str *= "  :$(ci.f) \u2210 :$(ci.s) | $(ci.c)"
+    end 
+  end
+  str *= "  ]"
+  str 
+end
+
 function ci_show(io::IO, ci::ConditionalIndependency)
   if isnothing(ci.c)
     println("  :$(ci.f) \u2210 :$(ci.s)")
