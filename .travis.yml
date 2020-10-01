@@ -29,6 +29,9 @@ jobs:
        - julia --project=docs -e 'using Pkg; Pkg.develop(PackageSpec(url="https://github.com/StatisticalRethinkingJulia/StructuralCausalModels.jl"));Pkg.instantiate(); Pkg.develop(PackageSpec(path=pwd()))'
        - julia --project=docs --color=yes docs/make.jl
       after_success: skip
+  allow_failures:
+    - julia: nightly
+    - os: osx
 
 after_success:
   - julia -e 'import Pkg; Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
