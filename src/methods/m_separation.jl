@@ -8,7 +8,7 @@ Computes the m_separation between 2 sets of nodes conditioned on a third set.
 
 ### Required arguments
 ```julia
-d_separation(
+m_separation(
 * `d::DAG`                             : DAG
 * `f::SymbolList`                      : First vertex or set
 *  s::SymbolList`                      : Second vertex or set
