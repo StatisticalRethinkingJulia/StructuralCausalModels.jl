@@ -1,7 +1,7 @@
 name = "StructuralCausalModels"
 uuid = "a41e6734-49ce-4065-8b83-aff084c01dfd"
 authors = ["Rob J Goedman <goedman@mac.com>"]
-version = "0.1.6"
+version = "1.0.0"
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
