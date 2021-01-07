@@ -3,7 +3,7 @@ using StructuralCausalModels
 ProjDir = @__DIR__
 cd(ProjDir) #do
 
-df = DataFrame!(CSV.File(scm_path("..", "data", "WaffleDivorce.csv"), delim=';'));
+df = CSV.read(scm_path("..", "data", "WaffleDivorce.csv"), DataFrame);
 df = DataFrame(
   :s => df[:, :South],
   :a => df[:, :MedianAgeMarriage],
