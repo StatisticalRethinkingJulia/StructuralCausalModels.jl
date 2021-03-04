@@ -20,7 +20,9 @@ My initial goal for this package is to have a way to apply SCM ideas to the exam
 
 From the point of view of above functionality, I believe the package is close to R's `ggm` (including most of Sadeghi's additions). I'm hoping version 1.0.0 has a similar API but many more test cases, including more comparisons with R's `dagitty`.
 
-StructuralCausalModels.jl will be registered and, once registered, can be installed using
+The status of the package remains experimental and is, as is StatisticalRethinking.jl, primarily intended for learning statistical modeling approaches and pitfalls.
+
+StructuralCausalModels.jl can be installed using
 `] add StructuralCausalModels`.
 
 # Versions
