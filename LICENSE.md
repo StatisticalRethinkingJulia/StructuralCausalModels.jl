@@ -1,10 +1,4 @@
-The code in this repo is available under the GPL-v3 license shown below.
-
-### Origins of this package
-
-Please note that parts of this package are derived from R's ggm library and this is release under GPL (>= 2) license. Please see [ggm](https://cran.r-project.org/web/packages/ggm/index.html) for further details.
-
-### GNU GENERAL PUBLIC LICENSE
+GNU GENERAL PUBLIC LICENSE
 
 Version 3, 29 June 2007
 
