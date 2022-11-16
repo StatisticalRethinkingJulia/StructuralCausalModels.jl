@@ -3,4 +3,4 @@ Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 StructuralCausalModels = "a41e6734-49ce-4065-8b83-aff084c01dfd"
 
 [compat]
-Documenter = "0.24, 0.25, 0.26"
+Documenter = "0.27"
